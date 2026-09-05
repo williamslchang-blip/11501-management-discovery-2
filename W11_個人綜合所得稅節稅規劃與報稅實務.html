@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W11 個人綜合所得稅節稅規劃與報稅實務 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w11-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge" style="background: linear-gradient(135deg, #4f46e5, #6366f1);">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：個人綜合所得稅節稅規劃與報稅實務" data-i18n-en="Explorations in Management II: Individual Income Tax & Filing">管理探索二：個人綜合所得稅節稅規劃與報稅實務</h1>
+        <p data-i18n-zh="115學年度 ‧ 第十一週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 11: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第十一週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalTaxBracketLab')">
+        <span>📊</span>
+        <span data-i18n-zh="1小時: 綜所稅試算" data-i18n-en="Hr 1: Tax Net Calc">1小時: 綜所稅試算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalWithholdingLab')">
+        <span>💸</span>
+        <span data-i18n-zh="2小時: 打工退稅精算" data-i18n-en="Hr 2: Refund Calc">2小時: 打工退稅精算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalTaxGame')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 報稅達人挑戰" data-i18n-en="Hr 3: Tax Game">3小時: 報稅達人挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="稅務官方平台" data-i18n-en="Official Hubs">稅務官方平台</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button id="btnToolPen" class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button id="btnToolHighlighter" class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+        <button id="btnToolUndo" class="btn-draw-tool" data-tool="undo">↩️ <span data-i18n-zh="復原" data-i18n-en="Undo">復原</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active btn-color-dot" style="background: #4f46e5;" data-color="#4f46e5"></span>
+        <span class="color-swatch btn-color-dot" style="background: #0284c7;" data-color="#0284c7"></span>
+        <span class="color-swatch btn-color-dot" style="background: #ef4444;" data-color="#ef4444"></span>
+        <span class="color-swatch btn-color-dot" style="background: #f59e0b;" data-color="#f59e0b"></span>
+        <span class="color-swatch btn-color-dot" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch btn-color-dot" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnToolClear" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">課程導論 ‧ 租稅初探</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第十一週課程導論：個人綜合所得稅、節稅規劃與報稅實務</h2>
+            <p id="slideSubtitle" class="subtitle">大一打工族領取第一份兼職薪水必學的租稅法律常識，掌握所得稅淨額公式與退稅真金白銀</p>
+          </div>
+
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">同學們在打工領薪水時，有沒有發現薪水單上被扣了一筆「預扣稅金」？你知道這筆錢五月可以拿回來嗎？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer (150+ words detailed teaching core) -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 150+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (150+ Words)">📘 教學指引詳解 (每頁 150+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #b45309; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Presentation Bar -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step" style="background:#4f46e5;">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalTaxBracketLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📊 第 1 小時專屬活動：綜所稅淨額與稅率級距計算器</h3>
+          <p>輸入個人兼職與年度薪資總額 ‧ 精算免稅額與扣除額 ‧ 驗證「年薪 44.6 萬以下免繳稅」</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalTaxBracketLab')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">稅額精算</div>
+          <h4>算清所得稅淨額：所得總額 - 免稅額 (9.7萬) - 標扣 (13.1萬) - 薪扣 (21.8萬) = 淨額！</h4>
+          <p>點選下方典型納稅族群預設，或自行輸入全年度薪資所得，系統即時精算所得淨額、課稅級距與應納稅額！</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入代表情境：</span>
+          <button class="asset-preset-btn btn-preset-tax active" data-preset="student_parttime">打工學生 (年薪30萬 ‧ 零稅負)</button>
+          <button class="asset-preset-btn btn-preset-tax" data-preset="fresh_graduate">新鮮人 (年薪50萬 ‧ 5%級距)</button>
+          <button class="asset-preset-btn btn-preset-tax" data-preset="senior_engineer">工程師 (年薪120萬 ‧ 12%級距)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr; margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 全年薪資所得總額 (NT$)</label>
+            <input type="number" id="taxSalary" value="300000" min="0" step="10000">
+          </div>
+          <div class="calc-field">
+            <label>2. 其他應稅所得 (如兼職、租金等 NT$)</label>
+            <input type="number" id="taxOtherIncome" value="0" min="0" step="5000">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1.2fr 1fr 1fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">綜合所得淨額 (Taxable Net)</span>
+            <span id="outTaxNetIncome" class="r-value" style="color: #1e293b; font-weight: 900;">NT$ 0 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">適用課稅級距稅率</span>
+            <span id="outTaxBracketRate" class="r-value" style="color: #0284c7; font-weight: 800;">0% (差額 0元)</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">全年應納所得稅額</span>
+            <span id="outTaxPayable" class="r-value" style="color: #10b981; font-weight: 900;">NT$ 0 元</span>
+          </div>
+        </div>
+
+        <div id="outTaxDiagnosis" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #eef2ff; border: 1px solid #c7d2fe; font-size: 0.88rem; line-height: 1.55; color: #3730a3;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalTaxBracketLab')" style="background:#4f46e5;">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalWithholdingLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>💸 第 2 小時專屬活動：打工族預先扣繳與退稅精算器</h3>
+          <p>兼職被預扣 5% 稅金真金白銀算術 ‧ 結合 18 萬租金特扣 ‧ 7/31 直撥全額退稅入袋</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalWithholdingLab')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">退稅精算</div>
+          <h4>顛覆認知：「免繳稅」更一定要報稅！把被雇主代扣的 5% 稅款全數領回！</h4>
+          <p>輸入打工年收入與被預扣稅款，搭配租金支出特別扣除額，系統即時精算應納稅額與 7/31 直撥退稅金！</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入真實情境：</span>
+          <button class="asset-preset-btn btn-preset-withheld active" data-preset="beverage_job">手搖飲工讀 (年薪20萬 ‧ 預扣1萬)</button>
+          <button class="asset-preset-btn btn-preset-withheld" data-preset="tutor_job">家教兼職 (年薪35萬 ‧ 預扣1.75萬)</button>
+          <button class="asset-preset-btn btn-preset-withheld" data-preset="intern_rent">實習租屋族 (年薪48萬 ‧ 特扣省2.4萬)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 全年打工總收入 (NT$)</label>
+            <input type="number" id="withheldIncome" value="200000" min="0" step="10000">
+          </div>
+          <div class="calc-field">
+            <label>2. 扣繳憑單預扣稅額 (通常 5% NT$)</label>
+            <input type="number" id="withheldTaxPaid" value="10000" min="0" step="500">
+          </div>
+          <div class="calc-field">
+            <label>3. 租金支出 (上限 18 萬 NT$)</label>
+            <input type="number" id="withheldRent" value="0" min="0" max="180000" step="5000">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1fr 1.2fr 1fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">全年應納稅額</span>
+            <span id="outWithheldDue" class="r-value" style="color: #1e293b; font-weight: 800;">NT$ 0 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">7/31 首批直撥退稅現金</span>
+            <span id="outWithheldRefund" class="r-value" style="color: #10b981; font-weight: 900;">NT$ 10,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">租屋特扣省稅效益</span>
+            <span id="outWithheldRentSave" class="r-value" style="color: #0284c7; font-size: 1.15rem;">省約 NT$ 0 元</span>
+          </div>
+        </div>
+
+        <div id="outWithheldAdvice" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #f0fdf4; border: 1px solid #86efac; font-size: 0.88rem; line-height: 1.55; color: #166534;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalWithholdingLab')" style="background:#10b981;">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalTaxGame" class="modal-overlay">
+    <div class="modal-container" style="max-width: 820px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時小遊戲：綜所稅報稅達人大挑戰 (4 大核心關卡)</h3>
+          <p>單身 44.6 萬免稅門檻 ‧ 打工預扣 5% 退稅機制 ‧ 房屋租金特扣 18 萬 ‧ 防假退稅簡訊釣魚</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalTaxGame')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="taxGameContainer">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step" onclick="closeModal('modalTaxGame')">暫離遊戲</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container modal-hw-wide">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第十一週課堂實務作業：個人打工所得稅體檢與退稅試算報告</h3>
+          <p>落實 100 分審計規準 ‧ 支援本地草稿即時儲存、Markdown 一鍵複製與 JSON 匯出</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：林庭宇)" style="width: 150px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307099)" style="width: 150px;">
+            <input type="text" id="hwTargetPlan" placeholder="規劃主題 (例如：大一兼職所得體檢與 7/31 直撥退稅實務)" style="width: 320px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn" onclick="loadHomeworkTemplate()">📄 載入第十一週所得稅體檢範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. 個人打工所得盤點 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度一 (25%)</span>
+              <h5>1. 個人打工年度收入盤點與 44.6 萬免稅門檻檢驗</h5>
+            </div>
+            <textarea id="hwDim1Check" rows="4" placeholder="具體量化盤點個人全年度各項打工工讀、兼職教學與勞務所得總額，對照 2026 免稅額 9.7 萬 + 標扣 13.1 萬 + 薪扣 21.8 萬 = 44.6 萬元免稅門檻進行檢驗..."></textarea>
+          </div>
+
+          <!-- 2. 打工預扣 5% 稅金精算 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度二 (25%)</span>
+              <h5>2. 打工預扣 5% 稅金精算與 7/31 第一批直撥退稅申請策略</h5>
+            </div>
+            <textarea id="hwDim2Refund" rows="4" placeholder="查核個人扣繳憑單上被雇主預先扣繳之 5% 稅額合計，說明為什麼即使所得低於 44.6 萬免繳稅，依然必須在 5 月完成申報才能由國庫退還現金，並設定退稅帳戶..."></textarea>
+          </div>
+
+          <!-- 3. 房租特別扣除額與扶養抉擇 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度三 (30%)</span>
+              <h5>3. 房租特別扣除額 18 萬列報條件與被父母扶養 vs 獨立報稅算術</h5>
+            </div>
+            <textarea id="hwDim3Deductions" rows="4" placeholder="檢核外宿租屋之租約、付款存摺證明是否符合 18 萬特別扣除額要件，精算由父母 (高稅率 12%-20%) 列報扶養所創造之家庭節稅效益，對比獨立申報之利弊..."></textarea>
+          </div>
+
+          <!-- 4. 手機報稅 SOP 與防詐認明 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度四 (20%)</span>
+              <h5>4. 手機報稅 App 5 分鐘線上申報流程承諾與稅務資安防詐 SOP</h5>
+            </div>
+            <textarea id="hwDim4SecuritySop" rows="4" placeholder="寫下利用手機瀏覽器開啟 tax.nat.gov.tw 經健保卡+戶號 5 分鐘完成申報的行動承諾，並列出防範假冒財政部簡訊釣魚詐騙之三大認明原則..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>作業自評等級：</label>
+            <select id="hwConclusionGrade">
+              <option value="A+ (全面且具備實戰避險可行性)">A+ (全面且具備實戰避險可行性)</option>
+              <option value="A (理論與牌告分析精確完整)">A (理論與牌告分析精確完整)</option>
+              <option value="B (具備基本理財健全觀念)">B (具備基本理財健全觀念)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：打工免稅仍需報稅領回預扣金，善用 18 萬租金特扣與家庭扶養效益，以手機報稅結合 2FA 認明 gov 官網杜絕詐騙)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action" onclick="window.print()">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action" onclick="exportHomeworkJson()">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step" onclick="exportHomeworkMd()" style="background:#4f46e5;">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第十一週教學進度表與 3 小時結構</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #4f46e5;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>所得稅算術與課稅級距解析 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">憲法納稅義務、課稅淨額公式、2026免稅額與扣除額、打工54C憑單、5大課稅級距(5%-40%)與標準vs列舉擇優。</span></td>
+              <td>📊 <strong>專屬活動：綜所稅淨額與稅率級距計算器</strong><br><span style="font-size: 0.78rem;">輸入個人收入精算所得淨額與適用級距。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #0284c7;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>打工退稅、合法節稅與報稅 App (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">預扣5%退稅算術、54C憑單檢查、節稅3管道（房租18萬、醫藥無上限、捐贈20%）、扶養切換與手機報稅5分SOP。</span></td>
+              <td>💸 <strong>專屬活動：打工族預先扣繳與退稅精算器</strong><br><span style="font-size: 0.78rem;">精算 7/31 直撥全額退還預扣稅款現金。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #10b981;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>綜合節稅算術與新鮮人實戰 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">雙特扣39.8萬配置、5月報稅時間軸、海外所得100萬免稅、認明.gov.tw防詐、打工年納稅歸零SOP與4大金律。</span></td>
+              <td>🎮 <strong>小遊戲：綜所稅報稅達人大挑戰 (4大關卡)</strong><br>📝 <strong>作業：個人打工所得稅體檢與退稅報告現場提交</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')" style="background:#4f46e5;">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 國家級四大權威稅務與報稅官方平台</h3>
+          <p>掌握第一手合法綜所稅法規、電子申報軟體查驗與防詐官方查核渠道</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="four-sources-matrix">
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://tax.nat.gov.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>💻 財政部電子申報繳稅服務網</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              全台灣法定個人綜合所得稅線上報稅官方門戶！提供手機報稅、網頁報稅與全年度扣繳憑單下載查驗。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.dot.gov.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🏛️ 財政部賦稅署官方入口</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              發布最新年度綜合所得稅免稅額、標準扣除額、薪資與房租特別扣除額調整公告與租稅法規解釋。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.etax.nat.gov.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>📑 財政部稅務入口網</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              提供線上申請個人所得清單、財產清單、直撥退稅帳戶查詢與各項各類扣繳稅額電子化試算工具。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://165.npa.gov.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🛡️ 內政部警政署 165 全民防騙網</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              報稅季重點防範假冒「財政部退稅簡訊」釣魚網站詐騙！公告最新稅務釣魚網址黑名單與報案諮詢。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')" style="background:#4f46e5;">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="w11-slides-data.js"></script>
+  <script src="w11-activities-data.js"></script>
+  <script src="w11-app.js"></script>
+</body>
+</html>

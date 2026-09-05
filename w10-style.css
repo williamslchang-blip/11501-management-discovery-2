@@ -1,0 +1,192 @@
+/* ==========================================================================
+   W10 SPECIFIC STYLES & INFOGRAPHICS EXTENSION: REAL ESTATE & HOUSING FINANCE
+   Loaded alongside base style.css
+   ========================================================================== */
+
+:root {
+  --w10-primary: #b45309;       /* Real Estate Amber Gold */
+  --w10-primary-light: #fffbeb;
+  --w10-secondary: #0284c7;     /* Mortgage Blue */
+  --w10-secondary-light: #f0f9ff;
+  --w10-accent: #d97706;        /* Warm Amber */
+  --w10-accent-light: #fef3c7;
+  --w10-success: #10b981;       /* Safe DTI Green */
+  --w10-success-light: #f0fdf4;
+  --w10-danger: #ef4444;        /* Mortgage Slave Crimson */
+  --w10-danger-light: #fef2f2;
+  --w10-border: #e2e8f0;
+  --w10-card-bg: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Visual Diagram Container & Infographic Components
+   -------------------------------------------------------------------------- */
+.visual-diagram-card {
+  background: transparent;
+  border-radius: var(--radius-sm, 8px);
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.diagram-header {
+  margin-bottom: 10px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.diagram-header h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+
+.diagram-header .sub-tag {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Deed & Public Ratio Components
+   -------------------------------------------------------------------------- */
+.deed-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.deed-box {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.deed-box.primary {
+  border-top: 4px solid var(--w10-primary);
+  background: #fffbeb;
+}
+
+.deed-box.public {
+  border-top: 4px solid #ef4444;
+  background: #fef2f2;
+}
+
+.deed-box.balcony {
+  border-top: 4px solid #0ea5e9;
+  background: #f0f9ff;
+}
+
+/* --------------------------------------------------------------------------
+   Rent vs Buy Opportunity Cost Grid
+   -------------------------------------------------------------------------- */
+.rent-buy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.opportunity-box {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.opportunity-box.rent {
+  border-top: 4px solid #10b981;
+  background: #f0fdf4;
+}
+
+.opportunity-box.buy {
+  border-top: 4px solid #d97706;
+  background: #fffbeb;
+}
+
+/* --------------------------------------------------------------------------
+   Tax Lockup Timeline Bar
+   -------------------------------------------------------------------------- */
+.tax-lockup-bar {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1.5fr;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.tax-period-item {
+  border-radius: 6px;
+  padding: 8px;
+  text-align: center;
+}
+
+.tax-period-item.high {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.tax-period-item.mid {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+}
+
+.tax-period-item.low {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+/* --------------------------------------------------------------------------
+   Modal Lab Components
+   -------------------------------------------------------------------------- */
+.calc-field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 4px;
+}
+
+.calc-field input, .calc-field select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.calc-results-panel {
+  display: grid;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.result-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-metric .r-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.result-metric .r-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+}

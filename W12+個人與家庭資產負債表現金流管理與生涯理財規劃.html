@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W12 個人與家庭資產負債表現金流管理與生涯理財規劃 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w12-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge" style="background: linear-gradient(135deg, #059669, #10b981);">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：個人與家庭資產負債表現金流管理與生涯理財規劃" data-i18n-en="Explorations in Management II: Balance Sheet, Cash Flow & Financial Life Planning">管理探索二：個人與家庭資產負債表現金流管理與生涯理財規劃</h1>
+        <p data-i18n-zh="115學年度 ‧ 第十二週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 12: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第十二週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalBalanceSheetLab')">
+        <span>📊</span>
+        <span data-i18n-zh="1小時: 資產負債表" data-i18n-en="Hr 1: Balance Sheet">1小時: 資產負債表</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalCashFlowLab')">
+        <span>🌊</span>
+        <span data-i18n-zh="2小時: 現金流預備金" data-i18n-en="Hr 2: Cash Flow Lab">2小時: 現金流預備金</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalWealthGame')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 生涯理財挑戰" data-i18n-en="Hr 3: Wealth Game">3小時: 生涯理財挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="官方數據平台" data-i18n-en="Official Hubs">官方數據平台</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button id="btnToolPen" class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button id="btnToolHighlighter" class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+        <button id="btnToolUndo" class="btn-draw-tool" data-tool="undo">↩️ <span data-i18n-zh="復原" data-i18n-en="Undo">復原</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active btn-color-dot" style="background: #059669;" data-color="#059669"></span>
+        <span class="color-swatch btn-color-dot" style="background: #0284c7;" data-color="#0284c7"></span>
+        <span class="color-swatch btn-color-dot" style="background: #ef4444;" data-color="#ef4444"></span>
+        <span class="color-swatch btn-color-dot" style="background: #f59e0b;" data-color="#f59e0b"></span>
+        <span class="color-swatch btn-color-dot" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch btn-color-dot" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnToolClear" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">課程導論 ‧ 財富體檢</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第十二週課程導論：個人與家庭資產負債表、現金流管理與生涯理財規劃</h2>
+            <p id="slideSubtitle" class="subtitle">大一青年邁向財務獨立必學的家庭資產負債與現金流管理，建立一生受用的個人財務儀表板</p>
+          </div>
+
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">同學們有沒有算過自己目前的「身價 (淨值)」是多少？如果明天突然失業或生病，你的存款能支撐生活幾個月？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer (150+ words detailed teaching core) -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 150+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (150+ Words)">📘 教學指引詳解 (每頁 150+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #059669; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Presentation Bar -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step" style="background:#059669;">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalBalanceSheetLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📊 第 1 小時專屬活動：個人資產負債表與淨值計算器</h3>
+          <p>盤點個人流動資產、投資資產與使用資產 ‧ 扣除長短期負債 ‧ 精算實質身價 (Net Worth)</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalBalanceSheetLab')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">淨值體檢</div>
+          <h4>資產 = 負債 + 淨值！清算所有債務後，真正屬於自己的剩餘身價！</h4>
+          <p>點選下方代表性族群情境，或自行輸入個人各項資產與負債金額，系統即時精算實質淨值與負債比率！</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入代表情境：</span>
+          <button class="asset-preset-btn btn-preset-bs active" data-preset="student_freshman">大一打工自立族 (資產8萬 ‧ 負債3千)</button>
+          <button class="asset-preset-btn btn-preset-bs" data-preset="student_loan">大專學貸奮鬥族 (資產4.8萬 ‧ 學貸12萬)</button>
+          <button class="asset-preset-btn btn-preset-bs" data-preset="career_starter">畢業三年小資族 (資產46萬 ‧ 淨值28.5萬)</button>
+          <button class="asset-preset-btn btn-preset-bs" data-preset="young_family">雙薪家庭首購族 (房產千萬 ‧ 淨值525萬)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 流動資產 (活存/現金 NT$)</label>
+            <input type="number" id="bsLiquidAssets" value="45000" min="0" step="5000">
+          </div>
+          <div class="calc-field">
+            <label>2. 投資資產 (股票/ETF/基金 NT$)</label>
+            <input type="number" id="bsInvestAssets" value="15000" min="0" step="5000">
+          </div>
+          <div class="calc-field">
+            <label>3. 使用性資產 (筆電/機車殘值 NT$)</label>
+            <input type="number" id="bsUseAssets" value="20000" min="0" step="5000">
+          </div>
+          <div class="calc-field">
+            <label>4. 短期負債 (信用卡/分期 NT$)</label>
+            <input type="number" id="bsShortLiab" value="3000" min="0" step="1000">
+          </div>
+          <div class="calc-field">
+            <label>5. 長期負債 (就學貸款/房貸 NT$)</label>
+            <input type="number" id="bsLongLiab" value="0" min="0" step="10000">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1fr 1fr 1.2fr 1fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">資產總額 (Total Assets)</span>
+            <span id="outBsTotalAssets" class="r-value" style="color: #059669; font-weight: 900;">NT$ 80,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">負債總額 (Total Liab)</span>
+            <span id="outBsTotalLiab" class="r-value" style="color: #dc2626; font-weight: 800;">NT$ 3,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">個人實質淨值 (Net Worth)</span>
+            <span id="outBsNetWorth" class="r-value" style="color: #059669; font-weight: 900;">NT$ 77,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">資產負債比率</span>
+            <span id="outBsDebtRatio" class="r-value" style="color: #d97706; font-weight: 800;">3.8%</span>
+          </div>
+        </div>
+
+        <div id="outBsDiagnosis" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #ecfdf5; border: 1px solid #a7f3d0; font-size: 0.88rem; line-height: 1.55; color: #065f46;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalBalanceSheetLab')" style="background:#059669;">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalCashFlowLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🌊 第 2 小時專屬活動：現金流 50/30/20 與緊急預備金精算器</h3>
+          <p>兼職收支比重分配 ‧ 發薪日先存後花支付自己 ‧ 精算 3 至 6 個月緊急生活預備金水庫</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalCashFlowLab')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">現金流精算</div>
+          <h4>50/30/20 黃金分配：先存後花支付自己，常備 3 至 6 個月緊急預備金水庫！</h4>
+          <p>輸入每月總收入與三項主要支出金額，系統即時精算收支比重與目前預備金可抵禦風險之月數！</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入真實情境：</span>
+          <button class="asset-preset-btn btn-preset-cf active" data-preset="parttime_student">大一兼職生活 (月收1.5萬 ‧ 存3千)</button>
+          <button class="asset-preset-btn btn-preset-cf" data-preset="first_jobber">社會新鮮人 (月薪3.8萬 ‧ 存8千)</button>
+          <button class="asset-preset-btn btn-preset-cf" data-preset="high_spending">精緻月光族 (月薪4.2萬 ‧ 存1千)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 每月總收入流入 (NT$)</label>
+            <input type="number" id="cfIncome" value="15000" min="0" step="1000">
+          </div>
+          <div class="calc-field">
+            <label>2. 50% 必要需求開銷 (房租三餐 NT$)</label>
+            <input type="number" id="cfNeeds" value="8000" min="0" step="500">
+          </div>
+          <div class="calc-field">
+            <label>3. 30% 個人想要與品質 (聚餐娛樂 NT$)</label>
+            <input type="number" id="cfWants" value="4000" min="0" step="500">
+          </div>
+          <div class="calc-field">
+            <label>4. 20% 儲蓄投資專戶 (先存後花 NT$)</label>
+            <input type="number" id="cfSavings" value="3000" min="0" step="500">
+          </div>
+          <div class="calc-field" style="grid-column: span 2;">
+            <label>5. 目前已備緊急預備金存款總額 (NT$)</label>
+            <input type="number" id="cfEmergencyFund" value="24000" min="0" step="5000">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1fr 1fr 1fr 1fr 1.2fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">月淨現金流 (Net Flow)</span>
+            <span id="outCfNetFlow" class="r-value" style="color: #0284c7; font-weight: 900;">+3,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">必要需求佔比</span>
+            <span id="outCfNeedsPct" class="r-value" style="font-weight: 800;">53.3%</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">個人想要佔比</span>
+            <span id="outCfWantsPct" class="r-value" style="font-weight: 800;">26.7%</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">儲蓄投資比率</span>
+            <span id="outCfSavingsPct" class="r-value" style="color: #059669; font-weight: 900;">20.0%</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">預備金可支撐月數</span>
+            <span id="outCfReserveMonths" class="r-value" style="color: #059669; font-weight: 900;">3.0 個月生活費</span>
+          </div>
+        </div>
+
+        <div id="outCfAdvice" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #f0f9ff; border: 1px solid #bae6fd; font-size: 0.88rem; line-height: 1.55; color: #0369a1;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalCashFlowLab')" style="background:#059669;">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalWealthGame" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時互動遊戲：個人與家庭理財達人大挑戰</h3>
+          <p>挑戰四大財務關鍵關卡 ‧ 實踐淨值算術 ‧ 50/30/20 法則 ‧ 債務雪崩 ‧ F.I.R.E. 4% 水庫</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalWealthGame')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="wealthGameContainer">
+          <!-- Populated by initWealthGame() -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalWealthGame')" style="background:#059669;">離開挑戰，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK SYSTEM ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container" style="max-width: 900px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第十二週課堂作業：個人資產負債體檢與生涯理財規劃報告</h3>
+          <p>四維度實務分析：淨值體檢 ‧ 50/30/20 現金流 ‧ 緊急預備金防護 ‧ 四年 30 萬與 FIRE 複利藍圖</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：林庭宇)" style="width: 150px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307099)" style="width: 150px;">
+            <input type="text" id="hwTargetPlan" placeholder="規劃主題 (例如：大一兼職四年存 30 萬與 FIRE 生涯規劃)" style="width: 320px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn" onclick="loadHomeworkTemplate()">📄 載入第十二週理財體檢示範範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. 個人資產負債與淨值盤點 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#059669; color:#fff;">維度一 (25%)</span>
+              <h5>1. 個人/家庭資產負債盤點與實質淨值體檢 (Net Worth)</h5>
+            </div>
+            <textarea id="hwDim1Inventory" rows="4" placeholder="具體量化盤點個人目前名下流動資產、投資資產與使用資產，扣除短期與長期負債，精算實質淨值並診斷負債比率健康度..."></textarea>
+          </div>
+
+          <!-- 2. 每月現金流與 50/30/20 比例 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#0284c7; color:#fff;">維度二 (25%)</span>
+              <h5>2. 每月現金流收支結構與 50/30/20 比率落實度 (Cash Flow)</h5>
+            </div>
+            <textarea id="hwDim2CashFlow" rows="4" placeholder="盤點每月收入來源與支出結構，檢核必要需求 (50%)、個人想要 (30%) 與儲蓄投資 (20%) 比例，說明如何落實發薪日先存後花機制..."></textarea>
+          </div>
+
+          <!-- 3. 緊急預備金水庫與債務防禦 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#d97706; color:#fff;">維度三 (25%)</span>
+              <h5>3. 緊急預備金水庫規劃與債務防禦策略 (Buffer & Debt)</h5>
+            </div>
+            <textarea id="hwDim3ReserveDebt" rows="4" placeholder="計算個人 3 至 6 個月必要生活費總額（緊急預備金水庫），說明存放帳戶與工具；若有學貸或卡債，提出雪崩法或按期償還之具體行動策略..."></textarea>
+          </div>
+
+          <!-- 4. 四年 30 萬與 FIRE 藍圖 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#6366f1; color:#fff;">維度四 (25%)</span>
+              <h5>4. 大學四年至畢業 5 年生涯理財里程碑與時間複利藍圖 (FIRE)</h5>
+            </div>
+            <textarea id="hwDim4FireRoadmap" rows="4" placeholder="設定四年存 30 萬第一桶金之定期定額行動方案，並依據 72 法則與 F.I.R.E. 4% 提領法則描繪未來 10 至 20 年財務自主藍圖..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>作業自評等級：</label>
+            <select id="hwConclusionGrade">
+              <option value="A+ (全面且具備實戰避險可行性)">A+ (全面且具備實戰避險可行性)</option>
+              <option value="A (理論與財務數據分析完整)">A (理論與財務數據分析完整)</option>
+              <option value="B (具備基本理財健全觀念)">B (具備基本理財健全觀念)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：落實資產負債實質盤點，貫徹 50/30/20 先存後花與 6 個月緊急水庫，透過時間複利與 4% 法則打造終身財富自由藍圖)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action" onclick="window.print()">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action" onclick="exportHomeworkJson()">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step" onclick="exportHomeworkMd()" style="background:#059669;">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第十二週教學進度表與 3 小時結構</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #059669;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>個人資產負債表與現金流量表拆解 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">企業與個人財務體檢、資產=負債+淨值、三大資產分類、短期vs長期負債、大一淨值計算、主計總處家戶數據與現金流核心公式。</span></td>
+              <td>📊 <strong>專屬活動：個人資產負債表與淨值計算器</strong><br><span style="font-size: 0.78rem;">輸入個人資產負債精算實質身價與抗風險比率。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #0284c7;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>現金流分配、緊急預備金與時間複利 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">先儲蓄後消費、30/50/20黃金法則、3-6個月緊急預備金、需要vs想要、債務雪崩vs雪球法、學貸規劃與FIRE 4%法則。</span></td>
+              <td>🌊 <strong>專屬活動：現金流 50/30/20 與預備金精算器</strong><br><span style="font-size: 0.78rem;">精算收支比例與 3-6 個月生活預備金抗風險防護盾。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #d97706;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>財務健康指標、資安防詐與生涯自由藍圖 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">四大財務健全比率、多帳戶自動分流、雙薪家庭財務、防範龐氏詐騙、大一4大金律、四年存30萬SOP與FIRE自由藍圖。</span></td>
+              <td>🎮 <strong>小遊戲：個人與家庭理財達人大挑戰 (4大關卡)</strong><br>📝 <strong>作業：個人資產負債體檢與生涯理財規劃報告現場提交</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')" style="background:#059669;">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 官方數據平台與法規查詢指引</h3>
+          <p>中華民國中央銀行 ‧ 行政院主計總處 ‧ 金融監督管理委員會 權威數據查詢入口</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hubs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #059669; font-size: 0.95rem; margin-bottom: 4px;">1. 行政院主計總處 (DGBAS)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">全國家戶收支調查報告、各年齡層平均所得、消費支出中位數與家戶資產負債統計資料庫。</p>
+            <a href="https://www.dgbas.gov.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #059669; font-weight: 700;">前往主計總處官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #0284c7; font-size: 0.95rem; margin-bottom: 4px;">2. 金融監督管理委員會 (FSC)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">金融智慧網、消費者保護專區、合法特許金融機構名冊與金融防詐騙最新宣導案例。</p>
+            <a href="https://www.fsc.gov.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #0284c7; font-weight: 700;">前往金管會官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #d97706; font-size: 0.95rem; margin-bottom: 4px;">3. 中華民國中央銀行 (CBC)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">全國金融機構存放款基準利率、台灣家戶資產負債結構、貨幣供給額與消費者物價指數。</p>
+            <a href="https://www.cbc.gov.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #d97706; font-weight: 700;">前往中央銀行官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #6366f1; font-size: 0.95rem; margin-bottom: 4px;">4. 投資人保護中心 (SFIPC)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">證券與期貨投資人權益保障、虛假資訊申訴、求償機制與常見龐氏金融騙局防範解析。</p>
+            <a href="https://www.sfipc.org.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #6366f1; font-weight: 700;">前往投保中心官網 ➔</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')" style="background:#059669;">關閉視窗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules Execution -->
+  <script src="w12-slides-data.js"></script>
+  <script src="w12-activities-data.js"></script>
+  <script src="w12-app.js"></script>
+
+</body>
+</html>

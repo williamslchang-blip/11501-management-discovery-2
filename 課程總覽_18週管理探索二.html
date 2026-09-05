@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理探索二：現代財經素養與商業決策全景圖譜 | 18週互動課程總覽入口</title>
+  <link rel="stylesheet" href="portal-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Master Sticky Navbar -->
+  <header class="master-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrapper">
+        <div class="brand-logo-pill">AGY</div>
+        <div class="brand-info">
+          <h1>管理探索二：現代財經素養與商業決策全景圖譜</h1>
+          <p>115學年度 ‧ 18週54小時完整體系 (540頁卡片 + 36大試算器 + 18款遊戲 + 18篇作業)</p>
+        </div>
+      </a>
+
+      <nav class="header-nav">
+        <a href="#weeksSection" class="nav-link">🗺️ 18週單元卡片</a>
+        <a href="#roadmapSection" class="nav-link">🧭 知識全景地圖</a>
+        <a href="#matrixSection" class="nav-link">📊 課綱對照表</a>
+        <a href="#hubsSection" class="nav-link">🏛️ 數據資源中心</a>
+        <a href="W1_資訊爆炸時代的財經素養.html" class="nav-link btn-start-course">🚀 從第 1 週啟程</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-banner-card">
+      <div class="hero-tagline">
+        <span>🎓</span>
+        <span>頂尖大專院校通識與商管核心課程 ‧ 完整 18 週互動課綱入口</span>
+      </div>
+
+      <h2 class="hero-title">
+        打造一輩子受用的財經決策力與商業心智模型
+      </h2>
+
+      <p class="hero-subtitle">
+        從資訊批判思辨、貨幣通膨、ETF 指數投資、個人租買節稅，一路跨入半導體護國神山、生成式 AI、綠色金融 ESG 與 Web3 數位資產！
+        每週 30 頁高互動純教學卡片、每小時專屬量化試算器與實戰個案作業，陪伴大一新鮮人與自學者建立頂天立地的理性財富公民素養。
+      </p>
+
+      <!-- 6 Big Stats Counters -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="stat-num">18</span>
+          <span class="stat-label">週全景知識架構</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">54</span>
+          <span class="stat-label">小時精密互動課程</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">540</span>
+          <span class="stat-label">頁 Canva 級教學卡片</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">36</span>
+          <span class="stat-label">大專業財經試算器</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">18</span>
+          <span class="stat-label">款課堂互動闖關遊戲</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">純前端免安裝離線自學</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter & Search Toolbar -->
+  <section class="filter-bar-section">
+    <div class="filter-bar-card">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="portalSearchInput" class="portal-search-input" placeholder="搜尋課程關鍵字（例如：台積電、ETF、房貸、所得稅、比特幣、CBAM...）">
+      </div>
+
+      <div class="filter-tabs-group">
+        <button class="tab-btn active" data-filter="all">全部 18 週</button>
+        <button class="tab-btn" data-filter="phase-1">階段一：總體經濟與金融基礎 (W01-W07)</button>
+        <button class="tab-btn" data-filter="phase-2">階段二：期中檢核與生活決策 (W08-W12)</button>
+        <button class="tab-btn" data-filter="phase-3">階段三：科技浪潮與期末總結 (W13-W18)</button>
+      </div>
+
+      <div class="quick-tools-group">
+        <button id="btnRandomWeek" class="tool-btn" title="隨機抽選一週展開學習">
+          <span>🎲</span>
+          <span>隨機抽週</span>
+        </button>
+        <a href="#roadmapSection" class="tool-btn" style="text-decoration:none;">
+          <span>🧭</span>
+          <span>全景地圖</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Weeks Cards Grid -->
+  <section id="weeksSection" class="weeks-grid-section">
+    <div class="grid-results-info">
+      <span id="resultsCountText" class="results-count-text">顯示全部 18 個單元</span>
+      <span style="font-size: 0.8rem; color: #64748b;">提示：點擊各卡片右下角「+ 備用」可快速切換至該週雙生檔案</span>
+    </div>
+
+    <div id="weeksCardContainer" class="weeks-card-container">
+      
+    <article class="week-card phase-1" data-week="1" data-phase="1" data-title="資訊爆炸時代的財經素養" data-subtitle="雜訊過濾 ‧ 媒體識讀 ‧ 批判思考與訊號提取 (SNR)">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #0284c7;">
+          <span>🧭</span>
+          <span>Week 01</span>
+        </span>
+        <span class="phase-tag">階段一：總體經濟與金融基礎</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W1_資訊爆炸時代的財經素養.html" class="week-title-link">
+          第 1 週：資訊爆炸時代的財經素養
+        </a>
+        <p class="week-subtitle-text">雜訊過濾 ‧ 媒體識讀 ‧ 批判思考與訊號提取 (SNR)</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>理解資訊不對稱與媒體吸睛標題偏誤，掌握雜訊過濾原則</li><li>建立訊號雜訊比 (SNR) 量化思維，識破常見財經偽科學</li><li>掌握 4D Filter 批判思考架構，建立獨立求真的求知態度</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#0284c7;">1h</span>
+            <span>🎯 1小時：SNR 訊號雜訊比試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#0284c7;">2h</span>
+            <span>🎯 2小時：誇大標題重組器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#0284c7;">3h</span>
+            <span>🎮 3小時：假新聞偵探挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W1_資訊爆炸時代的財經素養.html" class="btn-enter-week" style="background:#0284c7;">
+          <span>開啟第 1 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W1+資訊爆炸時代的財經素養.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-1" data-week="2" data-phase="1" data-title="物價、通膨與實質購買力" data-subtitle="CPI 指數 ‧ 實質購買力侵蝕 ‧ 縮性通膨與生活抗通膨策略">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #ea580c;">
+          <span>🛒</span>
+          <span>Week 02</span>
+        </span>
+        <span class="phase-tag">階段一：總體經濟與金融基礎</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W2_物價通膨與實質購買力.html" class="week-title-link">
+          第 2 週：物價、通膨與實質購買力
+        </a>
+        <p class="week-subtitle-text">CPI 指數 ‧ 實質購買力侵蝕 ‧ 縮性通膨與生活抗通膨策略</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>理解 CPI 與核心通膨統計方式，看懂名目工資與實質購買力差距</li><li>識破廠商「變相縮小包裝」之隱形縮性通膨 (Shrinkflation)</li><li>掌握抗通膨資產配置思維，避免現金長年被物價無聲侵蝕</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#ea580c;">1h</span>
+            <span>🎯 1小時：通膨購買力侵蝕試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#ea580c;">2h</span>
+            <span>🎯 2小時：縮性通膨檢測分析器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#ea580c;">3h</span>
+            <span>🎮 3小時：通膨偵探挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W2_物價通膨與實質購買力.html" class="btn-enter-week" style="background:#ea580c;">
+          <span>開啟第 2 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W2+物價通膨與實質購買力.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-1" data-week="3" data-phase="1" data-title="利率、央行與我們的荷包" data-subtitle="升降息循環 ‧ 實質利率 ‧ 學貸房貸與分期付款真實年化 (APR)">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #7c3aed;">
+          <span>🏦</span>
+          <span>Week 03</span>
+        </span>
+        <span class="phase-tag">階段一：總體經濟與金融基礎</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W3_利率央行與我們的荷包.html" class="week-title-link">
+          第 3 週：利率、央行與我們的荷包
+        </a>
+        <p class="week-subtitle-text">升降息循環 ‧ 實質利率 ‧ 學貸房貸與分期付款真實年化 (APR)</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>拆解央行基準利率調控與貨幣政策對民生消費之傳導路徑</li><li>精算房貸、學貸等額本息 vs 本金均攤之總利息支出差距</li><li>透視零利率分期付款真實年化利率 (APR)，戒除衝動借貸陷阱</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#7c3aed;">1h</span>
+            <span>🎯 1小時：房貸學貸月付金試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#7c3aed;">2h</span>
+            <span>🎯 2小時：分期付款真實 APR 精算器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#7c3aed;">3h</span>
+            <span>🎮 3小時：央行決策荷包挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W3_利率央行與我們的荷包.html" class="btn-enter-week" style="background:#7c3aed;">
+          <span>開啟第 3 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W3+利率央行與我們的荷包.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-1" data-week="4" data-phase="1" data-title="股市入門與企業價值估算" data-subtitle="股票本質 ‧ 股東權益 ‧ 本益比 (P/E) 估值與零股定期定額">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #059669;">
+          <span>📈</span>
+          <span>Week 04</span>
+        </span>
+        <span class="phase-tag">階段一：總體經濟與金融基礎</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W4_股市入門與企業價值估算.html" class="week-title-link">
+          第 4 週：股市入門與企業價值估算
+        </a>
+        <p class="week-subtitle-text">股票本質 ‧ 股東權益 ‧ 本益比 (P/E) 估值與零股定期定額</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>從消費者轉化為股東思維，理解股票背後代表的企業所有權</li><li>掌握本益比 (P/E) 與本益成長比 (PEG) 企業估值基本模型</li><li>學會盤中零股交易機制與定期定額買進優質企業之實踐路徑</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#059669;">1h</span>
+            <span>🎯 1小時：零股定期定額股利試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#059669;">2h</span>
+            <span>🎯 2小時：珍奶店本益比估值模型</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#059669;">3h</span>
+            <span>🎮 3小時：企業估值大挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W4_股市入門與企業價值估算.html" class="btn-enter-week" style="background:#059669;">
+          <span>開啟第 4 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W4+股市入門與企業價值估算.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-1" data-week="5" data-phase="1" data-title="ETF狂熱、主動型ETF與被動投資" data-subtitle="全市場指數 ‧ 0050 vs 0056 ‧ 折溢價監控與內扣費用陷阱">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #0284c7;">
+          <span>📊</span>
+          <span>Week 05</span>
+        </span>
+        <span class="phase-tag">階段一：總體經濟與金融基礎</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W5_ETF狂熱主動型ETF與被動投資.html" class="week-title-link">
+          第 5 週：ETF狂熱、主動型ETF與被動投資
+        </a>
+        <p class="week-subtitle-text">全市場指數 ‧ 0050 vs 0056 ‧ 折溢價監控與內扣費用陷阱</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>深入剖析市值型 (0050) 與高股息 (0056/00878) ETF 根本差異</li><li>警惕經理費與保管費之隱形內扣費用對長期複利的巨大侵蝕</li><li>看懂 ETF 淨值與市價折溢價機制，避免在非理性追捧中買貴</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#0284c7;">1h</span>
+            <span>🎯 1小時：ETF 定期定額複利試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#0284c7;">2h</span>
+            <span>🎯 2小時：ETF 折溢價即時檢測器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#0284c7;">3h</span>
+            <span>🎮 3小時：ETF 投資大挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W5_ETF狂熱主動型ETF與被動投資.html" class="btn-enter-week" style="background:#0284c7;">
+          <span>開啟第 5 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W5+ETF狂熱主動型ETF與被動投資.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-1" data-week="6" data-phase="1" data-title="數位金融、高利活存與銀行業變革" data-subtitle="純網銀 ‧ 階梯活存利率 ‧ 信用卡回饋與現金流排程">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #0d9488;">
+          <span>💳</span>
+          <span>Week 06</span>
+        </span>
+        <span class="phase-tag">階段一：總體經濟與金融基礎</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W6_數位金融高利活存與銀行業變革.html" class="week-title-link">
+          第 6 週：數位金融、高利活存與銀行業變革
+        </a>
+        <p class="week-subtitle-text">純網銀 ‧ 階梯活存利率 ‧ 信用卡回饋與現金流排程</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>善用各家純網銀與數位帳戶階梯高利活存，放大備用金利息</li><li>拆解信用卡點數、現金回饋與年費損益，拒絕過度消費陷阱</li><li>建立數位支付、同名約定帳戶與資安雙重驗證 (2FA) 防護牆</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#0d9488;">1h</span>
+            <span>🎯 1小時：高利活存階梯收益試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#0d9488;">2h</span>
+            <span>🎯 2小時：信用卡回饋 vs 年費計算器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#0d9488;">3h</span>
+            <span>🎮 3小時：金融達人大挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W6_數位金融高利活存與銀行業變革.html" class="btn-enter-week" style="background:#0d9488;">
+          <span>開啟第 6 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W6+數位金融高利活存與銀行業變革.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-1" data-week="7" data-phase="1" data-title="個人外匯、匯率變動與國際貿易" data-subtitle="即期現鈔點差 ‧ 外幣帳戶 ‧ 大麥克指數 (PPP) 與換匯避險">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #2563eb;">
+          <span>💱</span>
+          <span>Week 07</span>
+        </span>
+        <span class="phase-tag">階段一：總體經濟與金融基礎</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W7_個人外匯匯率變動與國際貿易.html" class="week-title-link">
+          第 7 週：個人外匯、匯率變動與國際貿易
+        </a>
+        <p class="week-subtitle-text">即期現鈔點差 ‧ 外幣帳戶 ‧ 大麥克指數 (PPP) 與換匯避險</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>理解現鈔買入賣出與即期匯率點差機制，掌握換匯節費技巧</li><li>以大麥克指數 (PPP) 評估全球主要貨幣購買力平價與匯率走勢</li><li>建立個人海外留學、旅遊與跨國多元貨幣資產配置意識</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#2563eb;">1h</span>
+            <span>🎯 1小時：出國換匯點差最佳化試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#2563eb;">2h</span>
+            <span>🍔 2小時：大麥克 PPP 匯率檢測器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#2563eb;">3h</span>
+            <span>🎮 3小時：外匯達人大挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W7_個人外匯匯率變動與國際貿易.html" class="btn-enter-week" style="background:#2563eb;">
+          <span>開啟第 7 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W7+個人外匯匯率變動與國際貿易.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-2" data-week="8" data-phase="2" data-title="期中學習成果檢核與實戰個案總複習" data-subtitle="前七週知識總盤點 ‧ 財經迷思破除 ‧ 10 萬元模擬資產配置">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #d97706;">
+          <span>🎯</span>
+          <span>Week 08</span>
+        </span>
+        <span class="phase-tag">階段二：期中檢核與生活決策</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W8_期中學習成果檢核與實戰個案總複習.html" class="week-title-link">
+          第 8 週：期中學習成果檢核與實戰個案總複習
+        </a>
+        <p class="week-subtitle-text">前七週知識總盤點 ‧ 財經迷思破除 ‧ 10 萬元模擬資產配置</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>系統性盤點前七週總體經濟、利率、股市與外匯關鍵心智模型</li><li>破除「高殖利率等於高報酬」、「零利率分期等於免費」等迷思</li><li>實戰演練大專生 10 萬元資金配置模型，建立長期耐受波動力</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#d97706;">1h</span>
+            <span>🥊 1小時：財經迷思快問快答</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#d97706;">2h</span>
+            <span>🧮 2小時：10 萬元資產配置模擬器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#d97706;">3h</span>
+            <span>🎮 3小時：期中會考闖關挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W8_期中學習成果檢核與實戰個案總複習.html" class="btn-enter-week" style="background:#d97706;">
+          <span>開啟第 8 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W8+期中學習成果檢核與實戰個案總複習.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-2" data-week="9" data-phase="2" data-title="保險基礎風險管理與個人保障規劃" data-subtitle="風險四象限 ‧ 雙十原則 ‧ 實支實付醫療險與儲蓄險拆解">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #dc2626;">
+          <span>🛡️</span>
+          <span>Week 09</span>
+        </span>
+        <span class="phase-tag">階段二：期中檢核與生活決策</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W9_保險基礎風險管理與個人保障規劃.html" class="week-title-link">
+          第 9 週：保險基礎風險管理與個人保障規劃
+        </a>
+        <p class="week-subtitle-text">風險四象限 ‧ 雙十原則 ‧ 實支實付醫療險與儲蓄險拆解</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>掌握風險管理四象限，辨析「低頻高損失」之保險真正定位</li><li>遵循「保大不保小」與「雙十原則」，用低廉保費構築高額防護</li><li>拆解儲蓄險 IRR 內部報酬率，避免資金被長期閉鎖卻保障不足</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#dc2626;">1h</span>
+            <span>🎯 1小時：風險四象限自評決策器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#dc2626;">2h</span>
+            <span>🏥 2小時：實支實付醫療理賠精算器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#dc2626;">3h</span>
+            <span>🎮 3小時：保障達人大挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W9_保險基礎風險管理與個人保障規劃.html" class="btn-enter-week" style="background:#dc2626;">
+          <span>開啟第 9 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W9+保險基礎風險管理與個人保障規劃.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-2" data-week="10" data-phase="2" data-title="不動產房地產與租買決策財務學" data-subtitle="買房 vs 租房機會成本 ‧ 權狀公設比 ‧ 青年安心成家貸款">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #b45309;">
+          <span>🏡</span>
+          <span>Week 10</span>
+        </span>
+        <span class="phase-tag">階段二：期中檢核與生活決策</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W10_不動產房地產與租買決策財務學.html" class="week-title-link">
+          第 10 週：不動產房地產與租買決策財務學
+        </a>
+        <p class="week-subtitle-text">買房 vs 租房機會成本 ‧ 權狀公設比 ‧ 青年安心成家貸款</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>量化評估買房與租房 + 指數投資的 30 年終身總資產機會成本</li><li>看懂建物謄本登記、公設比、雨遮陽台與真實主建物室內坪數</li><li>精算青安貸款月繳金額、寬限期本息跳升壓力與可負擔房價上限</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#b45309;">1h</span>
+            <span>📐 1小時：建物權狀公設比計算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#b45309;">2h</span>
+            <span>🏦 2小時：房貸月繳與寬限期試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#b45309;">3h</span>
+            <span>🎮 3小時：租買決策達人挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W10_不動產房地產與租買決策財務學.html" class="btn-enter-week" style="background:#b45309;">
+          <span>開啟第 10 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W10+不動產房地產與租買決策財務學.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-2" data-week="11" data-phase="2" data-title="個人綜合所得稅節稅規劃與報稅實務" data-subtitle="所得稅級距 ‧ 免稅額扣除額 ‧ 兼職打工預扣與手機報稅 SOP">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #4f46e5;">
+          <span>📑</span>
+          <span>Week 11</span>
+        </span>
+        <span class="phase-tag">階段二：期中檢核與生活決策</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W11_個人綜合所得稅節稅規劃與報稅實務.html" class="week-title-link">
+          第 11 週：個人綜合所得稅節稅規劃與報稅實務
+        </a>
+        <p class="week-subtitle-text">所得稅級距 ‧ 免稅額扣除額 ‧ 兼職打工預扣與手機報稅 SOP</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>掌握綜合所得總額、免稅額、標準/列舉扣除額與特別扣除額算術</li><li>學會兼職打工單筆所得達標之預扣稅額如何於隔年 5 月全額申請退稅</li><li>精通行動電話認證手機報稅完整流程，成為合規自立納稅公民</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#4f46e5;">1h</span>
+            <span>📊 1小時：綜合所得稅速算扣除器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#4f46e5;">2h</span>
+            <span>💸 2小時：兼職打工預扣退稅精算器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#4f46e5;">3h</span>
+            <span>🎮 3小時：報稅達人大挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W11_個人綜合所得稅節稅規劃與報稅實務.html" class="btn-enter-week" style="background:#4f46e5;">
+          <span>開啟第 11 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W11+個人綜合所得稅節稅規劃與報稅實務.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-2" data-week="12" data-phase="2" data-title="個人與家庭資產負債表現金流管理與生涯理財規劃" data-subtitle="資產負債表 (B/S) ‧ 現金流量表 (C/F) ‧ 六罐子系統與緊急預備金">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #0891b2;">
+          <span>💼</span>
+          <span>Week 12</span>
+        </span>
+        <span class="phase-tag">階段二：期中檢核與生活決策</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W12_個人與家庭資產負債表現金流管理與生涯理財規劃.html" class="week-title-link">
+          第 12 週：個人與家庭資產負債表現金流管理與生涯理財規劃
+        </a>
+        <p class="week-subtitle-text">資產負債表 (B/S) ‧ 現金流量表 (C/F) ‧ 六罐子系統與緊急預備金</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>編製個人第一份標準資產負債表，精準掌握個人真實淨資產 (Net Worth)</li><li>分析月度自由現金流，落實存下 6 個月不可動用之緊急預備金</li><li>運用「分帳戶理財系統」，自動化執行儲蓄、投資、教育與必要支出</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#0891b2;">1h</span>
+            <span>📊 1小時：個人淨資產健康體檢表</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#0891b2;">2h</span>
+            <span>🌊 2小時：現金流與預備金計算器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#0891b2;">3h</span>
+            <span>🎮 3小時：生涯理財闖關挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W12_個人與家庭資產負債表現金流管理與生涯理財規劃.html" class="btn-enter-week" style="background:#0891b2;">
+          <span>開啟第 12 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W12+個人與家庭資產負債表現金流管理與生涯理財規劃.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-3" data-week="13" data-phase="3" data-title="半導體產業、護國神山台積電與台灣科技供應鏈" data-subtitle="晶圓代工模式 ‧ 摩爾定律極限 ‧ CapEx 資本支出與先進製程估值">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #0284c7;">
+          <span>🔬</span>
+          <span>Week 13</span>
+        </span>
+        <span class="phase-tag">階段三：科技浪潮與期末總結</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W13_半導體產業護國神山台積電與台灣科技供應鏈.html" class="week-title-link">
+          第 13 週：半導體產業、護國神山台積電與台灣科技供應鏈
+        </a>
+        <p class="week-subtitle-text">晶圓代工模式 ‧ 摩爾定律極限 ‧ CapEx 資本支出與先進製程估值</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>透視張忠謀創立純晶圓代工商業模式，拆解 Fabless vs Foundry 價值分工</li><li>剖析 2nm/A16 埃米先進製程技術壁壘與台積電全球矽盾地緣戰略地位</li><li>精算千億美元資本支出 (CapEx) 轉化為長期營收與自由現金流之估值法</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#0284c7;">1h</span>
+            <span>🔬 1小時：台積電先進製程營收估值器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#0284c7;">2h</span>
+            <span>🏭 2小時：CapEx 資本支出效益評估器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#0284c7;">3h</span>
+            <span>🎮 3小時：半導體供應鏈挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W13_半導體產業護國神山台積電與台灣科技供應鏈.html" class="btn-enter-week" style="background:#0284c7;">
+          <span>開啟第 13 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W13+半導體產業護國神山台積電與台灣科技供應鏈.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-3" data-week="14" data-phase="3" data-title="生成式 AI 革命、人工智慧產業鏈與未來職場轉型" data-subtitle="LLM 大語言模型 ‧ GPU 算力 ‧ 企業導入 ROI 評估與人機協作">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #8b5cf6;">
+          <span>🤖</span>
+          <span>Week 14</span>
+        </span>
+        <span class="phase-tag">階段三：科技浪潮與期末總結</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W14_生成式AI革命人工智慧產業鏈與未來職場轉型.html" class="week-title-link">
+          第 14 週：生成式 AI 革命、人工智慧產業鏈與未來職場轉型
+        </a>
+        <p class="week-subtitle-text">LLM 大語言模型 ‧ GPU 算力 ‧ 企業導入 ROI 評估與人機協作</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>拆解晶片、雲端、基礎模型與垂直應用四層 AI 產業鏈價值分配</li><li>建立企業導入生成式 AI 之工時節省、營運成本與實質 ROI 評估模型</li><li>從「被 AI 取代的恐懼」轉化為「善用 AI 擴增個人產能」的職場護城河</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#8b5cf6;">1h</span>
+            <span>🤖 1小時：企業 AI 導入 ROI 試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#8b5cf6;">2h</span>
+            <span>⚖️ 2小時：AI 產業鏈價值分配估算器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#8b5cf6;">3h</span>
+            <span>🎮 3小時：人機協作職場大挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W14_生成式AI革命人工智慧產業鏈與未來職場轉型.html" class="btn-enter-week" style="background:#8b5cf6;">
+          <span>開啟第 14 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W14+生成式AI革命人工智慧產業鏈與未來職場轉型.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-3" data-week="15" data-phase="3" data-title="綠色金融、ESG 永續投資與碳定價經濟學" data-subtitle="2050 淨零排放 ‧ 台灣碳費 300 元 ‧ 歐盟 CBAM 碳關稅與 00878 ESG ETF">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #059669;">
+          <span>🌱</span>
+          <span>Week 15</span>
+        </span>
+        <span class="phase-tag">階段三：科技浪潮與期末總結</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W15_綠色金融ESG永續投資與碳定價經濟學.html" class="week-title-link">
+          第 15 週：綠色金融、ESG 永續投資與碳定價經濟學
+        </a>
+        <p class="week-subtitle-text">2050 淨零排放 ‧ 台灣碳費 300 元 ‧ 歐盟 CBAM 碳關稅與 00878 ESG ETF</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>理解氣候外部性與碳定價機制，分析台灣碳費開徵對企業毛利的直接侵蝕</li><li>解讀歐盟 CBAM 碳邊境調節機制與台積電 2040 RE100 帶動的綠電奇蹟</li><li>掌握 00878 等永續 ETF 篩選準則，構建「兼顧收益與永續責任」的投資組合</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#059669;">1h</span>
+            <span>🌱 1小時：企業碳費與 CBAM 試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#059669;">2h</span>
+            <span>⚖️ 2小時：ESG 永續投資組合模擬器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#059669;">3h</span>
+            <span>🎮 3小時：ESG 永續理財挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W15_綠色金融ESG永續投資與碳定價經濟學.html" class="btn-enter-week" style="background:#059669;">
+          <span>開啟第 15 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W15+綠色金融ESG永續投資與碳定價經濟學.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-3" data-week="16" data-phase="3" data-title="加密貨幣、區塊鏈基礎、Web3 與數位資產風險" data-subtitle="去中心化帳本 ‧ 比特幣減半 ‧ 冷熱錢包私鑰管理與 5% 避險配置">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #d97706;">
+          <span>🪙</span>
+          <span>Week 16</span>
+        </span>
+        <span class="phase-tag">階段三：科技浪潮與期末總結</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W16_加密貨幣區塊鏈基礎Web3與數位資產風險.html" class="week-title-link">
+          第 16 週：加密貨幣、區塊鏈基礎、Web3 與數位資產風險
+        </a>
+        <p class="week-subtitle-text">去中心化帳本 ‧ 比特幣減半 ‧ 冷熱錢包私鑰管理與 5% 避險配置</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>理解分散式帳本與比特幣 2,100 萬枚數位黃金稀缺性及減半抗通膨經濟學</li><li>堅守「Not your keys, not your coins」，落實離線冷錢包助記詞防禦</li><li>實踐 5% 衛星非對稱資產配置模型，熟悉台灣金管會合規 VASP 出入金</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#d97706;">1h</span>
+            <span>🪙 1小時：比特幣減半產量資安試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#d97706;">2h</span>
+            <span>⚖️ 2小時：DeFi 年化與 5% 避險配置器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#d97706;">3h</span>
+            <span>🎮 3小時：Web3 防詐大挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W16_加密貨幣區塊鏈基礎Web3與數位資產風險.html" class="btn-enter-week" style="background:#d97706;">
+          <span>開啟第 16 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W16+加密貨幣區塊鏈基礎Web3與數位資產風險.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-3" data-week="17" data-phase="3" data-title="期末專案發表實戰、財經簡報與總評量" data-subtitle="10 分鐘商業 Pitch ‧ 10-20-30 法則 ‧ 評審盲點拆招與同儕互評">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #1d4ed8;">
+          <span>⏱️</span>
+          <span>Week 17</span>
+        </span>
+        <span class="phase-tag">階段三：科技浪潮與期末總結</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W17_期末專案發表實戰財經簡報與總評量.html" class="week-title-link">
+          第 17 週：期末專案發表實戰、財經簡報與總評量
+        </a>
+        <p class="week-subtitle-text">10 分鐘商業 Pitch ‧ 10-20-30 法則 ‧ 評審盲點拆招與同儕互評</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>掌握黃金 60 秒開場 Hook 與 Guy Kawasaki 10-20-30 商業簡報核心鐵則</li><li>拆解創投專家評審對商業模式可行性、單位經濟與市場壁壘的質疑盲點</li><li>透過同儕互評四大維度（邏輯、財務、台風、視覺）精進跨領域溝通表達</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#1d4ed8;">1h</span>
+            <span>⏱️ 1小時：商業簡報控時與評分試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#1d4ed8;">2h</span>
+            <span>⚖️ 2小時：期末同儕互評總分精算器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#1d4ed8;">3h</span>
+            <span>🎮 3小時：財經表達達人大挑戰 + 作業</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W17_期末專案發表實戰財經簡報與總評量.html" class="btn-enter-week" style="background:#1d4ed8;">
+          <span>開啟第 17 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W17+期末專案發表實戰財經簡報與總評量.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    <article class="week-card phase-3" data-week="18" data-phase="3" data-title="學期總結、財經探索藍圖與大一新鮮人終身宣言" data-subtitle="18 週全景大匯流 ‧ 大學四年第一桶金 ‧ 五大能力雷達與終身獨立宣言">
+      <header class="card-top-header">
+        <span class="week-badge-pill" style="background: #b45309;">
+          <span>🎓</span>
+          <span>Week 18</span>
+        </span>
+        <span class="phase-tag">階段三：科技浪潮與期末總結</span>
+      </header>
+
+      <div class="card-main-body">
+        <a href="W18_學期總結財經探索藍圖與大一新鮮人終身宣言.html" class="week-title-link">
+          第 18 週：學期總結、財經探索藍圖與大一新鮮人終身宣言
+        </a>
+        <p class="week-subtitle-text">18 週全景大匯流 ‧ 大學四年第一桶金 ‧ 五大能力雷達與終身獨立宣言</p>
+
+        <div class="takeaways-summary-box">
+          <h5>🎯 核心學習精華速記</h5>
+          <ul class="takeaways-summary-list">
+            <li>全景串聯總體經濟、企業財報、金融科技、生活理財與 ESG 永續思維</li><li>規劃大學四年「定期定額累積第一桶金（100 萬）」的複利執行藍圖</li><li>莊嚴宣讀大一新鮮人終身理性財富公民獨立宣言，建立自律防詐護城河</li>
+          </ul>
+        </div>
+
+        <div class="activities-pills-row">
+          <div class="activity-pill-item" title="第一小時專屬互動試算">
+            <span style="color:#b45309;">1h</span>
+            <span>💰 1小時：大學 4 年百萬第一桶金試算器</span>
+          </div>
+          <div class="activity-pill-item" title="第二小時專屬互動模擬">
+            <span style="color:#b45309;">2h</span>
+            <span>🎖️ 2小時：18 週能力雷達榮譽診斷器</span>
+          </div>
+          <div class="activity-pill-item" title="第三小時小遊戲與實務作業">
+            <span style="color:#b45309;">3h</span>
+            <span>🎮 3小時：18 週全景總大挑戰 + 結業報告</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="card-footer-actions">
+        <a href="W18_學期總結財經探索藍圖與大一新鮮人終身宣言.html" class="btn-enter-week" style="background:#b45309;">
+          <span>開啟第 18 週互動教案</span>
+          <span>➔</span>
+        </a>
+        <a href="W18+學期總結財經探索藍圖與大一新鮮人終身宣言.html" class="btn-twin-link" title="開啟雙生備用檔案 (+號版本)">
+          + 備用
+        </a>
+      </footer>
+    </article>
+    
+    </div>
+  </section>
+
+  <!-- Interactive Curriculum Roadmap Section -->
+  <section id="roadmapSection" class="section-wrapper">
+    <div class="section-header-block">
+      <h2>🧭 18 週財經探索技能演進地圖 (Learning Roadmap)</h2>
+      <p>從批判思維出發，逐層解鎖貨幣市場、企業財報、民生防護與科技前沿，最終完成個人專案簡報與終身宣言</p>
+    </div>
+
+    <div class="roadmap-timeline-box">
+      <!-- Phase 1 -->
+      <h4 class="roadmap-phase-title">
+        <span>📘</span>
+        <span>第一階段：總體經濟、金融體系與基礎投資（第 01 至 07 週）</span>
+      </h4>
+      <div class="roadmap-nodes-flex">
+        
+    <a href="W1_資訊爆炸時代的財經素養.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#0284c7;">Week 01</span>
+      <h5 class="node-week-title">🧭 資訊爆炸時代的財經素養</h5>
+      <p class="node-week-core">雜訊過濾</p>
+    </a>
+    
+    <a href="W2_物價通膨與實質購買力.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#ea580c;">Week 02</span>
+      <h5 class="node-week-title">🛒 物價、通膨與實質購買力</h5>
+      <p class="node-week-core">CPI 指數</p>
+    </a>
+    
+    <a href="W3_利率央行與我們的荷包.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#7c3aed;">Week 03</span>
+      <h5 class="node-week-title">🏦 利率、央行與我們的荷包</h5>
+      <p class="node-week-core">升降息循環</p>
+    </a>
+    
+    <a href="W4_股市入門與企業價值估算.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#059669;">Week 04</span>
+      <h5 class="node-week-title">📈 股市入門與企業價值估算</h5>
+      <p class="node-week-core">股票本質</p>
+    </a>
+    
+    <a href="W5_ETF狂熱主動型ETF與被動投資.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#0284c7;">Week 05</span>
+      <h5 class="node-week-title">📊 ETF狂熱、主動型ETF與被動投資</h5>
+      <p class="node-week-core">全市場指數</p>
+    </a>
+    
+    <a href="W6_數位金融高利活存與銀行業變革.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#0d9488;">Week 06</span>
+      <h5 class="node-week-title">💳 數位金融、高利活存與銀行業變革</h5>
+      <p class="node-week-core">純網銀</p>
+    </a>
+    
+    <a href="W7_個人外匯匯率變動與國際貿易.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#2563eb;">Week 07</span>
+      <h5 class="node-week-title">💱 個人外匯、匯率變動與國際貿易</h5>
+      <p class="node-week-core">即期現鈔點差</p>
+    </a>
+    
+      </div>
+
+      <!-- Phase 2 -->
+      <h4 class="roadmap-phase-title">
+        <span>📗</span>
+        <span>第二階段：期中檢核、生活決策與資產防護（第 08 至 12 週）</span>
+      </h4>
+      <div class="roadmap-nodes-flex">
+        
+    <a href="W8_期中學習成果檢核與實戰個案總複習.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#d97706;">Week 08</span>
+      <h5 class="node-week-title">🎯 期中學習成果檢核與實戰個案總複習</h5>
+      <p class="node-week-core">前七週知識總盤點</p>
+    </a>
+    
+    <a href="W9_保險基礎風險管理與個人保障規劃.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#dc2626;">Week 09</span>
+      <h5 class="node-week-title">🛡️ 保險基礎風險管理與個人保障規劃</h5>
+      <p class="node-week-core">風險四象限</p>
+    </a>
+    
+    <a href="W10_不動產房地產與租買決策財務學.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#b45309;">Week 10</span>
+      <h5 class="node-week-title">🏡 不動產房地產與租買決策財務學</h5>
+      <p class="node-week-core">買房 vs 租房機會成本</p>
+    </a>
+    
+    <a href="W11_個人綜合所得稅節稅規劃與報稅實務.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#4f46e5;">Week 11</span>
+      <h5 class="node-week-title">📑 個人綜合所得稅節稅規劃與報稅實務</h5>
+      <p class="node-week-core">所得稅級距</p>
+    </a>
+    
+    <a href="W12_個人與家庭資產負債表現金流管理與生涯理財規劃.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#0891b2;">Week 12</span>
+      <h5 class="node-week-title">💼 個人與家庭資產負債表現金流管理與生涯理財規劃</h5>
+      <p class="node-week-core">資產負債表 (B/S)</p>
+    </a>
+    
+      </div>
+
+      <!-- Phase 3 -->
+      <h4 class="roadmap-phase-title">
+        <span>📙</span>
+        <span>第三階段：科技浪潮、前沿趨勢與期末總結（第 13 至 18 週）</span>
+      </h4>
+      <div class="roadmap-nodes-flex">
+        
+    <a href="W13_半導體產業護國神山台積電與台灣科技供應鏈.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#0284c7;">Week 13</span>
+      <h5 class="node-week-title">🔬 半導體產業、護國神山台積電與台灣科技供應鏈</h5>
+      <p class="node-week-core">晶圓代工模式</p>
+    </a>
+    
+    <a href="W14_生成式AI革命人工智慧產業鏈與未來職場轉型.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#8b5cf6;">Week 14</span>
+      <h5 class="node-week-title">🤖 生成式 AI 革命、人工智慧產業鏈與未來職場轉型</h5>
+      <p class="node-week-core">LLM 大語言模型</p>
+    </a>
+    
+    <a href="W15_綠色金融ESG永續投資與碳定價經濟學.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#059669;">Week 15</span>
+      <h5 class="node-week-title">🌱 綠色金融、ESG 永續投資與碳定價經濟學</h5>
+      <p class="node-week-core">2050 淨零排放</p>
+    </a>
+    
+    <a href="W16_加密貨幣區塊鏈基礎Web3與數位資產風險.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#d97706;">Week 16</span>
+      <h5 class="node-week-title">🪙 加密貨幣、區塊鏈基礎、Web3 與數位資產風險</h5>
+      <p class="node-week-core">去中心化帳本</p>
+    </a>
+    
+    <a href="W17_期末專案發表實戰財經簡報與總評量.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#1d4ed8;">Week 17</span>
+      <h5 class="node-week-title">⏱️ 期末專案發表實戰、財經簡報與總評量</h5>
+      <p class="node-week-core">10 分鐘商業 Pitch</p>
+    </a>
+    
+    <a href="W18_學期總結財經探索藍圖與大一新鮮人終身宣言.html" class="roadmap-node-card">
+      <span class="node-week-num" style="color:#b45309;">Week 18</span>
+      <h5 class="node-week-title">🎓 學期總結、財經探索藍圖與大一新鮮人終身宣言</h5>
+      <p class="node-week-core">18 週全景大匯流</p>
+    </a>
+    
+      </div>
+    </div>
+  </section>
+
+  <!-- Full Curriculum Matrix Table Section -->
+  <section id="matrixSection" class="section-wrapper">
+    <div class="section-header-block">
+      <h2>📊 全景 18 週課程教學大綱矩陣表</h2>
+      <p>包含授課單元、核心概念、每小時專屬互動量化試算工具與實務作業產出對照</p>
+    </div>
+
+    <div class="portal-table-wrapper">
+      <table class="portal-table">
+        <thead>
+          <tr>
+            <th style="width: 9%;">週次</th>
+            <th style="width: 25%;">課程單元與核心講授主題</th>
+            <th style="width: 18%;">所屬教學階段</th>
+            <th style="width: 24%;">專屬量化互動試算器 (1h & 2h)</th>
+            <th style="width: 14%;">實務作業與遊戲 (3h)</th>
+            <th style="width: 10%;">直達入口</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+    <tr class="phase-1">
+      <td style="font-weight: 800; color: #0284c7;">第 01 週</td>
+      <td>
+        <a href="W1_資訊爆炸時代的財經素養.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">資訊爆炸時代的財經素養</a>
+        <div style="font-size: 0.75rem; color: #64748b;">雜訊過濾 ‧ 媒體識讀 ‧ 批判思考與訊號提取 (SNR)</div>
+      </td>
+      <td><span class="phase-tag">階段一：總體經濟與金融基礎</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🎯 1小時：SNR 訊號雜訊比試算器</div>
+        <div>🎯 2小時：誇大標題重組器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：假新聞偵探挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W1_資訊爆炸時代的財經素養.html" class="table-btn-enter" style="background: #0284c7;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-1">
+      <td style="font-weight: 800; color: #ea580c;">第 02 週</td>
+      <td>
+        <a href="W2_物價通膨與實質購買力.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">物價、通膨與實質購買力</a>
+        <div style="font-size: 0.75rem; color: #64748b;">CPI 指數 ‧ 實質購買力侵蝕 ‧ 縮性通膨與生活抗通膨策略</div>
+      </td>
+      <td><span class="phase-tag">階段一：總體經濟與金融基礎</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🎯 1小時：通膨購買力侵蝕試算器</div>
+        <div>🎯 2小時：縮性通膨檢測分析器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：通膨偵探挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W2_物價通膨與實質購買力.html" class="table-btn-enter" style="background: #ea580c;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-1">
+      <td style="font-weight: 800; color: #7c3aed;">第 03 週</td>
+      <td>
+        <a href="W3_利率央行與我們的荷包.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">利率、央行與我們的荷包</a>
+        <div style="font-size: 0.75rem; color: #64748b;">升降息循環 ‧ 實質利率 ‧ 學貸房貸與分期付款真實年化 (APR)</div>
+      </td>
+      <td><span class="phase-tag">階段一：總體經濟與金融基礎</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🎯 1小時：房貸學貸月付金試算器</div>
+        <div>🎯 2小時：分期付款真實 APR 精算器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：央行決策荷包挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W3_利率央行與我們的荷包.html" class="table-btn-enter" style="background: #7c3aed;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-1">
+      <td style="font-weight: 800; color: #059669;">第 04 週</td>
+      <td>
+        <a href="W4_股市入門與企業價值估算.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">股市入門與企業價值估算</a>
+        <div style="font-size: 0.75rem; color: #64748b;">股票本質 ‧ 股東權益 ‧ 本益比 (P/E) 估值與零股定期定額</div>
+      </td>
+      <td><span class="phase-tag">階段一：總體經濟與金融基礎</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🎯 1小時：零股定期定額股利試算器</div>
+        <div>🎯 2小時：珍奶店本益比估值模型</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：企業估值大挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W4_股市入門與企業價值估算.html" class="table-btn-enter" style="background: #059669;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-1">
+      <td style="font-weight: 800; color: #0284c7;">第 05 週</td>
+      <td>
+        <a href="W5_ETF狂熱主動型ETF與被動投資.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">ETF狂熱、主動型ETF與被動投資</a>
+        <div style="font-size: 0.75rem; color: #64748b;">全市場指數 ‧ 0050 vs 0056 ‧ 折溢價監控與內扣費用陷阱</div>
+      </td>
+      <td><span class="phase-tag">階段一：總體經濟與金融基礎</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🎯 1小時：ETF 定期定額複利試算器</div>
+        <div>🎯 2小時：ETF 折溢價即時檢測器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：ETF 投資大挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W5_ETF狂熱主動型ETF與被動投資.html" class="table-btn-enter" style="background: #0284c7;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-1">
+      <td style="font-weight: 800; color: #0d9488;">第 06 週</td>
+      <td>
+        <a href="W6_數位金融高利活存與銀行業變革.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">數位金融、高利活存與銀行業變革</a>
+        <div style="font-size: 0.75rem; color: #64748b;">純網銀 ‧ 階梯活存利率 ‧ 信用卡回饋與現金流排程</div>
+      </td>
+      <td><span class="phase-tag">階段一：總體經濟與金融基礎</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🎯 1小時：高利活存階梯收益試算器</div>
+        <div>🎯 2小時：信用卡回饋 vs 年費計算器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：金融達人大挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W6_數位金融高利活存與銀行業變革.html" class="table-btn-enter" style="background: #0d9488;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-1">
+      <td style="font-weight: 800; color: #2563eb;">第 07 週</td>
+      <td>
+        <a href="W7_個人外匯匯率變動與國際貿易.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">個人外匯、匯率變動與國際貿易</a>
+        <div style="font-size: 0.75rem; color: #64748b;">即期現鈔點差 ‧ 外幣帳戶 ‧ 大麥克指數 (PPP) 與換匯避險</div>
+      </td>
+      <td><span class="phase-tag">階段一：總體經濟與金融基礎</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🎯 1小時：出國換匯點差最佳化試算器</div>
+        <div>🍔 2小時：大麥克 PPP 匯率檢測器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：外匯達人大挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W7_個人外匯匯率變動與國際貿易.html" class="table-btn-enter" style="background: #2563eb;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-2">
+      <td style="font-weight: 800; color: #d97706;">第 08 週</td>
+      <td>
+        <a href="W8_期中學習成果檢核與實戰個案總複習.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">期中學習成果檢核與實戰個案總複習</a>
+        <div style="font-size: 0.75rem; color: #64748b;">前七週知識總盤點 ‧ 財經迷思破除 ‧ 10 萬元模擬資產配置</div>
+      </td>
+      <td><span class="phase-tag">階段二：期中檢核與生活決策</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🥊 1小時：財經迷思快問快答</div>
+        <div>🧮 2小時：10 萬元資產配置模擬器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：期中會考闖關挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W8_期中學習成果檢核與實戰個案總複習.html" class="table-btn-enter" style="background: #d97706;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-2">
+      <td style="font-weight: 800; color: #dc2626;">第 09 週</td>
+      <td>
+        <a href="W9_保險基礎風險管理與個人保障規劃.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">保險基礎風險管理與個人保障規劃</a>
+        <div style="font-size: 0.75rem; color: #64748b;">風險四象限 ‧ 雙十原則 ‧ 實支實付醫療險與儲蓄險拆解</div>
+      </td>
+      <td><span class="phase-tag">階段二：期中檢核與生活決策</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🎯 1小時：風險四象限自評決策器</div>
+        <div>🏥 2小時：實支實付醫療理賠精算器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：保障達人大挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W9_保險基礎風險管理與個人保障規劃.html" class="table-btn-enter" style="background: #dc2626;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-2">
+      <td style="font-weight: 800; color: #b45309;">第 10 週</td>
+      <td>
+        <a href="W10_不動產房地產與租買決策財務學.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">不動產房地產與租買決策財務學</a>
+        <div style="font-size: 0.75rem; color: #64748b;">買房 vs 租房機會成本 ‧ 權狀公設比 ‧ 青年安心成家貸款</div>
+      </td>
+      <td><span class="phase-tag">階段二：期中檢核與生活決策</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>📐 1小時：建物權狀公設比計算器</div>
+        <div>🏦 2小時：房貸月繳與寬限期試算器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：租買決策達人挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W10_不動產房地產與租買決策財務學.html" class="table-btn-enter" style="background: #b45309;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-2">
+      <td style="font-weight: 800; color: #4f46e5;">第 11 週</td>
+      <td>
+        <a href="W11_個人綜合所得稅節稅規劃與報稅實務.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">個人綜合所得稅節稅規劃與報稅實務</a>
+        <div style="font-size: 0.75rem; color: #64748b;">所得稅級距 ‧ 免稅額扣除額 ‧ 兼職打工預扣與手機報稅 SOP</div>
+      </td>
+      <td><span class="phase-tag">階段二：期中檢核與生活決策</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>📊 1小時：綜合所得稅速算扣除器</div>
+        <div>💸 2小時：兼職打工預扣退稅精算器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：報稅達人大挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W11_個人綜合所得稅節稅規劃與報稅實務.html" class="table-btn-enter" style="background: #4f46e5;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-2">
+      <td style="font-weight: 800; color: #0891b2;">第 12 週</td>
+      <td>
+        <a href="W12_個人與家庭資產負債表現金流管理與生涯理財規劃.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">個人與家庭資產負債表現金流管理與生涯理財規劃</a>
+        <div style="font-size: 0.75rem; color: #64748b;">資產負債表 (B/S) ‧ 現金流量表 (C/F) ‧ 六罐子系統與緊急預備金</div>
+      </td>
+      <td><span class="phase-tag">階段二：期中檢核與生活決策</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>📊 1小時：個人淨資產健康體檢表</div>
+        <div>🌊 2小時：現金流與預備金計算器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：生涯理財闖關挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W12_個人與家庭資產負債表現金流管理與生涯理財規劃.html" class="table-btn-enter" style="background: #0891b2;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-3">
+      <td style="font-weight: 800; color: #0284c7;">第 13 週</td>
+      <td>
+        <a href="W13_半導體產業護國神山台積電與台灣科技供應鏈.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">半導體產業、護國神山台積電與台灣科技供應鏈</a>
+        <div style="font-size: 0.75rem; color: #64748b;">晶圓代工模式 ‧ 摩爾定律極限 ‧ CapEx 資本支出與先進製程估值</div>
+      </td>
+      <td><span class="phase-tag">階段三：科技浪潮與期末總結</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🔬 1小時：台積電先進製程營收估值器</div>
+        <div>🏭 2小時：CapEx 資本支出效益評估器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：半導體供應鏈挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W13_半導體產業護國神山台積電與台灣科技供應鏈.html" class="table-btn-enter" style="background: #0284c7;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-3">
+      <td style="font-weight: 800; color: #8b5cf6;">第 14 週</td>
+      <td>
+        <a href="W14_生成式AI革命人工智慧產業鏈與未來職場轉型.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">生成式 AI 革命、人工智慧產業鏈與未來職場轉型</a>
+        <div style="font-size: 0.75rem; color: #64748b;">LLM 大語言模型 ‧ GPU 算力 ‧ 企業導入 ROI 評估與人機協作</div>
+      </td>
+      <td><span class="phase-tag">階段三：科技浪潮與期末總結</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🤖 1小時：企業 AI 導入 ROI 試算器</div>
+        <div>⚖️ 2小時：AI 產業鏈價值分配估算器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：人機協作職場大挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W14_生成式AI革命人工智慧產業鏈與未來職場轉型.html" class="table-btn-enter" style="background: #8b5cf6;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-3">
+      <td style="font-weight: 800; color: #059669;">第 15 週</td>
+      <td>
+        <a href="W15_綠色金融ESG永續投資與碳定價經濟學.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">綠色金融、ESG 永續投資與碳定價經濟學</a>
+        <div style="font-size: 0.75rem; color: #64748b;">2050 淨零排放 ‧ 台灣碳費 300 元 ‧ 歐盟 CBAM 碳關稅與 00878 ESG ETF</div>
+      </td>
+      <td><span class="phase-tag">階段三：科技浪潮與期末總結</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🌱 1小時：企業碳費與 CBAM 試算器</div>
+        <div>⚖️ 2小時：ESG 永續投資組合模擬器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：ESG 永續理財挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W15_綠色金融ESG永續投資與碳定價經濟學.html" class="table-btn-enter" style="background: #059669;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-3">
+      <td style="font-weight: 800; color: #d97706;">第 16 週</td>
+      <td>
+        <a href="W16_加密貨幣區塊鏈基礎Web3與數位資產風險.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">加密貨幣、區塊鏈基礎、Web3 與數位資產風險</a>
+        <div style="font-size: 0.75rem; color: #64748b;">去中心化帳本 ‧ 比特幣減半 ‧ 冷熱錢包私鑰管理與 5% 避險配置</div>
+      </td>
+      <td><span class="phase-tag">階段三：科技浪潮與期末總結</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>🪙 1小時：比特幣減半產量資安試算器</div>
+        <div>⚖️ 2小時：DeFi 年化與 5% 避險配置器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：Web3 防詐大挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W16_加密貨幣區塊鏈基礎Web3與數位資產風險.html" class="table-btn-enter" style="background: #d97706;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-3">
+      <td style="font-weight: 800; color: #1d4ed8;">第 17 週</td>
+      <td>
+        <a href="W17_期末專案發表實戰財經簡報與總評量.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">期末專案發表實戰、財經簡報與總評量</a>
+        <div style="font-size: 0.75rem; color: #64748b;">10 分鐘商業 Pitch ‧ 10-20-30 法則 ‧ 評審盲點拆招與同儕互評</div>
+      </td>
+      <td><span class="phase-tag">階段三：科技浪潮與期末總結</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>⏱️ 1小時：商業簡報控時與評分試算器</div>
+        <div>⚖️ 2小時：期末同儕互評總分精算器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：財經表達達人大挑戰 + 作業</div>
+      </td>
+      <td>
+        <a href="W17_期末專案發表實戰財經簡報與總評量.html" class="table-btn-enter" style="background: #1d4ed8;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+    <tr class="phase-3">
+      <td style="font-weight: 800; color: #b45309;">第 18 週</td>
+      <td>
+        <a href="W18_學期總結財經探索藍圖與大一新鮮人終身宣言.html" style="font-weight: 800; color: #0f172a; text-decoration: none;">學期總結、財經探索藍圖與大一新鮮人終身宣言</a>
+        <div style="font-size: 0.75rem; color: #64748b;">18 週全景大匯流 ‧ 大學四年第一桶金 ‧ 五大能力雷達與終身獨立宣言</div>
+      </td>
+      <td><span class="phase-tag">階段三：科技浪潮與期末總結</span></td>
+      <td style="font-size: 0.78rem;">
+        <div>💰 1小時：大學 4 年百萬第一桶金試算器</div>
+        <div>🎖️ 2小時：18 週能力雷達榮譽診斷器</div>
+      </td>
+      <td style="font-size: 0.78rem;">
+        <div>🎮 3小時：18 週全景總大挑戰 + 結業報告</div>
+      </td>
+      <td>
+        <a href="W18_學期總結財經探索藍圖與大一新鮮人終身宣言.html" class="table-btn-enter" style="background: #b45309;">進入課程 ➔</a>
+      </td>
+    </tr>
+    
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Official Data Hubs Section -->
+  <section id="hubsSection" class="section-wrapper">
+    <div class="section-header-block">
+      <h2>🏛️ 全課程官方數據平台與權威查詢入口</h2>
+      <p>涵蓋央行、金管會、證券交易所、財政部與國際金融權威數據中心</p>
+    </div>
+
+    <div class="hubs-matrix-grid">
+      <div class="hub-portal-card">
+        <h4>1. 中華民國中央銀行 (CBC)</h4>
+        <p>即時查詢五大銀行新承作房貸利率、重貼現率、外匯存底與 M1B/M2 貨幣供給額指標。</p>
+        <a href="https://www.cbc.gov.tw" target="_blank" rel="noopener">前往中央銀行官網 ➔</a>
+      </div>
+
+      <div class="hub-portal-card">
+        <h4>2. 台灣證券交易所 (TWSE)</h4>
+        <p>查詢公開資訊觀測站 (MOPS)、上市企業三大財務報表、法人買賣超與台股本益比排行榜。</p>
+        <a href="https://www.twse.com.tw" target="_blank" rel="noopener">前往證交所官網 ➔</a>
+      </div>
+
+      <div class="hub-portal-card">
+        <h4>3. 金融監督管理委員會 (FSC)</h4>
+        <p>金融防詐專區、虛擬資產 VASP 合規名單、純網銀監理與保險業實支實付改革規定。</p>
+        <a href="https://www.fsc.gov.tw" target="_blank" rel="noopener">前往金管會官網 ➔</a>
+      </div>
+
+      <div class="hub-portal-card">
+        <h4>4. 財政部稅務入口網</h4>
+        <p>綜合所得稅速算公式、兼職打工預扣稅額門檻、手機報稅教學與統一發票開獎資訊。</p>
+        <a href="https://www.etax.nat.gov.tw" target="_blank" rel="noopener">前往稅務入口網 ➔</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Highlight -->
+  <section class="section-wrapper">
+    <div class="features-banner-grid">
+      <div class="feature-box">
+        <div class="feature-icon-big">🎨</div>
+        <h4>Canva 級沉浸式卡片投影</h4>
+        <p>每週 30 頁純教學卡片，右側精華速記與引導提問，按 N 鍵滑出 150+ 字深度講義，按 D 鍵啟動手繪筆刷與螢光筆。</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon-big">🧮</div>
+        <h4>36 大專業量化試算模擬</h4>
+        <p>包含房貸 APR、本益比估值、ETF 複利、台積電 CapEx、生成式 AI ROI、CBAM 碳關稅到百萬第一桶金全方位模型。</p>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon-big">🖨️</div>
+        <h4>專業實務報告三合一匯出</h4>
+        <p>四維度課堂作業表單，支援一鍵列印 A4/PDF 報告、匯出標準 JSON 數據檔案，以及複製 GitHub 風格 Markdown 筆記。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Master Footer -->
+  <footer class="master-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>管理探索二：現代財經素養與商業決策全景圖譜</h3>
+        <p>115 學年度 ‧ 18 週 54 小時完整沉浸式互動課程 ‧ 本系統支援離線單機運作，直接使用現代瀏覽器開啟即可學習</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#weeksSection">單元卡片</a>
+        <a href="#roadmapSection">學習地圖</a>
+        <a href="#matrixSection">課綱對照</a>
+        <a href="#hubsSection">數據中心</a>
+        <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">回到頂部 ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Master Interactive Search & Filter Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('portalSearchInput');
+      const filterTabs = document.querySelectorAll('.tab-btn');
+      const cards = document.querySelectorAll('.week-card');
+      const countText = document.getElementById('resultsCountText');
+      const btnRandom = document.getElementById('btnRandomWeek');
+
+      let currentFilter = 'all';
+      let currentQuery = '';
+
+      function applyFilter() {
+        let visibleCount = 0;
+        cards.forEach(card => {
+          const phase = card.getAttribute('data-phase');
+          const title = card.getAttribute('data-title').toLowerCase();
+          const subtitle = card.getAttribute('data-subtitle').toLowerCase();
+          const weekNum = card.getAttribute('data-week');
+          const cardText = card.textContent.toLowerCase();
+
+          const matchPhase = currentFilter === 'all' || ('phase-' + phase === currentFilter);
+          const matchQuery = !currentQuery || cardText.includes(currentQuery) || weekNum === currentQuery;
+
+          if (matchPhase && matchQuery) {
+            card.style.display = 'flex';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (countText) {
+          if (currentQuery) {
+            countText.textContent = `搜尋「${currentQuery}」符合結果：共 ${visibleCount} / 18 個單元`;
+          } else if (currentFilter !== 'all') {
+            countText.textContent = `目前篩選：共 ${visibleCount} / 18 個單元`;
+          } else {
+            countText.textContent = `顯示全部 18 個單元`;
+          }
+        }
+      }
+
+      // Tab clicks
+      filterTabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          filterTabs.forEach(t => t.classList.remove('active'));
+          e.currentTarget.classList.add('active');
+          currentFilter = e.currentTarget.getAttribute('data-filter');
+          applyFilter();
+        });
+      });
+
+      // Search input
+      searchInput?.addEventListener('input', (e) => {
+        currentQuery = e.target.value.trim().toLowerCase();
+        applyFilter();
+      });
+
+      // Random week picker
+      btnRandom?.addEventListener('click', () => {
+        const visibleCards = Array.from(cards).filter(c => c.style.display !== 'none');
+        if (visibleCards.length > 0) {
+          const randomIdx = Math.floor(Math.random() * visibleCards.length);
+          const chosen = visibleCards[randomIdx];
+          chosen.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          chosen.style.transition = 'all 0.3s';
+          chosen.style.outline = '4px solid #2563eb';
+          chosen.style.transform = 'scale(1.03)';
+          setTimeout(() => {
+            chosen.style.outline = 'none';
+            chosen.style.transform = 'none';
+          }, 1800);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W9 保險基礎風險管理與個人保障規劃 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w9-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge" style="background: linear-gradient(135deg, #0f766e, #0284c7);">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：保險基礎風險管理與個人保障規劃" data-i18n-en="Explorations in Management II: Insurance Fundamentals & Risk Protection">管理探索二：保險基礎風險管理與個人保障規劃</h1>
+        <p data-i18n-zh="115學年度 ‧ 第九週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 9: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第九週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalRiskMatrix')">
+        <span>🎯</span>
+        <span data-i18n-zh="1小時: 風險四象限" data-i18n-en="Hr 1: Risk Matrix">1小時: 風險四象限</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalMedicalCalc')">
+        <span>🏥</span>
+        <span data-i18n-zh="2小時: 實支實付精算" data-i18n-en="Hr 2: Medical Calc">2小時: 實支實付精算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalInsuranceGame')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 保障達人大挑戰" data-i18n-en="Hr 3: Insurance Game">3小時: 保障達人大挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="保險官方平台" data-i18n-en="Official Hubs">保險官方平台</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button id="btnToolPen" class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button id="btnToolHighlighter" class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+        <button id="btnToolUndo" class="btn-draw-tool" data-tool="undo">↩️ <span data-i18n-zh="復原" data-i18n-en="Undo">復原</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active btn-color-dot" style="background: #0f766e;" data-color="#0f766e"></span>
+        <span class="color-swatch btn-color-dot" style="background: #0284c7;" data-color="#0284c7"></span>
+        <span class="color-swatch btn-color-dot" style="background: #ef4444;" data-color="#ef4444"></span>
+        <span class="color-swatch btn-color-dot" style="background: #f59e0b;" data-color="#f59e0b"></span>
+        <span class="color-swatch btn-color-dot" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch btn-color-dot" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnToolClear" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">保險本質 ‧ 風險轉移</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第九週課程導論：保險基礎、風險管理與個人保障規劃</h2>
+            <p id="slideSubtitle" class="subtitle">從四象限風險矩陣出發，以精算法理拆解青年保障金三角，建構理性避險護城河</p>
+          </div>
+
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">同學們是否曾被親戚長輩推銷過保險？你清楚自己目前名下到底擁有哪幾張保單嗎？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer (150+ words detailed teaching core) -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 150+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (150+ Words)">📘 教學指引詳解 (每頁 150+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #b45309; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Presentation Bar -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalRiskMatrix" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎯 第 1 小時專屬活動：四象限風險矩陣與應對策略檢測器</h3>
+          <p>輸入生活真實風險情境 ‧ 即時診斷發生頻率與潛在損失 ‧ 精準判定最適避險策略</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalRiskMatrix')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">風險診斷</div>
+          <h4>薩繆爾森四象限法則：保險只適用於「低頻率、高損失」災難！</h4>
+          <p>點選下方大一生典型生活預設情境，或自行輸入日常風險，系統將自動定位所屬象限並輸出經濟學決策建言！</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入典型情境：</span>
+          <button class="btn-preset-risk active" data-risk="motorcycle_crash">機車車禍重創 (低頻大損)</button>
+          <button class="btn-preset-risk" data-risk="lost_umbrella">遺失雨傘文具 (低頻小損)</button>
+          <button class="btn-preset-risk" data-risk="parttime_burn">餐廳打工燙傷 (高頻小損)</button>
+          <button class="btn-preset-risk" data-risk="drag_racing">深夜飆車夜衝 (高頻大損)</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.1fr 1.3fr; gap: 14px; margin-top: 10px;">
+          <!-- Left: Diagnostic Result & Custom Input -->
+          <div>
+            <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+              <h5 id="riskScenarioTitle" style="color: #0f766e; font-size: 0.95rem; margin-bottom: 4px;">機車嚴重摔車骨折手術 (低頻大損)</h5>
+              <div id="riskCostEstimate" style="font-size: 0.78rem; color: #64748b; font-weight: 600; margin-bottom: 6px;">估計損失：自費手術與住院約 8 ~ 15 萬元</div>
+              <span id="riskStrategyBadge" class="hw-badge" style="background: #0f766e; color: #fff; font-size: 0.8rem; padding: 4px 8px;">對應策略：轉嫁 (Transfer - 保險)</span>
+              <p id="riskExplanationText" style="font-size: 0.78rem; color: #334155; line-height: 1.5; margin-top: 8px;">
+                【四象限診斷 - 低頻率、高損失】：雖然發生機率不高，但一旦發生便會產生數萬至數十萬醫療開銷與停工損失，足以擊垮大一生財務！這正是【商業保險】最標準、最不可或缺的轉嫁防護領域。
+              </p>
+            </div>
+
+            <!-- Custom Input Box -->
+            <div style="background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 10px;">
+              <strong style="font-size: 0.82rem; color: #0f766e; display: block; margin-bottom: 6px;">🧪 自訂生活情境快速檢測：</strong>
+              <input type="text" id="customRiskName" placeholder="輸入情境 (如：租屋處筆電被偷)" style="width: 100%; font-size: 0.8rem; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; margin-bottom: 6px;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+                <select id="customRiskFreq" style="font-size: 0.78rem; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                  <option value="low">低發生頻率 (罕見)</option>
+                  <option value="high">高發生頻率 (經常)</option>
+                </select>
+                <select id="customRiskLoss" style="font-size: 0.78rem; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                  <option value="high">高潛在損失 (重大毀滅)</option>
+                  <option value="low">低潛在損失 (微小開銷)</option>
+                </select>
+              </div>
+              <button id="btnDiagnoseCustomRisk" class="btn-nav-step btn-primary-step" style="width: 100%; padding: 6px; font-size: 0.8rem;">進行四象限診斷 ➔</button>
+            </div>
+          </div>
+
+          <!-- Right: Visual Quadrants Matrix -->
+          <div class="matrix-grid" style="grid-template-columns: 1fr 1fr; gap: 8px; height: 100%;">
+            <div id="labQuadrantAvoid" class="matrix-quadrant matrix-lab-quadrant q-avoid">
+              <div class="quadrant-title">🚫 規避 / 避免</div>
+              <div class="quadrant-action">高頻率 ‧ 高損失</div>
+              <div class="quadrant-scenario">策略：徹底禁止危險行為。違法與故意行為保單一律除外拒賠！</div>
+            </div>
+            <div id="labQuadrantTransfer" class="matrix-quadrant matrix-lab-quadrant q-transfer active-target">
+              <div class="quadrant-title">🛡️ 轉移 / 保險</div>
+              <div class="quadrant-action">低頻率 ‧ 高損失</div>
+              <div class="quadrant-scenario">策略：購買商業保險轉嫁！以小保費撬動百萬盾牌，保險天職核心！</div>
+            </div>
+            <div id="labQuadrantReduce" class="matrix-quadrant matrix-lab-quadrant q-reduce">
+              <div class="quadrant-title">⚠️ 降低 / 減輕</div>
+              <div class="quadrant-action">高頻率 ‧ 低損失</div>
+              <div class="quadrant-scenario">策略：事前防護與預防減輕。戴安全帽、防滑鞋，而非投保。</div>
+            </div>
+            <div id="labQuadrantRetain" class="matrix-quadrant matrix-lab-quadrant q-retain">
+              <div class="quadrant-title">💼 承擔 / 自留</div>
+              <div class="quadrant-action">低頻率 ‧ 低損失</div>
+              <div class="quadrant-scenario">策略：以日常零用金自行吸收。買保險手續費遠高於損失本身！</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalRiskMatrix')">完成檢測，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalMedicalCalc" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏥 第 2 小時專屬活動：實支實付醫療險理賠與自負額精算機</h3>
+          <p>真實模擬病房差額、自費微創手術與耗材雜費 ‧ 落實 2026 金管會損害填補改革</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalMedicalCalc')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">理賠精算</div>
+          <h4>拆解住院三大自費痛點：病房差額 + 自費手術 + 醫療雜費耗材</h4>
+          <p>選擇醫療案例或自行輸入自費項目與保單限額，系統將即時精算理賠給付總額、個人自負額差額與保障填補率！</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入真實病例：</span>
+          <button class="asset-preset-btn btn-preset-med active" data-preset="cruciate_ligament">機車車禍韌帶手術 (自費9萬)</button>
+          <button class="asset-preset-btn btn-preset-med" data-preset="appendicitis_laparoscopy">盲腸微創防沾黏 (自費4.1萬)</button>
+          <button class="asset-preset-btn btn-preset-med" data-preset="femur_fracture">大腿骨折鈦合金板 (自費10.8萬)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 自費病房差額總額 (NT$)</label>
+            <input type="number" id="medRoomCost" value="15000" min="0" step="1000">
+          </div>
+          <div class="calc-field">
+            <label>2. 自費微創手術技術費 (NT$)</label>
+            <input type="number" id="medSurgeryCost" value="45000" min="0" step="1000">
+          </div>
+          <div class="calc-field">
+            <label>3. 醫療雜費耗材支出 (NT$)</label>
+            <input type="number" id="medDeviceCost" value="30000" min="0" step="1000">
+          </div>
+          <div class="calc-field">
+            <label>4. 實際住院天數 (日)</label>
+            <input type="number" id="medDays" value="3" min="1" max="60" step="1">
+          </div>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 8px;">
+          <div class="calc-field">
+            <label>保單病房每日限額 (NT$/日)</label>
+            <input type="number" id="medRoomLimit" value="2000" min="500" step="500">
+          </div>
+          <div class="calc-field">
+            <label>保單手術費用限額 (NT$)</label>
+            <input type="number" id="medSurgeryLimit" value="50000" min="10000" step="5000">
+          </div>
+          <div class="calc-field">
+            <label>保單醫療雜費限額 (NT$)</label>
+            <input type="number" id="medDeviceLimit" value="100000" min="20000" step="10000">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1fr 1fr 1fr 1fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">醫院自費帳單總計</span>
+            <span id="outMedTotalBill" class="r-value" style="color: #1e293b; font-weight: 800;">NT$ 90,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">實支實付理賠總額</span>
+            <span id="outMedTotalPayout" class="r-value" style="color: #0f766e; font-weight: 900;">NT$ 81,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">個人需自負差額</span>
+            <span id="outMedOutOfPocket" class="r-value" style="color: #ef4444; font-weight: 900;">NT$ 9,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">保障填補覆蓋率</span>
+            <span id="outMedCoverageRatio" class="r-value" style="color: #0284c7; font-size: 1.25rem;">90%</span>
+          </div>
+        </div>
+
+        <div id="outMedAdvice" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #f0fdfa; border: 1px solid #99f6e4; font-size: 0.88rem; line-height: 1.55; color: #0f766e;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalMedicalCalc')">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalInsuranceGame" class="modal-overlay">
+    <div class="modal-container" style="max-width: 820px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時小遊戲：保險保障達人大挑戰 (4 大核心關卡)</h3>
+          <p>四象限風險判定 ‧ 2026 正本理賠改革 ‧ 買定期投 0050 精算 ‧ 《保險法》第 64 條告知義務</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalInsuranceGame')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="insuranceGameContainer">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step" onclick="closeModal('modalInsuranceGame')">暫離遊戲</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container modal-hw-wide">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第九週課堂實務作業：個人風險管理矩陣與第一份保單規劃報告</h3>
+          <p>落實 100 分審計規準 ‧ 支援本地草稿即時儲存、Markdown 一鍵複製與 JSON 匯出</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：林庭宇)" style="width: 150px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307099)" style="width: 150px;">
+            <input type="text" id="hwTargetPlan" placeholder="規劃主題 (例如：大一新生 3,000 元高槓桿保單規劃與防坑體檢)" style="width: 320px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn" onclick="loadHomeworkTemplate()">📄 載入第九週保單規劃示範範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. 大一生活 2 大高風險場景 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度一 (25%)</span>
+              <h5>1. 大一生活 2 大現實高風險場景與四象限應對策略</h5>
+            </div>
+            <textarea id="hwDim1Risk" rows="4" placeholder="詳述機車通勤摔車與打工意外等真實風險場景，依據薩繆爾森四象限法則分析其發生頻率、預估醫療自費損失，並說明最適避險策略..."></textarea>
+          </div>
+
+          <!-- 2. 保障金三角具體配置 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度二 (25%)</span>
+              <h5>2. 新鮮人高槓桿保障金三角具體配置與底層防護網串聯</h5>
+            </div>
+            <textarea id="hwDim2Triad" rows="4" placeholder="詳細列出意外險 (200萬)、意外實支實付 (5萬)、實支實付醫療險 (雜費15萬) 之保費與保額，並說明如何串聯學生團體保險與強制責任險打造防護盾牌..."></textarea>
+          </div>
+
+          <!-- 3. 定期險 vs 終身險 30 年精算 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度三 (30%)</span>
+              <h5>3. 定期險 vs. 終身險 30 年累積保費與差額投資 0050 試算</h5>
+            </div>
+            <textarea id="hwDim3TermMath" rows="4" placeholder="對比一年期定期險 (3,000元) 與 20 年期終身險 (25,000元) 之保費點差，精算將每年 22,000 元投入 0050 ETF (年化 8%) 在 30 年後滾出 270 萬自體醫療金的數學真相，並檢核雙十原則..."></textarea>
+          </div>
+
+          <!-- 4. 據實告知與拒絕人情保單 SOP -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度四 (20%)</span>
+              <h5>4. 據實告知承諾、除外責任辨識與拒絕長輩人情保單 SOP</h5>
+            </div>
+            <textarea id="hwDim4RefusalSop" rows="4" placeholder="依據《保險法》第 64 條寫下親自如實申報 5 年病史承諾，辨識故意行為與無照駕駛等除外責任，並具體制定拒絕親戚長輩推銷人情保單之四大金律溝通話術..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>作業自評等級：</label>
+            <select id="hwConclusionGrade">
+              <option value="A+ (全面且具備實戰避險可行性)">A+ (全面且具備實戰避險可行性)</option>
+              <option value="A (理論與牌告分析精確完整)">A (理論與牌告分析精確完整)</option>
+              <option value="B (具備基本理財健全觀念)">B (具備基本理財健全觀念)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：以 3,000 元建構意外與實支醫療金三角，差額長期定額 0050，堅守據實告知與雙十原則)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action" onclick="window.print()">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action" onclick="exportHomeworkJson()">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step" onclick="exportHomeworkMd()">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第九週教學進度表與 3 小時結構</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #0f766e;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>保險本質與風險管理三大基本原則 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">保險是風險轉移防破產盾牌、四象限風險矩陣、大數法則純保費公式、保險利益杜絕謀害道德風險、最大誠信據實說明義務、損害填補禁止不當得利、台灣2.6張投保率保障失衡。</span></td>
+              <td>🎯 <strong>專屬活動：四象限風險矩陣與應對策略檢測器</strong><br><span style="font-size: 0.78rem;">輸入生活情境判定象限，輸出最適避險決策建言。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #0284c7;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>青年核心保單組合與理賠實務 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">機車摔車與打工職災、保障金三角（意外險、實支實付醫療險、重大傷病一次金）、2026金管會正本理賠新制、法定強制責任險、勞保職災補償、學團險福利與除外既往症陷阱。</span></td>
+              <td>🏥 <strong>專屬活動：實支實付醫療險理賠與自負額精算機</strong><br><span style="font-size: 0.78rem;">精算病房差額、自費微創手術、耗材雜費與理賠填補率。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #f59e0b;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>避坑指南、定期vs終身精算與預算配置 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">定期險vs終身險點差、買定期投0050 ETF 30年270萬算術、拒絕親戚長輩人情保單四大金律、雙十原則預算控制、3,000元高槓桿新生方案、健保告知書填寫SOP與個人防禦全景架構。</span></td>
+              <td>🎮 <strong>小遊戲：保險保障達人大挑戰 (4大核心關卡)</strong><br>📝 <strong>作業：個人風險管理矩陣與第一份保單規劃報告現場提交</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 國家級四大權威保險與醫療監理官方平台</h3>
+          <p>掌握第一手合法保險商品條款、免費爭議評議與全民健保醫療大數據</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="four-sources-matrix">
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.tii.org.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🏛️ 財團法人保險事業發展中心 (TII)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              全台灣所有合法保險商品資料庫查閱庫！輸入保單名稱即可下載官方核准之正式「保單條款全文」與精算費率表。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.foi.org.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>⚖️ 財團法人金融消費評議中心 (FOI)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              依法保護金融消費者權益。當發生保險理賠爭議或保險公司惡意拒賠時，提供合法、公平且免費的爭議申訴與評議服務。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.ib.gov.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🛡️ 金融監督管理委員會保險局 (IB)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              保險業最高主管法規制定機關。發布實支實付正本理賠改革、壽險定型化契約範本與消費者投保權益保障規範。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.nhi.gov.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🏥 衛生福利部中央健康保險署 (NHI)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              提供全民健康保險醫療費用自費特材比價網、重大傷病證明核發標準與「健保快易通」個人就醫歷程查驗系統。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="w9-slides-data.js"></script>
+  <script src="w9-activities-data.js"></script>
+  <script src="w9-app.js"></script>
+</body>
+</html>

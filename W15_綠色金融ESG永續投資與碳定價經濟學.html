@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W15 綠色金融ESG永續投資與碳定價經濟學 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w15-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge" style="background: linear-gradient(135deg, #059669, #0d9488);">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：綠色金融、ESG 永續投資與碳定價經濟學" data-i18n-en="Explorations in Management II: Green Finance, ESG Investing & Carbon Pricing">管理探索二：綠色金融、ESG 永續投資與碳定價經濟學</h1>
+        <p data-i18n-zh="115學年度 ‧ 第十五週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 15: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第十五週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalCarbonFeeLab')">
+        <span>🌱</span>
+        <span data-i18n-zh="1小時: 碳費與CBAM試算" data-i18n-en="Hr 1: Carbon Fee Lab">1小時: 碳費與CBAM試算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalEsgPortfolioLab')">
+        <span>⚖️</span>
+        <span data-i18n-zh="2小時: ESG 永續投資組合" data-i18n-en="Hr 2: ESG Portfolio Lab">2小時: ESG 永續投資組合</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalEsgGame')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: ESG 永續挑戰" data-i18n-en="Hr 3: ESG Game">3小時: ESG 永續挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="官方數據平台" data-i18n-en="Official Hubs">官方數據平台</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button id="btnToolPen" class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button id="btnToolHighlighter" class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active btn-color-dot" style="background: #059669;" data-color="#059669"></span>
+        <span class="color-swatch btn-color-dot" style="background: #0d9488;" data-color="#0d9488"></span>
+        <span class="color-swatch btn-color-dot" style="background: #84cc16;" data-color="#84cc16"></span>
+        <span class="color-swatch btn-color-dot" style="background: #0284c7;" data-color="#0284c7"></span>
+        <span class="color-swatch btn-color-dot" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnToolClear" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">綠色導論 ‧ 淨零目標</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第十五週課程導論：綠色金融、ESG 永續投資與碳定價經濟學</h2>
+            <p id="slideSubtitle" class="subtitle">深度解析 ESG 三大柱、碳定價經濟學、歐盟 CBAM 碳關稅與大專生綠色責任投資思維</p>
+          </div>
+
+          <!-- CRITICAL: .slide-content-grid Container -->
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">同學們平時買飲料時會自備環保杯嗎？如果買一件衣服標註『全回收材質碳中和』，你願意多付多少錢？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 150+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (150+ Words)">📘 教學指引詳解 (每頁 150+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #059669; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Presentation Bar -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step" style="background:#059669;">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalCarbonFeeLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🌱 第 1 小時專屬活動：企業碳費與歐盟 CBAM 碳關稅試算器</h3>
+          <p>輸入年度排放量、台灣碳費費率與歐盟出口碳含量 ‧ 精算境內碳費、CBAM 扣抵成本與自主減量省下金額</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalCarbonFeeLab')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">碳成本衝擊精算</div>
+          <h4>排放不再免費！污染者付費將實質侵蝕企業利潤，減碳成為核心獲利能力！</h4>
+          <p>點選下方代表性企業情境，或自行調整參數，系統即時精算境內外碳成本與政策優惠。</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入企業情境：</span>
+          <button class="asset-preset-btn btn-preset-carbon active" data-preset="heavy_exporter">高耗能製造大廠 (年排12萬噸 ‧ 出口4萬噸)</button>
+          <button class="asset-preset-btn btn-preset-carbon" data-preset="certified_mid">自主減量中型企業 (年排3.5萬噸 ‧ 優惠100元)</button>
+          <button class="asset-preset-btn btn-preset-carbon" data-preset="green_leader">低碳綠色模範生 (年排1.8萬噸 ‧ 低於門檻)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 企業年度直接+間接排碳 (公噸)</label>
+            <input type="number" id="carbonEmission" value="120000" min="5000" max="1000000" step="5000">
+          </div>
+          <div class="calc-field">
+            <label>2. 台灣碳費一般費率 (NT$/噸)</label>
+            <input type="number" id="carbonBasicFee" value="300" min="100" max="600" step="50">
+          </div>
+          <div class="calc-field">
+            <label>3. 優惠費率標竿 (NT$/噸)</label>
+            <input type="number" id="carbonPreferFee" value="100" min="50" max="200" step="25">
+          </div>
+          <div class="calc-field">
+            <label>4. 是否通過自主減量計畫審查？</label>
+            <select id="carbonPassedPlan" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+              <option value="no">未通過 (適用一般費率 300 元)</option>
+              <option value="yes">通過自主減量 (適用優惠費率 100 元)</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label>5. 出口歐盟列管產品碳含量 (公噸)</label>
+            <input type="number" id="carbonCbamExport" value="40000" min="0" max="500000" step="5000">
+          </div>
+          <div class="calc-field">
+            <label>6. 歐盟 CBAM 預估碳價 (歐元/噸)</label>
+            <input type="number" id="carbonCbamEur" value="65" min="40" max="120" step="5">
+          </div>
+          <input type="hidden" id="carbonEurFx" value="35.0">
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1fr 1fr 1fr 1.2fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">台灣碳費應繳金額</span>
+            <span id="outCarbonTaiwanFee" class="r-value" style="color: #dc2626; font-weight: 900;">3,600.0 萬元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">自主減量省下碳費</span>
+            <span id="outCarbonSavings" class="r-value" style="color: #059669; font-weight: 900;">0.0 萬元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">歐盟 CBAM 應補關稅</span>
+            <span id="outCarbonCbamFee" class="r-value" style="color: #d97706; font-weight: 800;">7,900.0 萬元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">合計年度總碳成本</span>
+            <span id="outCarbonTotalImpact" class="r-value" style="color: #dc2626; font-weight: 900;">11,500.0 萬元</span>
+          </div>
+        </div>
+
+        <div id="outCarbonDiagnosis" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #ecfdf5; border: 1px solid #a7f3d0; font-size: 0.88rem; line-height: 1.55; color: #065f46;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalCarbonFeeLab')" style="background:#059669;">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalEsgPortfolioLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>⚖️ 第 2 小時專屬活動：ESG 永續指數投資組合與抗波動模擬器</h3>
+          <p>配置傳統 0050 大盤與永續 00878 高股息 ‧ 精算複利資產成長、累積本金與碳足跡減量幅度</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalEsgPortfolioLab')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">永續資產配置</div>
+          <h4>用資本投票支持減碳好企業！兼顧股息現金流與大盤成長，打造綠色雪球！</h4>
+          <p>輸入每月定期定額預算與兩大 ETF 配置比重，系統即時模擬長期複利收益與碳減量效果。</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入配置組合：</span>
+          <button class="asset-preset-btn btn-preset-esg active" data-preset="balanced_growth">均衡成長型 (0050 60% + 00878 40%)</button>
+          <button class="asset-preset-btn btn-preset-esg" data-preset="high_esg_dividend">綠色高息型 (0050 20% + 00878 80%)</button>
+          <button class="asset-preset-btn btn-preset-esg" data-preset="traditional_market">傳統純市值型 (0050 100% + 0%)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 每月定期定額預算 (NT$)</label>
+            <input type="number" id="esgMonthlyBudget" value="10000" min="1000" max="100000" step="1000">
+          </div>
+          <div class="calc-field">
+            <label>2. 傳統 0050 市值型比重 (%)</label>
+            <input type="number" id="esgT50Ratio" value="60" min="0" max="100" step="10">
+          </div>
+          <div class="calc-field">
+            <label>3. 永續 00878 高股息比重 (%)</label>
+            <input type="number" id="esg00878Ratio" value="40" min="0" max="100" step="10">
+          </div>
+          <div class="calc-field">
+            <label>4. 投資年限 (年)</label>
+            <input type="number" id="esgYears" value="10" min="3" max="30" step="1">
+          </div>
+          <div class="calc-field">
+            <label>5. 組合預期年化報酬率 (%)</label>
+            <input type="number" id="esgExpectedReturn" value="7.8" min="4.0" max="12.0" step="0.2">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1.2fr 1fr 1fr 1fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">10年期滿預估總資產</span>
+            <span id="outEsgFutureValue" class="r-value" style="color: #059669; font-weight: 900;">NT$ 1,827,858 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">累積自提本金</span>
+            <span id="outEsgPrincipal" class="r-value" style="color: #64748b; font-weight: 800;">NT$ 1,200,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">時間複利收益</span>
+            <span id="outEsgGains" class="r-value" style="color: #0284c7; font-weight: 900;">NT$ 627,858 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">組合碳足跡減量</span>
+            <span id="outEsgCarbonReduction" class="r-value" style="color: #10b981; font-weight: 900;">-18.0% 碳足跡</span>
+          </div>
+        </div>
+
+        <div id="outEsgAdvice" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #f0fdfa; border: 1px solid #99f6e4; font-size: 0.88rem; line-height: 1.55; color: #115e59;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalEsgPortfolioLab')" style="background:#0d9488;">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalEsgGame" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時互動遊戲：ESG 永續理財達人大挑戰</h3>
+          <p>挑戰四大關鍵永續關卡 ‧ ESG 三大柱定義 ‧ 台灣碳費制度 ‧ 歐盟 CBAM 碳關稅 ‧ 戳破漂綠公關陷阱</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalEsgGame')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="esgGameContainer">
+          <!-- Populated by initEsgGame() -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalEsgGame')" style="background:#059669;">離開挑戰，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK SYSTEM ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container" style="max-width: 900px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第十五週課堂作業：個人 carbon 體檢與 ESG 永續投資計畫</h3>
+          <p>四維度實務分析：ESG 選股深層影響 ‧ CBAM 與台積電 RE100 ‧ 0050+00878 永續配置 ‧ 生活減碳防詐 SOP</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：林宥廷)" style="width: 150px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307116)" style="width: 150px;">
+            <input type="text" id="hwTargetPlan" placeholder="規劃主題 (例如：大一兼職 0050+00878 永續投資與減碳實踐計畫)" style="width: 320px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn" onclick="loadHomeworkTemplate()">📄 載入第十五週永續分析示範範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. ESG 三大柱與碳費選股 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#059669; color:#fff;">維度一 (25%)</span>
+              <h5>1. ESG 三大柱指標與碳費機制對台灣企業選股之深層影響</h5>
+            </div>
+            <textarea id="hwDim1Inventory" rows="4" placeholder="分析環境、社會與公司治理三大維度，說明台灣碳費每噸 300 元開徵後對高耗能企業毛利侵蝕與低碳選股指標..."></textarea>
+          </div>
+
+          <!-- 2. CBAM 與台積電 RE100 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#0d9488; color:#fff;">維度二 (25%)</span>
+              <h5>2. 歐盟 CBAM 碳關稅衝擊與護國神山台積電 RE100 實務剖析</h5>
+            </div>
+            <textarea id="hwDim2CashFlow" rows="4" placeholder="說明歐盟碳關稅對台灣外銷供應鏈之震撼，分析台積電 2040 RE100 綠電承諾如何帶動台灣離岸風電與綠能產業..."></textarea>
+          </div>
+
+          <!-- 3. 0050+00878 永續配置 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#84cc16; color:#fff;">維度三 (25%)</span>
+              <h5>3. 0050 (70%) + 00878 (30%) 永續投資組合構建與抗震效益</h5>
+            </div>
+            <textarea id="hwDim3ReserveDebt" rows="4" placeholder="設計大一每月 6,000 元投資組合，說明核心大盤與永續高股息如何兼顧成長與防禦，並量化評估碳足跡減量效益..."></textarea>
+          </div>
+
+          <!-- 4. 生活減碳與防詐 SOP -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#1e293b; color:#fff;">維度四 (25%)</span>
+              <h5>4. 個人日常減碳行動清單與防範綠色金融詐騙之 4D Filter 落地 SOP</h5>
+            </div>
+            <textarea id="hwDim4FireRoadmap" rows="4" placeholder="列出自備環保杯與低碳通勤之具體省錢與減碳數據，並提出防範假冒綠色碳權投資詐騙之 4D 查核 SOP..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>作業自評等級：</label>
+            <select id="hwConclusionGrade">
+              <option value="A+ (全面且具備實戰避險可行性)">A+ (全面且具備實戰避險可行性)</option>
+              <option value="A (理論與財務數據分析完整)">A (理論與財務數據分析完整)</option>
+              <option value="B (具備基本 ESG 永續觀念)">B (具備基本 ESG 永續觀念)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：透過 0050+00878 雙軌配置落實永續責任投資，以日常減碳與批判求真實踐世代正義)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action" onclick="window.print()">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action" onclick="exportHomeworkJson()">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step" onclick="exportHomeworkMd()" style="background:#059669;">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第十五週教學進度表與 3 小時結構</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #059669;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>2050 淨零排放、ESG 三大柱與碳費經濟學 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">氣候變遷外部性、ESG三大柱、碳費每噸300元算術、歐盟CBAM碳關稅與漂綠識破。</span></td>
+              <td>🌱 <strong>專屬活動：企業碳費與歐盟 CBAM 碳關稅試算器</strong><br><span style="font-size: 0.78rem;">輸入排放量精算年碳成本衝擊與自主減量省下金額。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #0d9488;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>ESG 篩選 ETF、碳權交易所與台積電 RE100 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">00878永續篩選、台灣碳交所TCX機制、範疇1-3碳盤查、赤道原則與台積電RE100綠電。</span></td>
+              <td>⚖️ <strong>專屬活動：ESG 永續指數投資組合與抗波動模擬器</strong><br><span style="font-size: 0.78rem;">精算 0050 與 00878 配置複利成長與碳足跡減量幅度。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #84cc16;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>永續資產配置、大一綠色職涯與 4 大金律 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">0050+00878大一永續組合、永續管理師考照、自備環保杯生活、防偽碳權詐騙與4大金律。</span></td>
+              <td>🎮 <strong>小遊戲：ESG 永續理財達人大挑戰 (4大關卡)</strong><br>📝 <strong>作業：個人 carbon 體檢與 ESG 永續投資計畫</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')" style="background:#059669;">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 官方數據平台與 ESG 評級指引</h3>
+          <p>環境部氣候變遷署 ‧ 金管會綠色金融專區 ‧ 台灣碳權交易所 ‧ MSCI ESG 權威查詢入口</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hubs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #059669; font-size: 0.95rem; margin-bottom: 4px;">1. 環境部氣候變遷署 (CCA)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">查詢台灣碳費收費辦法草案、自主減量計畫指定目標與全國家戶溫室氣體統計資料庫。</p>
+            <a href="https://cca.moenv.gov.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #059669; font-weight: 700;">前往氣候變遷署官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #0d9488; font-size: 0.95rem; margin-bottom: 4px;">2. 台灣碳權交易所 (TCX)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">查詢國際碳權交易行情走勢、國內自願減量專案開戶規則與碳權交割憑證制度。</p>
+            <a href="https://www.tcx.com.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #0d9488; font-weight: 700;">前往碳權交易所官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #84cc16; font-size: 0.95rem; margin-bottom: 4px;">3. 金管會綠色金融行動方案</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">下載上市櫃公司永續發展路徑圖、ESG 資訊揭露作業手冊與綠色授信績效獎勵標準。</p>
+            <a href="https://www.fsc.gov.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #84cc16; font-weight: 700;">前往金管會官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #1e293b; font-size: 0.95rem; margin-bottom: 4px;">4. MSCI ESG Ratings 評級庫</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">免費查詢全球頂尖企業 (台積電、聯發科、Apple 等) 之 AAA 至 CCC 級永續風險評分。</p>
+            <a href="https://www.msci.com/our-solutions/esg-investing/esg-ratings" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #1e293b; font-weight: 700;">前往 MSCI 官網 ➔</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')" style="background:#059669;">關閉視窗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules Execution -->
+  <script src="w15-slides-data.js"></script>
+  <script src="w15-activities-data.js"></script>
+  <script src="w15-app.js"></script>
+
+</body>
+</html>

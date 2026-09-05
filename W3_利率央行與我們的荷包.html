@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W3 利率、央行與我們的荷包 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w3-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：利率、央行與我們的荷包" data-i18n-en="Explorations in Management II: Rates, Central Banks & Our Wallets">管理探索二：利率、央行與我們的荷包</h1>
+        <p data-i18n-zh="115學年度 ‧ 第三週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 3: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第三週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalLoanCalc')">
+        <span>🎯</span>
+        <span data-i18n-zh="1小時: 房貸學貸月付" data-i18n-en="Hr 1: Loan Calculator">1小時: 房貸學貸月付</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalInstallment')">
+        <span>🎯</span>
+        <span data-i18n-zh="2小時: 分期真實APR" data-i18n-en="Hr 2: Installment APR">2小時: 分期真實APR</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalDetective')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 荷包挑戰" data-i18n-en="Hr 3: Rate Quiz Game">3小時: 荷包挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="央行數據庫" data-i18n-en="Data Hubs">央行數據庫</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+        <button class="btn-draw-tool" data-tool="eraser">🧹 <span data-i18n-zh="橡皮擦" data-i18n-en="Eraser">橡皮擦</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active" style="background: #ef4444;" data-color="#ef4444"></span>
+        <span class="color-swatch" style="background: #3b82f6;" data-color="#3b82f6"></span>
+        <span class="color-swatch" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch" style="background: #f59e0b;" data-color="#f59e0b"></span>
+        <span class="color-swatch" style="background: #8b5cf6;" data-color="#8b5cf6"></span>
+        <span class="color-swatch" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnClearDrawing" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+        <button id="btnSaveDrawing" class="btn-draw-action">💾 <span data-i18n-zh="存圖" data-i18n-en="Snapshot">存圖</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">理論與背景 ‧ 核心理念</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第三週 課程導論：利率、央行與我們的荷包</h2>
+            <p id="slideSubtitle" class="subtitle">金錢的租金、央行水龍頭與現代青年的理財防線</p>
+          </div>
+
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">載入中...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer (100+ words detailed teaching core) -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 100+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (100+ Words)">📘 教學指引詳解 (每頁 100+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #b45309; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Deck Controls -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu" onchange="jumpToSlide(parseInt(this.value))">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: LOAN CALCULATOR LAB ==================== -->
+  <div id="modalLoanCalc" class="modal-overlay">
+    <div class="modal-container" style="max-width: 900px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎯 第 1 小時專屬活動：升息下的房貸與學貸月付金計算盤</h3>
+          <p>量化央行升息一碼對每月支出與排骨便當的實質衝擊 ‧ 看懂利率槓桿放大效應</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalLoanCalc')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="margin-bottom: 16px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <span style="font-size: 0.82rem; font-weight: 800; color: #475569;">一鍵快速套用情境：</span>
+          <button class="btn-nav-step loan-preset-btn active" data-preset="student">🎓 大學就學貸款</button>
+          <button class="btn-nav-step loan-preset-btn" data-preset="scooter">🛵 通勤機車分期</button>
+          <button class="btn-nav-step loan-preset-btn" data-preset="mortgage_starter">🏠 首購青年房貸</button>
+          <button class="btn-nav-step loan-preset-btn" data-preset="startup">💼 青年創業信貸</button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px;">
+          <!-- Left Inputs -->
+          <div style="background: #f8fafc; padding: 18px; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <div class="hw-form-row">
+              <label>貸款總金額 (NT$ 元)：</label>
+              <input type="number" id="loanAmountInput" value="400000" step="10000">
+            </div>
+
+            <div class="hw-form-row">
+              <label>貸款攤還年限 (年)：</label>
+              <input type="number" id="loanYearsInput" value="8" min="1" max="40">
+            </div>
+
+            <div class="hw-form-row">
+              <label>原始貸款基準年利率 (%)：</label>
+              <input type="number" id="loanBaseRateInput" value="1.65" step="0.05">
+            </div>
+
+            <div class="hw-form-row">
+              <label>央行升息幅度 (%，一碼=0.25%, 半碼=0.125%)：</label>
+              <input type="number" id="loanRateHikeInput" value="0.25" step="0.125">
+            </div>
+          </div>
+
+          <!-- Right Results -->
+          <div style="background: #ffffff; padding: 18px; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f1f5f9;">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">升息後最新年利率：</span>
+                <span id="resNewRate" style="font-size: 1.1rem; font-weight: 800; color: #2563eb;">1.900% (+0.250%)</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f1f5f9;">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">升息前每月本息攤還：</span>
+                <span id="resOldMonthly" style="font-size: 1rem; font-weight: 700; color: #334155;">NT$ 4,453 元</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f1f5f9;">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">升息後最新月付金：</span>
+                <span id="resNewMonthly" style="font-size: 1.15rem; font-weight: 900; color: #dc2626;">NT$ 4,498 元</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f1f5f9;">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">每月實質增加支出：</span>
+                <span id="resMonthlyDiff" style="font-size: 1rem; font-weight: 800; color: #dc2626;">+NT$ 45 元/月</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f1f5f9;">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">每年多付利息總額：</span>
+                <span id="resAnnualDiff" style="font-size: 1.1rem; font-weight: 900; color: #dc2626;">+NT$ 540 元/年</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0;">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">折合排骨便當代價：</span>
+                <span id="resBentoLoss" style="font-size: 0.95rem; font-weight: 800; color: #d97706;">約 5 個排骨便當 / 年</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 14px; padding: 12px; background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 6px;">
+              <div id="resLoanDiagnosis" style="font-size: 0.82rem; color: #1e3a8a; line-height: 1.5;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalLoanCalc')">完成計算並關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: INSTALLMENT APR LAB ==================== -->
+  <div id="modalInstallment" class="modal-overlay">
+    <div class="modal-container" style="max-width: 920px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎯 第 2 小時專屬活動：刷卡分期付款真實利率大考驗 (APR 精算)</h3>
+          <p>拆穿表面「0 利率」的分期手續費迷思 ‧ 換算真實實質年百分率 (APR) 與定存倍數</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalInstallment')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="margin-bottom: 14px;">
+          <span style="font-size: 0.82rem; font-weight: 800; color: #475569; display: block; margin-bottom: 8px;">選擇真實消費案例：</span>
+          <div id="instCasesSelectorContainer" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+        </div>
+
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px;">
+          <h4 id="instCaseTitle" style="font-size: 1.05rem; font-weight: 800; color: #1e293b; margin-bottom: 14px; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;">載入中...</h4>
+          
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px;">
+            <div style="background: #f8fafc; padding: 12px; border-radius: 8px; text-align: center; border: 1px solid #e2e8f0;">
+              <span style="font-size: 0.75rem; color: #64748b; font-weight: 700; display: block;">商品標示總價</span>
+              <span id="instPriceText" style="font-size: 1rem; font-weight: 800; color: #1e293b;">--</span>
+            </div>
+            <div style="background: #f8fafc; padding: 12px; border-radius: 8px; text-align: center; border: 1px solid #e2e8f0;">
+              <span style="font-size: 0.75rem; color: #64748b; font-weight: 700; display: block;">分期期數</span>
+              <span id="instPeriodsText" style="font-size: 1rem; font-weight: 800; color: #2563eb;">--</span>
+            </div>
+            <div style="background: #fef2f2; padding: 12px; border-radius: 8px; text-align: center; border: 1px solid #fecaca;">
+              <span style="font-size: 0.75rem; color: #991b1b; font-weight: 700; display: block;">分期手續費</span>
+              <span id="instFeeText" style="font-size: 1rem; font-weight: 800; color: #dc2626;">--</span>
+            </div>
+            <div style="background: #f8fafc; padding: 12px; border-radius: 8px; text-align: center; border: 1px solid #e2e8f0;">
+              <span style="font-size: 0.75rem; color: #64748b; font-weight: 700; display: block;">每期應付本金</span>
+              <span id="instMonthlyText" style="font-size: 1rem; font-weight: 800; color: #1e293b;">--</span>
+            </div>
+          </div>
+
+          <div style="background: linear-gradient(135deg, #fef2f2, #fff1f2); border: 2px solid #f87171; border-radius: 12px; padding: 18px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-around;">
+            <div>
+              <span style="font-size: 0.82rem; color: #991b1b; font-weight: 700; display: block;">換算實質年百分率 (真實 APR)：</span>
+              <div id="instAprNumber" style="font-size: 2.2rem; font-weight: 900; color: #dc2626;">--%</div>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 0.82rem; color: #64748b; font-weight: 700; display: block;">相較公營行庫 1 年期定存利率 (1.7%)：</span>
+              <div id="instMultipleText" style="font-size: 1.25rem; font-weight: 800; color: #b91c1c;">--</div>
+            </div>
+          </div>
+
+          <div id="instExpertAnalysis" style="background: #f8fafc; border-left: 4px solid #7c3aed; padding: 14px; border-radius: 6px; font-size: 0.85rem; line-height: 1.6; color: #334155;"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalInstallment')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: RATE QUIZ GAME ==================== -->
+  <div id="modalDetective" class="modal-overlay">
+    <div class="modal-container" style="max-width: 840px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時小遊戲：央行與荷包知識大挑戰 (4 關卡)</h3>
+          <p>一碼換算 ‧ 15% 循環利息陷阱 ‧ 美聯儲降息資金效應 ‧ 無風險利率防詐密碼</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDetective')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="gameActiveScreen">
+          <!-- Rendered dynamically by w3-app.js -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDetective')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK REPORT ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container" style="max-width: 920px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第三週課堂實務作業：央行新聞閱讀與個人存款計畫</h3>
+          <p>央行決策解讀 (30%) ‧ 學貸生活衝擊 (30%) ‧ 10萬存款雙軌配置 (40%) ‧ 自動儲存於本機</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; gap: 8px;">
+            <button id="btnHwPresetCbc" class="btn-nav-step">🏛️ 範本一：台灣央行預防性升息</button>
+            <button id="btnHwPresetFed" class="btn-nav-step">🇺🇸 範本二：美聯儲降息資金潮</button>
+          </div>
+          <span style="font-size: 0.78rem; color: #64748b;">三大評分規準 (30% / 30% / 40%) ‧ 本地自動即時儲存</span>
+        </div>
+
+        <form id="w3HomeworkForm" onsubmit="return false;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="hw-form-row">
+              <label>學生姓名：</label>
+              <input type="text" id="hwStudentName" placeholder="請輸入姓名">
+            </div>
+            <div class="hw-form-row">
+              <label>學號：</label>
+              <input type="text" id="hwStudentId" placeholder="例如：B11307001">
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 16px 0;">
+
+          <div class="hw-form-row">
+            <label>新聞標題與來源：</label>
+            <input type="text" id="hwNewsTitle" placeholder="例如：抗通膨與房市過熱！央行理監事會決議升息半碼...">
+          </div>
+
+          <div class="hw-form-row">
+            <label>一、 央行新聞解讀與決策背景分析 (佔比 30%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">精準提煉政策動作幅度（如升息半碼、降息兩碼），解析央行打通膨或防衰退的背景動機。</p>
+            <textarea id="hwNewsAnalysis" rows="4" placeholder="請填寫新聞政策動作解讀與背景動機..."></textarea>
+          </div>
+
+          <div class="hw-form-row">
+            <label>二、 對學貸、房租與個人生活收支的實質衝擊 (佔比 30%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">具體量化與評估該項政策對學貸月付金、房租調漲預警或生活開支的具體便當錢影響。</p>
+            <textarea id="hwPersonalImpact" rows="4" placeholder="請填寫對個人學貸、房租或生活收支之實質影響..."></textarea>
+          </div>
+
+          <div class="hw-form-row">
+            <label>三、 個人 10 萬元打工儲蓄雙軌配置計畫 (佔比 40%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">擬定具體資產擺放比例（數位帳戶高利活存%、銀行定存%、原型 ETF 定期定額%），兼顧流動性與抗通膨孳息。</p>
+            <textarea id="hwSavingsPlan" rows="4" placeholder="請填寫 10 萬元儲蓄配置比例與執行理由..."></textarea>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 14px;">
+            <div class="hw-form-row">
+              <label>綜合防禦評級：</label>
+              <select id="hwConclusionGrade">
+                <option value="Highly Defensive">🛡️ Highly Defensive (高防禦力配置)</option>
+                <option value="Balanced Allocation">⚖️ Balanced Allocation (穩健平衡型)</option>
+                <option value="Growth Oriented">🚀 Growth Oriented (積極成長型)</option>
+              </select>
+            </div>
+            <div class="hw-form-row">
+              <label>核心反思與行動總結：</label>
+              <input type="text" id="hwDecisionSummary" placeholder="用一句話總結你的利率防禦行動指南...">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer" style="justify-content: space-between;">
+        <span id="hwSaveStatus" style="font-size: 0.8rem; color: #10b981; font-weight: 700;"></span>
+        <div style="display: flex; gap: 8px;">
+          <button id="btnExportJson" class="btn-nav-step">💾 匯出 JSON</button>
+          <button id="btnExportMd" class="btn-nav-step">📋 複製 Markdown</button>
+          <button id="btnPrintHomework" class="btn-nav-step btn-primary-step">🖨️ 列印 / 轉存 PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第三週 3 小時教學進度與活動配比表</h3>
+          <p>總授課時間 180 分鐘 ‧ 講授、房貸學貸月付計算盤、刷卡分期APR考驗與課堂作業配置</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #2563eb;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>利率本質與金錢的時間價值 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">金錢的租金、時間偏好、基準點 1 碼 (25 bps)、單利 vs 複利暴雪、費雪實質利率、名目負擔</span></td>
+              <td>🎯 <strong>專屬活動：升息下的房貸與學貸月付金計算盤</strong><br><span style="font-size: 0.78rem;">輸入本金與利率調升幅度，精算每月差額、年增總支出與排骨便當損失。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #7c3aed;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>央行角色與貨幣政策傳導 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">台灣央行 CBC 角色、美聯儲 Fed 降息升息、全球資金水龍頭、存放款利差 (NIM)、信用卡循環 15% 陷阱</span></td>
+              <td>🎯 <strong>專屬活動：刷卡分期付款真實利率大考驗 (APR 精算)</strong><br><span style="font-size: 0.78rem;">揭開旗艦機、機車、無卡分期表面 0 利率的手續費換算實質 APR。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #059669;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>資產價格波動與防禦理財 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">債券價格與殖利率蹺蹺板、科技股估值現金流折現、高息防詐騙、10萬打工積蓄配置、全景圖譜</span></td>
+              <td>🎮 <strong>小遊戲：央行與荷包知識大挑戰 (4 關卡)</strong><br>📝 <strong>課堂實務作業：央行新聞閱讀與個人存款計畫在線提交。</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 官方第一手利率與貨幣政策數據資料庫</h3>
+          <p>拒絕網路情緒短影音 ‧ 以第一手央行與國際權威公報建立客觀金融視野</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="four-sources-matrix">
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.cbc.gov.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🏦 中華民國中央銀行 (CBC)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              台灣貨幣政策核心決策機構。每月公布重貼現率、擔保放款融通利率、五大銀行新承作放款利率與理監事會議事錄。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.federalreserve.gov" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🏛️ 美國聯邦準備理事會 (Federal Reserve)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              全球金融水龍頭指揮總部。公布聯邦基金利率 (Fed Funds Rate) 目標區間、FOMC 點陣圖 (Dot Plot) 與資產負債表縮表進程。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://fred.stlouisfed.org" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>📈 聖路易聯邦儲備銀行 FRED 資料庫</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              全球最權威的總經利率資料庫。涵蓋美債 10 年期殖利率、殖利率曲線倒掛指數 (10Y-2Y Spread)、M2 貨幣供給量等數萬項時間序列。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.bis.org" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🌐 國際清算銀行 (BIS)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              「央行的央行」。提供全球主要國家實質有效匯率 (REER)、跨國銀行信貸總量與各國央行政策利率追蹤報告。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="w3-slides-data.js"></script>
+  <script src="w3-activities-data.js"></script>
+  <script src="w3-app.js"></script>
+</body>
+</html>

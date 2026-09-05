@@ -1,0 +1,182 @@
+/* ==========================================================================
+   W5 SPECIFIC STYLES & INFOGRAPHICS EXTENSION
+   Loaded alongside base style.css
+   ========================================================================== */
+
+/* Visual Diagram Card Container */
+.visual-diagram-card {
+  background: transparent;
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  box-shadow: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.diagram-header {
+  margin-bottom: 14px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 8px;
+}
+
+.diagram-header h4 {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.diagram-header .sub-tag {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* DCA Comparison Grid */
+.dca-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.dca-stat-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+}
+
+.dca-stat-card .dca-icon { font-size: 2.2rem; margin-bottom: 6px; }
+.dca-stat-card h5 { font-size: 0.95rem; font-weight: 800; color: #1e293b; margin-bottom: 4px; }
+.dca-stat-card .dca-num { font-size: 1.5rem; font-weight: 900; color: #059669; margin: 4px 0; }
+.dca-stat-card p { font-size: 0.78rem; color: #64748b; line-height: 1.4; }
+
+/* Arbitrage Box */
+.arbitrage-card {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.arbitrage-card.discount { background: #f0fdf4; border-color: #bbf7d0; }
+.arbitrage-card.premium { background: #fff5f5; border-color: #fecaca; }
+
+.arbitrage-card h5 { font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+.arbitrage-card .arb-rate { font-size: 1.6rem; font-weight: 900; margin: 6px 0; }
+.arbitrage-card.discount .arb-rate { color: #15803d; }
+.arbitrage-card.premium .arb-rate { color: #dc2626; }
+
+/* Core Satellite Visualization */
+.core-satellite-vis {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.core-circle-box {
+  background: #f0fdf4;
+  border: 2px dashed #059669;
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+}
+
+.core-circle-box .pct { font-size: 2rem; font-weight: 900; color: #059669; }
+.core-circle-box h5 { font-size: 1rem; font-weight: 800; color: #1e293b; margin: 4px 0; }
+.core-circle-box p { font-size: 0.78rem; color: #64748b; }
+
+.satellite-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.satellite-item {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: #334155;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Formula & Callouts */
+.formula-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  text-align: center;
+}
+
+.formula-box .math-eq {
+  font-size: 1.15rem;
+  color: #166534;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+}
+
+.info-callout {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  color: #1e40af;
+  line-height: 1.5;
+}
+
+.warning-callout {
+  background: #fef2f2;
+  border-left: 4px solid #ef4444;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  color: #991b1b;
+  line-height: 1.5;
+}
+
+/* DCA Lab Styles */
+.dca-lab-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 20px;
+}
+
+.dca-results-panel {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.stat-metric-val {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #1e293b;
+}
+
+.stat-metric-val.good { color: #16a34a; }
+.stat-metric-val.bad { color: #dc2626; }

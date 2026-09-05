@@ -1,0 +1,306 @@
+/* Week 18 Thematic Stylesheet - 學期總結財經探索藍圖與大一新鮮人終身宣言 */
+:root {
+  --w18-primary: #b45309;       /* Graduation Gold Amber */
+  --w18-primary-dark: #78350f;  /* Deep Gold */
+  --w18-secondary: #059669;     /* Accomplishment Emerald */
+  --w18-ruby: #991b1b;          /* Triumph Ruby */
+  --w18-dark: #0f172a;          /* Slate 900 */
+  --w18-card-bg: #ffffff;
+  --w18-border: #fde68a;
+  --w18-text: #1e293b;
+  --w18-text-muted: #64748b;
+  --w18-hour1: #b45309;
+  --w18-hour2: #059669;
+  --w18-hour3: #991b1b;
+}
+
+/* W18 visual cards */
+.finale-visual-card {
+  background: #ffffff;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 4px 16px rgba(180, 83, 9, 0.09);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.finale-visual-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #fef3c7;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.finale-visual-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #92400e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.finale-visual-tag {
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.finale-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.finale-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.finale-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.finale-box {
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.finale-box.gold {
+  background: #fefce8;
+  border-color: #fde047;
+  border-left: 4px solid #ca8a04;
+}
+
+.finale-box.emerald {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  border-left: 4px solid #10b981;
+}
+
+.finale-box.ruby {
+  background: #fef2f2;
+  border-color: #fecaca;
+  border-left: 4px solid #dc2626;
+}
+
+.finale-box.highlight {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  border-left: 4px solid #2563eb;
+}
+
+.finale-box h6 {
+  margin: 0 0 6px 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #92400e;
+}
+
+.finale-box p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #78350f;
+}
+
+/* Badges */
+.finale-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.badge-gold { background: #fef3c7; color: #92400e; }
+.badge-emerald { background: #dcfce7; color: #166534; }
+.badge-ruby { background: #fee2e2; color: #991b1b; }
+.badge-blue { background: #dbeafe; color: #1e40af; }
+
+/* Preset buttons */
+.btn-preset-finale {
+  background: #fefce8;
+  border: 1px solid #fde047;
+  color: #854d0e;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-preset-finale:hover, .btn-preset-finale.active {
+  background: #b45309;
+  color: #ffffff;
+  border-color: #78350f;
+}
+
+/* Standard Homework Styles */
+.hw-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.hw-student-inputs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.hw-student-inputs input {
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+.hw-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hw-preset-btn {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #334155;
+  transition: all 0.2s;
+}
+.hw-preset-btn:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+.save-status-text {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+.hw-rubric-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.hw-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hw-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.hw-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.hw-card-header h5 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+.hw-card textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #1e293b;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 80px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+.hw-card textarea:focus {
+  border-color: #b45309;
+  box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.12);
+}
+.hw-summary-row {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 12px;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+.hw-grade-select label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  margin-right: 6px;
+}
+.hw-grade-select select {
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+.hw-summary-input input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  outline: none;
+}
+.hw-footer-flex {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+.btn-hw-action {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #334155;
+  transition: all 0.2s;
+}
+.btn-hw-action:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}

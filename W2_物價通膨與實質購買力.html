@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W2 物價通膨與實質購買力 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w2-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：物價、通膨與實質購買力" data-i18n-en="Explorations in Management II: Price, Inflation & Real Purchasing Power">管理探索二：物價、通膨與實質購買力</h1>
+        <p data-i18n-zh="115學年度 ‧ 第二週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 2: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第二週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalPurchasingPower')">
+        <span>🎯</span>
+        <span data-i18n-zh="1小時: 購買力計算" data-i18n-en="Hr 1: Purchasing Power">1小時: 購買力計算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalShrinkflation')">
+        <span>🎯</span>
+        <span data-i18n-zh="2小時: 縮性通膨" data-i18n-en="Hr 2: Shrinkflation">2小時: 縮性通膨</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalDetective')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 偵探遊戲" data-i18n-en="Hr 3: Detective Game">3小時: 偵探遊戲</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="物價數據庫" data-i18n-en="Data Hubs">物價數據庫</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+        <button class="btn-draw-tool" data-tool="eraser">🧹 <span data-i18n-zh="橡皮擦" data-i18n-en="Eraser">橡皮擦</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active" style="background: #ef4444;" data-color="#ef4444"></span>
+        <span class="color-swatch" style="background: #3b82f6;" data-color="#3b82f6"></span>
+        <span class="color-swatch" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch" style="background: #f59e0b;" data-color="#f59e0b"></span>
+        <span class="color-swatch" style="background: #8b5cf6;" data-color="#8b5cf6"></span>
+        <span class="color-swatch" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnClearDrawing" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+        <button id="btnSaveDrawing" class="btn-draw-action">💾 <span data-i18n-zh="存圖" data-i18n-en="Snapshot">存圖</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">理論與背景 ‧ 核心理念</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第二週 課程導論：物價、通膨與實質購買力</h2>
+            <p id="slideSubtitle" class="subtitle">看穿名目數字的假象，奪回個人實質生活水準的主導權</p>
+          </div>
+
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">載入中...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer (100+ words detailed teaching core) -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 100+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (100+ Words)">📘 教學指引詳解 (每頁 100+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #b45309; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Deck Controls -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu" onchange="jumpToSlide(parseInt(this.value))">
+          <option value="0">Slide 01: 第二週課程導論</option>
+          <option value="1">Slide 02: 3小時學習地圖</option>
+          <option value="2">Slide 03: 便當外食10年走勢</option>
+          <option value="3">Slide 04: CPI 計算公式</option>
+          <option value="4">Slide 05: 消費籃子權數揭密</option>
+          <option value="5">Slide 06: 總體 vs 核心通膨</option>
+          <option value="6">Slide 07: 72法則購買力蒸發</option>
+          <option value="7">Slide 08: 需求拉動 vs 成本推動</option>
+          <option value="8">Slide 09: 工資—物價螺旋</option>
+          <option value="9">Slide 10: 第一小時小結</option>
+          <option value="10">Slide 11: 縮性通膨概念</option>
+          <option value="11">Slide 12: 零食縮水對照</option>
+          <option value="12">Slide 13: 享樂品質調整爭議</option>
+          <option value="13">Slide 14: 費雪方程式負利率</option>
+          <option value="14">Slide 15: 通膨稅與財富再分配</option>
+          <option value="15">Slide 16: 菜單成本與鞋皮成本</option>
+          <option value="16">Slide 17: 通膨預期自我實現</option>
+          <option value="17">Slide 18: 魏瑪惡性通膨災難</option>
+          <option value="18">Slide 19: 3大實用防禦指南</option>
+          <option value="19">Slide 20: 第二小時小結</option>
+          <option value="20">Slide 21: 主計總處數據庫實查</option>
+          <option value="21">Slide 22: 央行 2% 目標邏輯</option>
+          <option value="22">Slide 23: 4大抗通膨資產對決</option>
+          <option value="23">Slide 24: 實質薪資成長率算式</option>
+          <option value="24">Slide 25: 巴菲特企業訂價權</option>
+          <option value="25">Slide 26: 居住類房租黏性滯後</option>
+          <option value="26">Slide 27: 綠色通膨與碳定價</option>
+          <option value="27">Slide 28: 個人資產防禦4支柱</option>
+          <option value="28">Slide 29: 第二週全景知識圖譜</option>
+          <option value="29">Slide 30: 學習反思與下週預告</option>
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: PURCHASING POWER LAB ==================== -->
+  <div id="modalPurchasingPower" class="modal-overlay">
+    <div class="modal-container" style="max-width: 900px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎯 第 1 小時專屬活動：個人實質購買力縮水計算盤</h3>
+          <p>量化個人加薪與外食/房租漲幅之間的真實落差 ‧ 破解「加薪了卻更窮」的迷霧</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalPurchasingPower')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="margin-bottom: 16px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <span style="font-size: 0.82rem; font-weight: 800; color: #475569;">一鍵快速套用情境：</span>
+          <button class="btn-nav-step pp-preset-btn" data-preset="student">🎓 大學打工族</button>
+          <button class="btn-nav-step pp-preset-btn" data-preset="freshman">💼 租屋新鮮人</button>
+          <button class="btn-nav-step pp-preset-btn" data-preset="midcareer">🏠 雙薪房貸族</button>
+        </div>
+
+        <div class="pp-calc-grid">
+          <!-- Left Inputs -->
+          <div class="pp-input-panel">
+            <div class="hw-form-row">
+              <label>每月名目收入 / 薪資 (元)：</label>
+              <input type="number" id="ppIncomeInput" value="35000" step="1000">
+            </div>
+
+            <div class="hw-form-row">
+              <label>今年名目薪資調升幅度 (%)：</label>
+              <input type="number" id="ppWageGrowthInput" value="3.0" step="0.5">
+            </div>
+
+            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 6px 0;">
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="hw-form-row">
+                <label>🍽️ 外食支出佔比 (%)：</label>
+                <input type="number" id="ppFoodShareInput" value="40" min="0" max="100">
+              </div>
+              <div class="hw-form-row">
+                <label>外食年漲幅 (%)：</label>
+                <input type="number" id="ppFoodInfInput" value="8.5" step="0.5">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="hw-form-row">
+                <label>🏠 居住租金佔比 (%)：</label>
+                <input type="number" id="ppHousingShareInput" value="35" min="0" max="100">
+              </div>
+              <div class="hw-form-row">
+                <label>房租年漲幅 (%)：</label>
+                <input type="number" id="ppHousingInfInput" value="7.0" step="0.5">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="hw-form-row">
+                <label>🚗 其他生活雜項 (%)：</label>
+                <input type="number" id="ppOtherShareInput" value="25" min="0" max="100">
+              </div>
+              <div class="hw-form-row">
+                <label>其他年漲幅 (%)：</label>
+                <input type="number" id="ppOtherInfInput" value="4.0" step="0.5">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Results -->
+          <div class="pp-results-panel">
+            <div>
+              <div class="pp-stat-row">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">個人加權綜合通膨率：</span>
+                <span id="ppPersonalInfResult" class="pp-stat-val" style="color: #dc2626;">6.9%</span>
+              </div>
+              <div class="pp-stat-row">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">實質薪資成長率：</span>
+                <span id="ppRealWageGrowthResult" class="pp-stat-val bad">-3.65%</span>
+              </div>
+              <div class="pp-stat-row">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">每月實質購買力差額：</span>
+                <span id="ppMonthlyDeficitResult" class="pp-stat-val bad">-$1,365 元</span>
+              </div>
+              <div class="pp-stat-row">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">折合排骨便當每月損失：</span>
+                <span id="ppBentoLossResult" style="font-weight: 800; color: #1e293b;">約 11 個便當 / 月</span>
+              </div>
+              <div class="pp-stat-row">
+                <span style="font-size: 0.88rem; color: #475569; font-weight: 700;">72法則購買力減半剩餘：</span>
+                <span id="ppHalfLifeResult" style="font-weight: 800; color: #b91c1c;">10.4 年</span>
+              </div>
+            </div>
+
+            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed #cbd5e1;">
+              <div id="ppDiagnosisText" style="font-size: 0.82rem; color: #334155; line-height: 1.5;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalPurchasingPower')">完成計算並關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: SHRINKFLATION DETECTIVE ==================== -->
+  <div id="modalShrinkflation" class="modal-overlay">
+    <div class="modal-container" style="max-width: 920px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎯 第 2 小時專屬活動：隱形縮性通膨 (Shrinkflation) 偵探考驗</h3>
+          <p>看穿廠商不調標價卻暗中減量的視覺戲法 ‧ 精算單位價格 (元/克) 與實質調漲率</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalShrinkflation')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="shrink-lab-layout">
+          <!-- Sidebar Cases -->
+          <div class="shrink-cases-sidebar">
+            <span style="font-size: 0.82rem; font-weight: 800; color: #475569;">經典真實案例：</span>
+            <div id="shrinkCasesList"></div>
+          </div>
+
+          <!-- Main Dashboard -->
+          <div class="shrink-calc-dashboard">
+            <h5 style="font-size: 1rem; font-weight: 800; margin-bottom: 12px;">🧮 規格與單位價格精算台</h5>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
+              <div style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <div style="font-size: 0.82rem; font-weight: 800; color: #2563eb; margin-bottom: 6px;">舊規格 (縮水前)</div>
+                <div class="hw-form-row">
+                  <label>容量 / 重量：</label>
+                  <input type="number" id="inputOldWeight" value="85">
+                </div>
+                <div class="hw-form-row">
+                  <label>售價 (元)：</label>
+                  <input type="number" id="inputOldPrice" value="35">
+                </div>
+                <div style="margin-top: 8px; font-size: 0.82rem; font-weight: 700;">舊單位價格：<span id="shrinkOldUnitPrice" style="color: #2563eb;">$0.4118 / 單位</span></div>
+              </div>
+
+              <div style="background: #fff5f5; padding: 12px; border-radius: 8px; border: 1px solid #fecaca;">
+                <div style="font-size: 0.82rem; font-weight: 800; color: #dc2626; margin-bottom: 6px;">新規格 (縮水後)</div>
+                <div class="hw-form-row">
+                  <label>容量 / 重量：</label>
+                  <input type="number" id="inputNewWeight" value="70">
+                </div>
+                <div class="hw-form-row">
+                  <label>售價 (元)：</label>
+                  <input type="number" id="inputNewPrice" value="35">
+                </div>
+                <div style="margin-top: 8px; font-size: 0.82rem; font-weight: 700;">新單位價格：<span id="shrinkNewUnitPrice" style="color: #dc2626;">$0.5000 / 單位</span></div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; background: #f8fafc; padding: 14px; border-radius: 8px; margin-bottom: 14px;">
+              <div>
+                <span style="font-size: 0.82rem; color: #64748b; font-weight: 700;">實質隱性調漲幅度：</span>
+                <div id="shrinkHikePercent" class="shrink-stat-val bad">+21.4%</div>
+              </div>
+              <div>
+                <span style="font-size: 0.82rem; color: #64748b; font-weight: 700;">相當於原容量直接暴漲至：</span>
+                <div id="shrinkEquivPrice" style="font-size: 1.5rem; font-weight: 900; color: #1e293b;">$42.5 元</div>
+              </div>
+            </div>
+
+            <div id="shrinkTacticsText" style="background: #faf5ff; border-left: 4px solid #7c3aed; padding: 12px; border-radius: 4px; font-size: 0.82rem; line-height: 1.6; color: #334155;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalShrinkflation')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: DETECTIVE GAME ==================== -->
+  <div id="modalDetective" class="modal-overlay">
+    <div class="modal-container" style="max-width: 820px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時小遊戲：物價與通膨真相大挑戰 (4 關卡)</h3>
+          <p>盲測頻率偏誤、精算縮水調漲率、費雪方程式奪魂鋸與巴菲特護城河</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDetective')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="gameLevelContainer"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDetective')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK REPORT ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container" style="max-width: 920px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第二週課堂實務作業：個人 CPI 權數自訂與抗通膨報告</h3>
+          <p>自訂個人消費籃子 ‧ 查核縮性通膨案例 ‧ 演練費雪算式 ‧ 規劃四大資產長城</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-nav-step hw-preset-btn">🎓 一鍵套用：大二租屋學生範本</button>
+          </div>
+          <span style="font-size: 0.78rem; color: #64748b;">評分規準：4 大維度各佔 25% ‧ 自動儲存於本機</span>
+        </div>
+
+        <form id="w2HomeworkForm" onsubmit="return false;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="hw-form-row">
+              <label>學生姓名：</label>
+              <input type="text" id="hwStudentName" placeholder="請輸入姓名">
+            </div>
+            <div class="hw-form-row">
+              <label>學號：</label>
+              <input type="text" id="hwStudentId" placeholder="例如：B11307001">
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 16px 0;">
+
+          <div class="hw-form-row">
+            <label>1. 個人 CPI 消費組合權數自訂與官方落差分析 (佔比 25%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">盤點個人每月真實支出（食物、居住、交通、3C娛樂），計算個人專屬權數並分析與官方 2.1% 的落差原因。</p>
+            <textarea id="hwCpiAnalysis" rows="4" placeholder="請填寫你的個人開銷結構與官方落差分析..."></textarea>
+          </div>
+
+          <div class="hw-form-row">
+            <label>2. 生活周遭縮性通膨 (Shrinkflation) 案例查核 (佔比 25%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">找出身邊一個真實商品案例，列出舊新規格與售價，計算出單位價格 (元/克或元/ml) 與廠商調漲率。</p>
+            <textarea id="hwShrinkCase" rows="4" placeholder="請填寫生活縮性通膨案例查核..."></textarea>
+          </div>
+
+          <div class="hw-form-row">
+            <label>3. 費雪方程式個人實質報酬率演練 (佔比 25%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">帶入 r = i - π，評估你目前的存款或投資工具，算確認是處於『實質增值』還是『負實質利率侵蝕』狀態。</p>
+            <textarea id="hwFisherExercise" rows="4" placeholder="請帶入費雪公式進行個人資產報酬率演練..."></textarea>
+          </div>
+
+          <div class="hw-form-row">
+            <label>4. 4 大抗通膨資產終身調配策略與反思 (佔比 25%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">綜合評估黃金、房產、TIPS、股票與人力資本，針對自身 1~3 年內可支配資金，提出防禦計畫。</p>
+            <textarea id="hwAssetPlan" rows="4" placeholder="請填寫你的抗通膨資產調配方案..."></textarea>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 14px;">
+            <div class="hw-form-row">
+              <label>綜合防禦評級：</label>
+              <select id="hwConclusionGrade">
+                <option value="Highly Defensive">🛡️ Highly Defensive (高防禦力資產)</option>
+                <option value="Moderate Risk">🟡 Moderate Risk (部分受通膨侵蝕)</option>
+                <option value="Severe Erosion">⚠️ Severe Erosion (嚴重負實質利率)</option>
+              </select>
+            </div>
+            <div class="hw-form-row">
+              <label>核心反思與行動總結：</label>
+              <input type="text" id="hwDecisionSummary" placeholder="用一句話總結你的抗通膨行動指南...">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer" style="justify-content: space-between;">
+        <span id="hwSaveStatus" style="font-size: 0.8rem; color: #10b981; font-weight: 700;"></span>
+        <div style="display: flex; gap: 8px;">
+          <button id="btnExportJson" class="btn-nav-step">💾 匯出 JSON</button>
+          <button id="btnExportMd" class="btn-nav-step">📋 複製 Markdown</button>
+          <button id="btnPrintHomework" class="btn-nav-step btn-primary-step">🖨️ 列印 / 轉存 PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第二週 3 小時教學進度與活動配比表</h3>
+          <p>總授課時間 180 分鐘 ‧ 講授、購買力計算盤、縮性通膨偵探與課堂實務作業配置</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #2563eb;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>通膨感知與 CPI 結構 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">便當外食走勢、拉斯皮爾斯公式、消費籃子權數、總體 vs 核心通膨、72法則購買力蒸發、AD-AS模型</span></td>
+              <td>🎯 <strong>專屬活動：個人實質購買力縮水計算盤</strong><br><span style="font-size: 0.78rem;">輸入薪資與外食漲幅，量化個人實質購買力倒退與每月便當損失。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #7c3aed;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>隱形通膨與理論模型 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">縮性通膨 (Shrinkflation)、零食縮水包裝、享樂調整爭議、費雪方程式 (r=i-π)、通膨稅、魏瑪歷史</span></td>
+              <td>🎯 <strong>專屬活動：隱形縮性通膨 (Shrinkflation) 偵探考驗</strong><br><span style="font-size: 0.78rem;">精算零食縮水商品單位價格（元/克），揭開隱性調漲率。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #059669;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>實證數據與資產防禦 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">主計總處 CSV 實查、央行 2% 目標、4大抗通膨資產對決、巴菲特訂價權、房租滯後性、終身防禦四支柱</span></td>
+              <td>🎮 <strong>小遊戲：物價與通膨真相大挑戰 (4關卡)</strong><br>📝 <strong>課堂實務作業：個人 CPI 權數自訂與抗通膨報告現場提交。</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 官方第一手物價與通膨數據資料庫</h3>
+          <p>拒絕網路情緒短影音 ‧ 以第一手審計級時間序列建立客觀財務視野</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="four-sources-matrix">
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.stat.gov.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🇹🇼 行政院主計總處 (DGBAS)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              台灣物價統計發布核心。每月公布 CPI 總指數、368 項商品細項、外食費子指數及歷史 CSV 數據庫。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://fred.stlouisfed.org" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>📈 聖路易聯邦儲備銀行 FRED 資料庫</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              全球最完備的免費總體經濟資料庫。提供美國 CPI、Core PCE、平衡通膨率 (Breakeven Inflation) 與長天期實質利率數列。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.cbc.gov.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🏦 中華民國中央銀行 (CBC)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              台灣貨幣政策核心。公布重貼現率、存款準備率、央行對通膨預期之估測公報與理監事會議事錄。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.bls.gov/cpi/" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🇺🇸 美國勞工統計局 (BLS) CPI 報告</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              全球金融市場每月定價之重磅數據。涵蓋 Shelter 居住類租金、超級核心服務通膨 (Supercore CPI) 及享樂品質調整說明。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="w2-slides-data.js"></script>
+  <script src="w2-activities-data.js"></script>
+  <script src="w2-app.js"></script>
+</body>
+</html>

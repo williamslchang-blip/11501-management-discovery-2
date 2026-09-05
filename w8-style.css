@@ -1,0 +1,588 @@
+/* ==========================================================================
+   W8 SPECIFIC STYLES & INFOGRAPHICS EXTENSION: MIDTERM REVIEW & CASE STUDIES
+   Loaded alongside base style.css
+   ========================================================================== */
+
+:root {
+  --w8-primary: #4338ca;       /* Indigo Royal Midterm */
+  --w8-primary-light: #eef2ff; /* Soft Indigo */
+  --w8-secondary: #0ea5e9;     /* Sky Blue */
+  --w8-secondary-light: #f0f9ff;
+  --w8-accent: #f59e0b;        /* Amber Gold */
+  --w8-accent-light: #fffbeb;
+  --w8-success: #10b981;       /* Emerald Safe */
+  --w8-success-light: #f0fdf4;
+  --w8-danger: #ef4444;        /* Crimson Trap */
+  --w8-danger-light: #fef2f2;
+  --w8-border: #e2e8f0;
+  --w8-card-bg: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Visual Diagram Container & Infographic Components
+   -------------------------------------------------------------------------- */
+.visual-diagram-card {
+  background: transparent;
+  border-radius: var(--radius-sm, 8px);
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.diagram-header {
+  margin-bottom: 12px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.diagram-header h4 {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+
+.diagram-header .sub-tag {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Case Study Cards */
+.case-study-box {
+  background: #f8fafc;
+  border: 1px solid var(--w8-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 10px 0;
+}
+
+.case-study-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  background: var(--w8-primary-light);
+  color: var(--w8-primary);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+/* 30/50/20 Asset Allocation Visualization */
+.asset-triad-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 0.8fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.asset-bar-card {
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  border: 1px solid var(--w8-border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.asset-bar-card.savings { background: #eff6ff; border-top: 4px solid #2563eb; }
+.asset-bar-card.stock { background: #f0fdf4; border-top: 4px solid #16a34a; }
+.asset-bar-card.fx { background: #fffbeb; border-top: 4px solid #d97706; }
+
+.asset-bar-card .asset-pct {
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin: 4px 0;
+}
+
+.asset-bar-card.savings .asset-pct { color: #1d4ed8; }
+.asset-bar-card.stock .asset-pct { color: #15803d; }
+.asset-bar-card.fx .asset-pct { color: #b45309; }
+
+/* --------------------------------------------------------------------------
+   Modal Activity Banners & Controls
+   -------------------------------------------------------------------------- */
+.activity-banner {
+  background: linear-gradient(135deg, #eef2ff 0%, #f0f9ff 100%);
+  border: 1px solid #c7d2fe;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.banner-tag {
+  display: inline-block;
+  padding: 3px 8px;
+  background: var(--w8-primary);
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.activity-banner h4 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.activity-banner p {
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Presets Bar */
+.preset-buttons-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.preset-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.asset-preset-btn,
+.myth-tab-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.asset-preset-btn:hover,
+.myth-tab-btn:hover {
+  border-color: var(--w8-primary);
+  color: var(--w8-primary);
+  background: var(--w8-primary-light);
+}
+
+.asset-preset-btn.active,
+.myth-tab-btn.active {
+  background: var(--w8-primary);
+  color: #ffffff;
+  border-color: var(--w8-primary);
+  box-shadow: 0 2px 6px rgba(67, 56, 202, 0.25);
+}
+
+/* Calculator Grid */
+.calc-input-grid {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.calc-field label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.calc-field input,
+.calc-field select {
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.calc-field input:focus,
+.calc-field select:focus {
+  border-color: var(--w8-primary);
+  box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
+}
+
+/* Results Panel */
+.calc-results-panel {
+  display: grid;
+  gap: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+}
+
+.result-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.r-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.r-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+/* --------------------------------------------------------------------------
+   Quiz Game Modal Elements
+   -------------------------------------------------------------------------- */
+.quiz-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.quiz-badge-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.quiz-badge {
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.quiz-score-badge {
+  background: #fef3c7;
+  color: #b45309;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.quiz-scenario {
+  background: #ffffff;
+  border-left: 4px solid var(--w8-primary);
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #1e293b;
+  margin-bottom: 14px;
+}
+
+.quiz-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-quiz-option {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.4;
+}
+
+.btn-quiz-option:hover:not(:disabled) {
+  border-color: var(--w8-primary);
+  background: var(--w8-primary-light);
+  transform: translateX(3px);
+}
+
+.btn-quiz-option.correct {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  color: #15803d;
+  font-weight: 700;
+}
+
+.btn-quiz-option.wrong {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #b91c1c;
+}
+
+/* --------------------------------------------------------------------------
+   Homework Modal Elements
+   -------------------------------------------------------------------------- */
+.modal-hw-wide {
+  max-width: 960px !important;
+  width: 95vw;
+}
+
+.hw-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.hw-student-inputs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hw-student-inputs input,
+.hw-student-inputs select {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e293b;
+  outline: none;
+}
+
+.hw-student-inputs input:focus,
+.hw-student-inputs select:focus {
+  border-color: var(--w8-primary);
+  box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
+}
+
+.hw-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hw-preset-btn {
+  background: var(--w8-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.hw-preset-btn:hover {
+  background: #3730a3;
+}
+
+.save-status-text {
+  font-size: 0.78rem;
+  color: #10b981;
+  font-weight: 700;
+}
+
+.hw-rubric-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.hw-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.hw-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.hw-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--w8-primary-light);
+  color: var(--w8-primary);
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.hw-card-header h5 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.hw-card textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #1e293b;
+  line-height: 1.55;
+  resize: vertical;
+  min-height: 90px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.hw-card textarea:focus {
+  border-color: var(--w8-primary);
+  box-shadow: 0 0 0 3px rgba(67, 56, 202, 0.12);
+}
+
+.hw-summary-row {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 12px;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+.hw-grade-select label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  margin-right: 6px;
+}
+
+.hw-grade-select select {
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.hw-summary-input input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.hw-footer-flex {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-hw-action {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-hw-action:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+/* --------------------------------------------------------------------------
+   Draw Toolbar Actions
+   -------------------------------------------------------------------------- */
+.draw-action-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding-left: 8px;
+  border-left: 1px solid #cbd5e1;
+}
+
+.btn-draw-action {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-draw-action:hover {
+  background: #e2e8f0;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Rules
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .asset-triad-grid,
+  .hw-rubric-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-input-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .calc-results-panel {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .hw-summary-row {
+    grid-template-columns: 1fr;
+  }
+}

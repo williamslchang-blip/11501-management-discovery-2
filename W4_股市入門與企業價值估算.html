@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W4 股市入門與企業價值估算 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w4-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：股市入門與企業價值估算" data-i18n-en="Explorations in Management II: Stock Market Fundamentals & Corporate Valuation">管理探索二：股市入門與企業價值估算</h1>
+        <p data-i18n-zh="115學年度 ‧ 第四週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 4: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第四週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalStockEquity')">
+        <span>🎯</span>
+        <span data-i18n-zh="1小時: 零股股利試算" data-i18n-en="Hr 1: Dividend Lab">1小時: 零股股利試算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalValuation')">
+        <span>🎯</span>
+        <span data-i18n-zh="2小時: 珍奶本益比" data-i18n-en="Hr 2: Boba Valuation">2小時: 珍奶本益比</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalStockGame')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 估值大挑戰" data-i18n-en="Hr 3: Valuation Quiz">3小時: 估值大挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="證券數據庫" data-i18n-en="Data Hubs">證券數據庫</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+        <button class="btn-draw-tool" data-tool="eraser">🧹 <span data-i18n-zh="橡皮擦" data-i18n-en="Eraser">橡皮擦</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active" style="background: #ef4444;" data-color="#ef4444"></span>
+        <span class="color-swatch" style="background: #3b82f6;" data-color="#3b82f6"></span>
+        <span class="color-swatch" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch" style="background: #f59e0b;" data-color="#f59e0b"></span>
+        <span class="color-swatch" style="background: #8b5cf6;" data-color="#8b5cf6"></span>
+        <span class="color-swatch" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnClearDrawing" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+        <button id="btnSaveDrawing" class="btn-draw-action">💾 <span data-i18n-zh="存圖" data-i18n-en="Snapshot">存圖</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">股票本質與資本市場</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">買股票到底是在買什麼？資本利得與股利分紅的本質</h2>
+            <p id="slideSubtitle" class="subtitle">115學年度 第四週 ‧ 第 1 小時核心模組</p>
+          </div>
+
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">載入中...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer (100+ words detailed teaching core) -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 100+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (100+ Words)">📘 教學指引詳解 (每頁 100+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #b45309; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Deck Controls -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu" onchange="jumpToSlide(parseInt(this.value))">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalStockEquity" class="modal-overlay">
+    <div class="modal-container" style="max-width: 800px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎯 第 1 小時專屬活動：股權價值與零股股利計算盤</h3>
+          <p>以台積電與指標龍頭為例 ‧ 體會微型股權所有權與現金股利被動收入</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalStockEquity')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">實戰工具</div>
+          <h4>零股微型股東 ‧ 現金股利被動收入試算</h4>
+          <p>輸入你想買進的標的股價、持有股數與每季現金股利，系統將為你精算全年被動收入、殖利率與持有公司真實股權比例！</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入真實企業數據：</span>
+          <button class="eq-preset-btn" data-preset="tsmc">台積電 (2330 / 100股)</button>
+          <button class="eq-preset-btn" data-preset="mediatek">聯發科 (2454 / 50股)</button>
+          <button class="eq-preset-btn" data-preset="apple">蘋果 AAPL (10股)</button>
+        </div>
+
+        <div class="calc-input-grid">
+          <div class="calc-field">
+            <label>每股市價 (元)</label>
+            <input type="number" id="eqPriceInput" value="1000" step="10">
+          </div>
+          <div class="calc-field">
+            <label>持有股數 (股)</label>
+            <input type="number" id="eqSharesInput" value="100" step="10">
+          </div>
+          <div class="calc-field">
+            <label>每季每股現金股利 (元)</label>
+            <input type="number" id="eqDivInput" value="4.0" step="0.5">
+          </div>
+        </div>
+
+        <div class="calc-results-panel">
+          <div class="result-metric">
+            <span class="r-label">總投資成本</span>
+            <span id="eqCostResult" class="r-value">$100,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">全年現金股利收入</span>
+            <span id="eqDivResult" class="r-value" style="color: #059669;">+$1,600 元 / 年</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">現金殖利率 (年化)</span>
+            <span id="eqYieldResult" class="r-value" style="color: #2563eb;">1.60%</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">持有公司股權比例</span>
+            <span id="eqOwnerResult" class="r-value" style="font-size: 1.1rem;">0.00000038%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalStockEquity')">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalValuation" class="modal-overlay">
+    <div class="modal-container" style="max-width: 850px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎯 第 2 小時專屬活動：珍奶店 A vs. B 本益比與 PEG 估值比較器</h3>
+          <p>擺脫標籤價格盲點 ‧ 精算彼得林區 PEG 指標 ‧ 判斷真實便宜與昂貴</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalValuation')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">估值模型</div>
+          <h4>彼得林區 PEG 成長性估值比較</h4>
+          <p>輸入企業總市值、全年淨利與預估未來年化成長率，精算 P/E 與 PEG，自動診斷合理價位區間！</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">載入商業個案：</span>
+          <button class="val-case-btn" data-case="0">珍奶店 A (超值便宜)</button>
+          <button class="val-case-btn" data-case="1">珍奶店 B (嚴重泡沫)</button>
+          <button class="val-case-btn" data-case="2">伺服器廠 C (成長爆發)</button>
+        </div>
+
+        <div class="calc-input-grid">
+          <div class="calc-field">
+            <label>公司總市值 (萬元)</label>
+            <input type="number" id="valCapInput" value="1000" step="100">
+          </div>
+          <div class="calc-field">
+            <label>全年稅後淨利 (萬元)</label>
+            <input type="number" id="valIncomeInput" value="100" step="10">
+          </div>
+          <div class="calc-field">
+            <label>預估未來年獲利成長率 (%)</label>
+            <input type="number" id="valGrowthInput" value="20" step="5">
+          </div>
+        </div>
+
+        <div class="calc-results-panel">
+          <div class="result-metric">
+            <span class="r-label">P/E 本益比</span>
+            <span id="valPeResult" class="r-value">10.0 倍</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">彼得林區 PEG</span>
+            <span id="valPegResult" class="r-value" style="color: #059669;">0.50</span>
+          </div>
+        </div>
+
+        <div id="valDiagResult" style="margin-top: 15px; padding: 14px; border-radius: 8px; background: #f8fafc; border: 1px solid #e2e8f0; font-size: 0.95rem;">
+          <span class="badge-alert green">顯著低估便宜</span> PEG 低於 0.75，獲利成長動能遠超估值倍數，具備優異投資吸引力！
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalValuation')">完成估值，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalStockGame" class="modal-overlay">
+    <div class="modal-container" style="max-width: 820px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時小遊戲：股市入門與企業價值估值大挑戰 (4 關卡)</h3>
+          <p>身歷其境挑戰 4 大投資情境題 ‧ 全對通關可獲榮譽結業證書！</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalStockGame')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="stockGameLevelContainer">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step" onclick="closeModal('modalStockGame')">暫離遊戲</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container modal-hw-wide">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第四週課堂實務作業：標的企業本益比與 ROE 估值分析報告</h3>
+          <p>落實 100 分審計規準 ‧ 支援本地草稿即時儲存、Markdown 一鍵複製與 JSON 匯出</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：林庭宇)" style="width: 160px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307042)" style="width: 160px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn">📄 載入台積電實戰優良範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. 企業與商業模式 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度一 (25%)</span>
+              <h5>1. 標的企業與商業模式概述</h5>
+            </div>
+            <textarea id="hwCompanySummary" rows="4" placeholder="挑選一家上市櫃企業，說明其主要產品營收佔比、產業競爭地位與獲利來源..."></textarea>
+          </div>
+
+          <!-- 2. P/E 與 PEG 分析 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度二 (25%)</span>
+              <h5>2. 本益比 P/E 與 PEG 估值分析</h5>
+            </div>
+            <textarea id="hwPeAnalysis" rows="4" placeholder="查閱 MOPS 取得近四季 EPS，計算當前 P/E，並對照近三年歷史本益比河流圖與同業中位數，評估估值高低..."></textarea>
+          </div>
+
+          <!-- 3. ROE 與獲利品質 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度三 (25%)</span>
+              <h5>3. ROE 股東權益報酬率與獲利品質</h5>
+            </div>
+            <textarea id="hwRoeAnalysis" rows="4" placeholder="檢視近三年 ROE 是否穩定維持 15% 以上，並運用杜邦分析法檢查高 ROE 是來自高純益率還是高槓桿負債..."></textarea>
+          </div>
+
+          <!-- 4. 估值結論與行動方案 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度四 (25%)</span>
+              <h5>4. 估值結論與青年投資紀律行動方案</h5>
+            </div>
+            <textarea id="hwActionPlan" rows="4" placeholder="計算葛拉漢安全邊際 (Margin of Safety)，擬定定期定額零股買進計畫與停損停利紀律..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>最終估值綜合評級：</label>
+            <select id="hwConclusionGrade">
+              <option value="Highly Undervalued">Highly Undervalued (顯著低估 ‧ 逢低布局)</option>
+              <option value="Fairly Priced">Fairly Priced (合理定價 ‧ 定期定額)</option>
+              <option value="Overvalued Bubble">Overvalued Bubble (估值泡沫 ‧ 謹慎觀望)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：專注先進製程高護城河，以安全邊際耐心分批持有)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第四週教學進度表與 3 小時結構</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #2563eb;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>股票本質與資本市場 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">微型所有權、一級 IPO vs 二級集中撮合、股東四大權利、台積電外資結構 (73%)、盤中零股新制、除權息真諦。</span></td>
+              <td>🎯 <strong>專屬活動：零股股利與股權計算盤</strong><br><span style="font-size: 0.78rem;">輸入持有股數與季配息，量化年度被動收入與持有真實股權比例。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #7c3aed;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>企業價值與估值指標 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">價格 vs 價值天秤、本益比 (P/E) 雙向指標、珍奶店 A vs B 實戰估值、彼得林區 PEG 成長比、高殖利率陷阱、巴菲特 ROE 杜邦分析。</span></td>
+              <td>🎯 <strong>專屬活動：珍奶店 A vs. B 本益比與 PEG 估值比較器</strong><br><span style="font-size: 0.78rem;">輸入市值、獲利與成長率，自動研判昂貴、合理與超值便宜。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #059669;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>護城河與決策紀律 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">巴菲特五大經濟護城河、葛拉漢安全邊際 (Margin of Safety)、市場先生寓言、自由現金流生命線、MOPS 財報審查、大一 4 大投資金律。</span></td>
+              <td>🎮 <strong>小遊戲：股市入門與企業價值估值大挑戰 (4關卡)</strong><br>📝 <strong>課堂實務作業：標的企業本益比與 ROE 估值分析報告現場提交。</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 官方第一手證券市場與企業財報資料庫</h3>
+          <p>拒絕社群聽明牌與網路投顧 ‧ 以第一手審計級財報建立客觀估值視野</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="four-sources-matrix">
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://mops.twse.com.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🇹🇼 公開資訊觀測站 (MOPS)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              台灣上市櫃公司法定資訊揭露核心。提供經會計師簽證之資產負債表、損益表、現金流量表、重大訊息與歷年股利配發記錄。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.twse.com.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>📈 臺灣證券交易所 (TWSE)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              台灣股票集中交易權威官方平台。提供每日大盤成交量、三大法人買賣超、融資融券、本益比、殖利率及盤中零股交易統計。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://fred.stlouisfed.org" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🏦 聖路易聯邦儲備銀行 FRED 資料庫</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              全球最完備的免費總體經濟資料庫。提供美股 S&P 500 席勒本益比 (Shiller P/E)、美債實質殖利率與企業違約利差等長線數據。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.sec.gov/edgar" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🇺🇸 美國證券交易委員會 SEC EDGAR</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              美股全球投資人必備聖殿。直接查閱 Apple、Microsoft、TSM ADR 之年度 10-K 與季度 10-Q 審計報告及內部人交易申報。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="w4-slides-data.js"></script>
+  <script src="w4-activities-data.js"></script>
+  <script src="w4-app.js"></script>
+</body>
+</html>

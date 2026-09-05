@@ -1,0 +1,172 @@
+/* ==========================================================================
+   W12 SPECIFIC STYLES & INFOGRAPHICS EXTENSION: BALANCE SHEET & CASH FLOW
+   Loaded alongside base style.css
+   ========================================================================== */
+
+:root {
+  --w12-primary: #059669;       /* Wealth Emerald Green */
+  --w12-primary-light: #ecfdf5;
+  --w12-secondary: #0284c7;     /* Cash Flow Cyan Blue */
+  --w12-secondary-light: #f0f9ff;
+  --w12-accent: #d97706;        /* Growth Amber */
+  --w12-accent-light: #fffbeb;
+  --w12-danger: #ef4444;        /* Debt Crimson */
+  --w12-danger-light: #fef2f2;
+  --w12-border: #cbd5e1;
+  --w12-card-bg: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Visual Diagram Container & Infographic Components
+   -------------------------------------------------------------------------- */
+.visual-diagram-card {
+  background: transparent;
+  border-radius: var(--radius-sm, 8px);
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.diagram-header {
+  margin-bottom: 10px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.diagram-header h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+
+.diagram-header .sub-tag {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Balance Sheet Pillars Grid
+   -------------------------------------------------------------------------- */
+.bs-pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.bs-pillar-box {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.bs-pillar-box.liquid {
+  border-top: 4px solid var(--w12-primary);
+  background: #ecfdf5;
+}
+
+.bs-pillar-box.invest {
+  border-top: 4px solid #0284c7;
+  background: #f0f9ff;
+}
+
+.bs-pillar-box.use {
+  border-top: 4px solid #d97706;
+  background: #fffbeb;
+}
+
+/* --------------------------------------------------------------------------
+   Cash Flow 50/30/20 Allocation Bar
+   -------------------------------------------------------------------------- */
+.cf-allocation-bar {
+  display: flex;
+  height: 28px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 10px 0;
+  border: 1px solid #cbd5e1;
+}
+
+.cf-bar-needs {
+  background: #0284c7;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.cf-bar-wants {
+  background: #d97706;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.cf-bar-savings {
+  background: #059669;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Modal Calculator Components
+   -------------------------------------------------------------------------- */
+.calc-field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 4px;
+}
+
+.calc-field input, .calc-field select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.calc-results-panel {
+  display: grid;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.result-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-metric .r-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.result-metric .r-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+}

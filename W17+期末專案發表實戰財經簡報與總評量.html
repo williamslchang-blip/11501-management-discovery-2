@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W17 期末專案發表實戰財經簡報與總評量 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w17-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge" style="background: linear-gradient(135deg, #1d4ed8, #1e3a8a);">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：期末專案發表實戰、財經簡報與總評量" data-i18n-en="Explorations in Management II: Final Pitchingの実戰, Financial Deck & Capstone Rubric">管理探索二：期末專案發表實戰、財經簡報與總評量</h1>
+        <p data-i18n-zh="115學年度 ‧ 第十七週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 17: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第十七週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalPitchRubricLab')">
+        <span>⏱️</span>
+        <span data-i18n-zh="1小時: 簡報控時試算" data-i18n-en="Hr 1: Pitch Timing">1小時: 簡報控時試算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalPeerReviewLab')">
+        <span>⚖️</span>
+        <span data-i18n-zh="2小時: 同儕互評精算" data-i18n-en="Hr 2: Peer Review">2小時: 同儕互評精算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalPitchGame')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 財經表達達人" data-i18n-en="Hr 3: Pitch Master">3小時: 財經表達達人</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>📊</span>
+        <span data-i18n-zh="商業競賽專區" data-i18n-en="Competition Hub">商業競賽專區</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button id="btnToolPen" class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button id="btnToolHighlighter" class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active btn-color-dot" style="background: #1d4ed8;" data-color="#1d4ed8"></span>
+        <span class="color-swatch btn-color-dot" style="background: #eab308;" data-color="#eab308"></span>
+        <span class="color-swatch btn-color-dot" style="background: #059669;" data-color="#059669"></span>
+        <span class="color-swatch btn-color-dot" style="background: #dc2626;" data-color="#dc2626"></span>
+        <span class="color-swatch btn-color-dot" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnToolClear" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">簡報架構與控時</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第十七週課程導論：期末專案發表實戰、財經簡報與總評量</h2>
+            <p id="slideSubtitle" class="subtitle">10 分鐘商業 Pitch ‧ 痛點數據化 ‧ 專家評審盲點 ‧ 同儕互評與終極發表</p>
+          </div>
+
+          <!-- CRITICAL: .slide-content-grid Container -->
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">在短短 10 分鐘的期末商業發表中，你如何用前 60 秒牢牢抓住評審目光，並在 Q&A 環節以實打實的財務數據化解質疑？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 150+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (150+ Words)">📘 教學指引詳解 (每頁 150+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #1d4ed8; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Presentation Bar -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step" style="background:#1d4ed8;">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalPitchRubricLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>⏱️ 第 1 小時專屬活動：商業簡報發表控時與評分標準試算器</h3>
+          <p>輸入簡報總分鐘數、投影片頁數與 Hook/Body/Q&A 配比 ‧ 精算每頁平均停留秒數、配速評分與控時風險警示</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalPitchRubricLab')">&times;</button>
+      </div>
+      <div class="modal-body">
+<div class="activity-banner">
+<div class="banner-tag">發表控時精算</div>
+<h4>時間是頂級講者的第一生命線！精準把握 8 分鐘發表與 2 分鐘 Q&amp;A！</h4>
+<p>輸入發表總時間與頁數，系統即時精算各階段配時、每頁停留秒數與超時風險指標。</p>
+</div>
+<div class="preset-buttons-bar">
+<span class="preset-label">快速載入發表模式：</span>
+<button class="asset-preset-btn btn-preset-pitch active" data-preset="standard_8min_pitch">標準 8 分鐘投資人 Pitch (10頁 ‧ 2分Q&amp;A)</button>
+<button class="asset-preset-btn btn-preset-pitch" data-preset="deep_12min_academic">深度 12 分鐘學術發表 (15頁 ‧ 3分Q&amp;A)</button>
+<button class="asset-preset-btn btn-preset-pitch" data-preset="compact_5min_lightning">緊湊 5 分鐘電梯快閃 (6頁 ‧ 1分Q&amp;A)</button>
+</div>
+<div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; margin-top: 10px;">
+<div class="calc-field">
+<label>1. 發表總時長 (分鐘)</label>
+<input id="pitchTotalMinutes" max="30" min="3" step="1" type="number" value="8"/>
+</div>
+<div class="calc-field">
+<label>2. 投影片總頁數 (頁)</label>
+<input id="pitchSlidesCount" max="30" min="3" step="1" type="number" value="10"/>
+</div>
+<div class="calc-field">
+<label>3. 留給 Q&amp;A 時間 (分鐘)</label>
+<input id="pitchQaMinutes" max="10" min="1" step="1" type="number" value="2"/>
+</div>
+<div class="calc-field">
+<label>4. 演講語速 (字/分鐘)</label>
+<input id="pitchSpeechRate" max="260" min="120" step="10" type="number" value="180"/>
+</div>
+</div>
+<div class="calc-results-panel" style="grid-template-columns: 1fr 1.2fr 1fr 1.2fr; margin-top: 12px;">
+<div class="result-metric">
+<span class="r-label">每頁平均停留時間</span>
+<span class="r-value" id="outSecPerSlide" style="color: #1d4ed8; font-weight: 900;">36 秒 / 頁</span>
+</div>
+<div class="result-metric">
+<span class="r-label">發表講稿總字數預估</span>
+<span class="r-value" id="outTotalWords" style="color: #0284c7; font-weight: 800;">約 1,080 字</span>
+</div>
+<div class="result-metric">
+<span class="r-label">財務模型深水區配時</span>
+<span class="r-value" id="outFinanceTime" style="color: #059669; font-weight: 900;">2分42秒</span>
+</div>
+<div class="result-metric">
+<span class="r-label">節奏與超時風險評級</span>
+<span class="r-value" id="outTimingRisk" style="color: #059669; font-weight: 900;">正常 (低風險)</span>
+</div>
+</div>
+<div id="outTimingDiagnosis" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #eff6ff; border: 1px solid #bfdbfe; font-size: 0.88rem; line-height: 1.55; color: #1e3a8a;">
+<!-- Populated by JavaScript -->
+</div>
+</div>
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalPitchRubricLab')" style="background:#1d4ed8;">完成試算，返回簡報</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalPeerReviewLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>⚖️ 第 2 小時專屬活動：期末同儕互評與組別總成績精算器</h3>
+          <p>輸入四大維度（邏輯架構、財務可行性、表達風範、視覺設計）分數 ‧ 精算加權總分、等第判定與專家級講評建議</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalPeerReviewLab')">&times;</button>
+      </div>
+      <div class="modal-body">
+<div class="activity-banner">
+<div class="banner-tag">客觀雙重加權</div>
+<h4>學會評核別人，方能昇華自己！落實專家 60% 與同儕 40% 雙軌量化機制！</h4>
+<p>選擇受評組別，在四個維度上給出客觀評分，系統即時精算加權總得分與評審等第。</p>
+</div>
+<div class="preset-buttons-bar">
+<span class="preset-label">快速載入組別評分情境：</span>
+<button class="asset-preset-btn btn-preset-eval active" data-preset="group1_eval">第 1 組 (第一桶金 ‧ 92分)</button>
+<button class="asset-preset-btn btn-preset-eval" data-preset="group3_eval">第 3 組 (半導體台積電 ‧ 93.8分)</button>
+<button class="asset-preset-btn btn-preset-eval" data-preset="group4_eval">第 4 組 (AI 企業 ROI ‧ 94分)</button>
+</div>
+<div class="calc-input-grid" style="grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr; margin-top: 10px;">
+<div class="calc-field">
+<label>1. 受評小組選擇</label>
+<select id="evalGroupSelect" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+<option value="1">第 1 組：大一 30 萬理財第一桶金</option>
+<option value="2">第 2 組：租房 vs. 買房財務決策</option>
+<option value="3">第 3 組：半導體台積電護城河</option>
+<option value="4">第 4 組：AI 效率與企業 ROI</option>
+<option value="5">第 5 組：綠色金融 ESG 永續配置</option>
+<option value="6">第 6 組：Web3 5% 避險配置</option>
+</select>
+</div>
+<div class="calc-field">
+<label>2. 專案邏輯 (30%)</label>
+<input id="scoreLogic" max="100" min="60" step="1" type="number" value="92"/>
+</div>
+<div class="calc-field">
+<label>3. 財務模型 (30%)</label>
+<input id="scoreFinance" max="100" min="60" step="1" type="number" value="94"/>
+</div>
+<div class="calc-field">
+<label>4. 台風視覺 (20%)</label>
+<input id="scoreVisual" max="100" min="60" step="1" type="number" value="88"/>
+</div>
+<div class="calc-field">
+<label>5. Q&amp;A 應對 (20%)</label>
+<input id="scoreQa" max="100" min="60" step="1" type="number" value="90"/>
+</div>
+<div class="calc-field">
+<label>6. 專家給分 (60%權)</label>
+<input id="scoreExpert" max="100" min="60" step="1" type="number" value="92"/>
+</div>
+</div>
+<div class="calc-results-panel" style="grid-template-columns: 1fr 1.2fr 1.2fr; margin-top: 12px;">
+<div class="result-metric">
+<span class="r-label">同儕互評加權平均</span>
+<span class="r-value" id="outPeerWeighted" style="color: #0284c7; font-weight: 900;">91.4 分</span>
+</div>
+<div class="result-metric">
+<span class="r-label">專家同儕雙重總分 (6:4)</span>
+<span class="r-value" id="outFinalScore" style="color: #1d4ed8; font-weight: 900;">91.8 分</span>
+</div>
+<div class="result-metric">
+<span class="r-label">最終期末評定等第</span>
+<span class="r-value" id="outGradeLevel" style="color: #059669; font-weight: 900;">A+ (卓越特優)</span>
+</div>
+</div>
+<div id="outPeerFeedback" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; font-size: 0.88rem; line-height: 1.55; color: #166534;">
+<!-- Populated by JavaScript -->
+</div>
+</div>
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalPeerReviewLab')" style="background:#1d4ed8;">完成評分，返回簡報</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalPitchGame" class="modal-overlay">
+    <div class="modal-container" style="max-width: 800px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時互動遊戲：財經簡報表達達人大挑戰</h3>
+          <p>4 大實戰發表情境關卡 ‧ 檢驗 10-20-30 法則、故事線架構、突發設備故障應對與評審尖銳 Q&A 拆招</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalPitchGame')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="pitchGameContainer"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-nav-step" onclick="closeModal('modalPitchGame')" style="background:#334155; color:#fff;">關閉遊戲視窗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container" style="max-width: 900px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第十七週課堂作業：個人期末簡報反思與學習歷程報告</h3>
+          <p>四維度深度剖析：發表亮點與架構 ‧ 發表控時與 Q&A 檢討 ‧ 同儕互評回饋整合 ‧ 未來三年商業表達躍升 SOP</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：林宥廷)" style="width: 150px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307116)" style="width: 150px;">
+            <input type="text" id="hwTargetPlan" placeholder="規劃主題 (例如：期末財經專案發表實戰總反思與跨領域專業溝通躍升計畫)" style="width: 320px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn" onclick="loadHomeworkTemplate()">📄 載入第十七週發表反思範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. 發表亮點與架構 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#1d4ed8; color:#fff;">維度一 (25%)</span>
+              <h5>1. 期末個人與小組財經簡報發表亮點與架構反思</h5>
+            </div>
+            <textarea id="hwDim1Inventory" rows="4" placeholder="說明本次專案選題之市場痛點、商業模式競爭壁壘與 10 分鐘發表之邏輯展開亮點..."></textarea>
+          </div>
+
+          <!-- 2. 控時技巧與 Q&A -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#eab308; color:#000;">維度二 (25%)</span>
+              <h5>2. 簡報發表控時技巧與現場 Q&A 應對盲點檢討</h5>
+            </div>
+            <textarea id="hwDim2CashFlow" rows="4" placeholder="檢視每頁平均停留秒數、開場 Hook 吸引力，剖析面對評審尖銳提問時之數據化答辯表現與盲點..."></textarea>
+          </div>
+
+          <!-- 3. 同儕回饋整合 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#059669; color:#fff;">維度三 (25%)</span>
+              <h5>3. 同儕互評回饋整合與個人專業表達能力躍升計畫</h5>
+            </div>
+            <textarea id="hwDim3ReserveDebt" rows="4" placeholder="整理同組與外組同學給予之客觀回饋評分，歸納優缺點並擬定個人台風與肢體語言改進策略..."></textarea>
+          </div>
+
+          <!-- 4. 未來三年商業表達 SOP -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#1e293b; color:#fff;">維度四 (25%)</span>
+              <h5>4. 大學未來三年商業簡報與跨領域溝通落地實踐 SOP</h5>
+            </div>
+            <textarea id="hwDim4FireRoadmap" rows="4" placeholder="建立大二至大四參與商管競賽、實習面試與專題報告之模組化 Pitching SOP 與心理調適清單..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>作業自評等級：</label>
+            <select id="hwConclusionGrade">
+              <option value="A+ (全面且具備實戰避險可行性)">A+ (全面且具備實戰避險可行性)</option>
+              <option value="A (理論與財務數據分析完整)">A (理論與財務數據分析完整)</option>
+              <option value="B (具備基本發表溝通觀念)">B (具備基本發表溝通觀念)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：以精密結構掌控時間節奏，結合紮實財務數據與故事力，淬鍊商業說服力)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action" onclick="window.print()">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action" onclick="exportHomeworkJson()">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step" onclick="exportHomeworkMd()" style="background:#1d4ed8;">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第十七週教學進度表與發表進度</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #1d4ed8;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>財經商業簡報架構、控時與 10-20-30 法則 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">開場Hook黃金60秒、 Guy Kawasaki 10-20-30 法則、痛點數據化展開與控時節奏控制。</span></td>
+              <td>⏱️ <strong>專屬活動：商業簡報發表控時與評分標準試算器</strong><br><span style="font-size: 0.78rem;">輸入總時長與頁數精算每頁停留秒數與配速評分。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #b45309;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>專家評審盲點拆招、同儕互評與組別發表 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">創投評審10大常見質疑、財務預測合理性拆解、組別輪流現場發表與專業互評機制。</span></td>
+              <td>⚖️ <strong>專屬活動：期末同儕互評與組別總成績精算器</strong><br><span style="font-size: 0.78rem;">四大維度加權總分精算、等第評定與專家評語生成。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #059669;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>Q&A 實戰拆招、反思回饋與跨領域說服 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">PREP 架構即時答辯、心理調適抗焦慮、同儕回饋覆盤與大學未來跨領域表達藍圖。</span></td>
+              <td>🎮 <strong>小遊戲：財經簡報表達達人大挑戰 (4大關卡)</strong><br>📝 <strong>作業：個人期末簡報反思與學習歷程報告</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')" style="background:#1d4ed8;">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📊 第十七週 商業企劃競賽與專業評量專區</h3>
+          <p>教育部大專院校商管競賽標準與創投 Pitching 專業準則總覽</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hubs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #1d4ed8; font-size: 0.95rem; margin-bottom: 4px;">1. 全國大專商業創新競賽專區</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">查詢 ATCC 全國大專商業個案大賽、TIC100 創新商業企劃評分標準與歷屆得獎簡報。</p>
+            <a href="https://atcc.co" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #1d4ed8; font-weight: 700;">前往 ATCC 官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #eab308; font-size: 0.95rem; margin-bottom: 4px;">2. Y Combinator Pitch Guide</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">學習矽谷殿堂級創投種子輪 Pitch Deck 架構範本與極簡精準表達準則。</p>
+            <a href="https://www.ycombinator.com/library/2u-how-to-build-a-better-pitch-deck" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #ca8a04; font-weight: 700;">前往 YC 簡報資料庫 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #059669; font-size: 0.95rem; margin-bottom: 4px;">3. 台灣證券交易所公開資訊觀測站</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">下載上市櫃公司法人說明會 (法說會) 最新簡報 PDF，學習頂尖財務分析師專業呈現技巧。</p>
+            <a href="https://mops.twse.com.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #059669; font-weight: 700;">前往公開資訊觀測站 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #1e293b; font-size: 0.95rem; margin-bottom: 4px;">4. TED 演講表達訓練精華</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">觀摩世界頂尖領袖演說之身段風範、語速調控與眼神接觸練習方法。</p>
+            <a href="https://www.ted.com" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #1e293b; font-weight: 700;">前往 TED 演講庫 ➔</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')" style="background:#1d4ed8;">關閉資料中心</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules Execution -->
+  <script src="w17-slides-data.js"></script>
+  <script src="w17-activities-data.js"></script>
+  <script src="w17-app.js"></script>
+
+</body>
+</html>

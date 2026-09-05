@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W13 半導體產業護國神山台積電與台灣科技供應鏈 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w13-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge" style="background: linear-gradient(135deg, #0284c7, #0369a1);">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：半導體產業、護國神山台積電與台灣科技供應鏈" data-i18n-en="Explorations in Management II: Semiconductor Industry, TSMC & Silicon Supply Chain">管理探索二：半導體產業、護國神山台積電與台灣科技供應鏈</h1>
+        <p data-i18n-zh="115學年度 ‧ 第十三週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 13: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第十三週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalWaferLab')">
+        <span>🔬</span>
+        <span data-i18n-zh="1小時: 先進製程估值" data-i18n-en="Hr 1: Valuation Lab">1小時: 先進製程估值</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalCapexLab')">
+        <span>🏭</span>
+        <span data-i18n-zh="2小時: CapEx 產能效益" data-i18n-en="Hr 2: CapEx Lab">2小時: CapEx 產能效益</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalSemiconGame')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 半導體挑戰" data-i18n-en="Hr 3: Semicon Game">3小時: 半導體挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="官方數據平台" data-i18n-en="Official Hubs">官方數據平台</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button id="btnToolPen" class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button id="btnToolHighlighter" class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active btn-color-dot" style="background: #0284c7;" data-color="#0284c7"></span>
+        <span class="color-swatch btn-color-dot" style="background: #e11d48;" data-color="#e11d48"></span>
+        <span class="color-swatch btn-color-dot" style="background: #d97706;" data-color="#d97706"></span>
+        <span class="color-swatch btn-color-dot" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch btn-color-dot" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnToolClear" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">產業導論 ‧ 矽島核心</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第十三週課程導論：半導體產業、護國神山台積電與台灣科技供應鏈</h2>
+            <p id="slideSubtitle" class="subtitle">深度解析半導體供應鏈競爭力與台積電核心技術優勢，建立產業與財務分析思維框架</p>
+          </div>
+
+          <!-- CRITICAL: .slide-content-grid Container -->
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">同學們有沒有想過，每天滑的手機或使用的 ChatGPT，背後有哪些台灣晶片在支撐運作？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 150+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (150+ Words)">📘 教學指引詳解 (每頁 150+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #0284c7; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Presentation Bar -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step" style="background:#0284c7;">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalWaferLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🔬 第 1 小時專屬活動：台積電先進製程與毛利率估值試算器</h3>
+          <p>輸入年度預估營收、先進製程佔比與毛利率 ‧ 精算營業毛利、每股盈餘 (EPS) 與合理市值估值</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalWaferLab')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">財務估值精算</div>
+          <h4>技術領先 ➔ 高毛利率定價權 ➔ 充沛自由現金流！驗證半導體龍頭價值核心！</h4>
+          <p>點選下方代表性情境，或自行調整預估參數，系統即時精算毛利總額與市值評價。</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入法人情境：</span>
+          <button class="asset-preset-btn btn-preset-val active" data-preset="baseline_consensus">2024 法人共識基線 (營收2.9兆 ‧ 毛利53.5%)</button>
+          <button class="asset-preset-btn btn-preset-val" data-preset="bull_ai_growth">2025 AI 爆發樂觀情境 (營收3.4兆 ‧ 毛利55%)</button>
+          <button class="asset-preset-btn btn-preset-val" data-preset="cycle_correction">景氣循環修正情境 (營收2.5兆 ‧ 毛利51%)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 預估年度營收 (億 NT$)</label>
+            <input type="number" id="valRevenue" value="29000" min="10000" step="1000">
+          </div>
+          <div class="calc-field">
+            <label>2. 先進製程佔比 (3nm/5nm %)</label>
+            <input type="number" id="valAdvRatio" value="63" min="30" max="95" step="1">
+          </div>
+          <div class="calc-field">
+            <label>3. 財報毛利率目標 (%)</label>
+            <input type="number" id="valGrossMargin" value="53.5" min="40" max="65" step="0.5">
+          </div>
+          <div class="calc-field">
+            <label>4. 預期本益比倍數 (P/E)</label>
+            <input type="number" id="valPeRatio" value="24" min="12" max="35" step="1">
+          </div>
+          <div class="calc-field">
+            <label>5. 研發費用佔比 (R&D %)</label>
+            <input type="number" id="valRdRatio" value="8.5" min="5" max="15" step="0.5">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1fr 1fr 1.2fr 1fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">營業毛利總額</span>
+            <span id="outValGrossProfit" class="r-value" style="color: #0284c7; font-weight: 900;">NT$ 15,515 億元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">預估每股盈餘 (EPS)</span>
+            <span id="outValEps" class="r-value" style="color: #059669; font-weight: 900;">NT$ 43.62 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">每股合理估值</span>
+            <span id="outValTargetPrice" class="r-value" style="color: #0284c7; font-weight: 900;">NT$ 1,047 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">預估總市值</span>
+            <span id="outValMarketCap" class="r-value" style="color: #d97706; font-weight: 800;">27.15 兆元</span>
+          </div>
+        </div>
+
+        <div id="outValDiagnosis" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #f0f9ff; border: 1px solid #bae6fd; font-size: 0.88rem; line-height: 1.55; color: #0369a1;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalWaferLab')" style="background:#0284c7;">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalCapexLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏭 第 2 小時專屬活動：半導體資本支出 (CapEx) 與產能效益試算器</h3>
+          <p>精算每年 300 億美元先進 Fab 與 EUV 投資 ‧ 評估折舊攤提費用與預期產值營收轉換率</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalCapexLab')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">產能效益精算</div>
+          <h4>重資產投資是甩開對手的核武！產能利用率決定折舊負擔是蜜糖還是毒藥！</h4>
+          <p>輸入年度資本支出億美元與產能利用率，觀察折舊與帶動營收之倍數效益。</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入擴產週期：</span>
+          <button class="asset-preset-btn btn-preset-capex active" data-preset="steady_growth">穩健產能推進期 (CapEx 320億 ‧ 利用率92%)</button>
+          <button class="asset-preset-btn btn-preset-capex" data-preset="aggressive_expansion">2nm & CoWoS 擴產激進期 (CapEx 380億 ‧ 利用率98%)</button>
+          <button class="asset-preset-btn btn-preset-capex" data-preset="conservative_consolidation">審慎收縮盤整期 (CapEx 260億 ‧ 利用率85%)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 年度資本支出 (億美元 USD)</label>
+            <input type="number" id="capexAnnualUsd" value="320" min="150" max="500" step="10">
+          </div>
+          <div class="calc-field">
+            <label>2. 美元兌台幣匯率 (USD/TWD)</label>
+            <input type="number" id="capexUsdFx" value="32.0" min="28" max="36" step="0.5">
+          </div>
+          <div class="calc-field">
+            <label>3. 晶圓廠產能利用率 (%)</label>
+            <input type="number" id="capexUtilRate" value="92" min="60" max="100" step="1">
+          </div>
+          <div class="calc-field">
+            <label>4. 設備折舊攤提年限 (年)</label>
+            <input type="number" id="capexDeprYears" value="5" min="3" max="7" step="1">
+          </div>
+          <div class="calc-field">
+            <label>5. 投資營收乘數 (x)</label>
+            <input type="number" id="capexMultiplier" value="1.25" min="1.0" max="1.6" step="0.05">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1fr 1fr 1.2fr 1fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">折合台幣投資額</span>
+            <span id="outCapexTotalTwd" class="r-value" style="color: #e11d48; font-weight: 900;">NT$ 10,240 億元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">年折舊攤提費用</span>
+            <span id="outCapexAnnualDepr" class="r-value" style="color: #dc2626; font-weight: 800;">NT$ 2,048 億元/年</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">預計帶動新增產值</span>
+            <span id="outCapexGenRevenue" class="r-value" style="color: #059669; font-weight: 900;">NT$ 11,776 億元/年</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">資本產出效率</span>
+            <span id="outCapexEfficiency" class="r-value" style="color: #0284c7; font-weight: 800;">115.0%</span>
+          </div>
+        </div>
+
+        <div id="outCapexAdvice" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #fff1f2; border: 1px solid #fecdd3; font-size: 0.88rem; line-height: 1.55; color: #9f1239;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalCapexLab')" style="background:#e11d48;">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalSemiconGame" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時互動遊戲：半導體產業達人大挑戰</h3>
+          <p>挑戰四大關鍵產業關卡 ‧ 純晶圓代工模式 ‧ 毛利率 53% 定價權 ‧ CoWoS 先進封裝 ‧ 0050 權重配置</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSemiconGame')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="semiconGameContainer">
+          <!-- Populated by initSemiconGame() -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSemiconGame')" style="background:#0284c7;">離開挑戰，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK SYSTEM ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container" style="max-width: 900px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第十三週課堂作業：台積電財務指標與矽島產業鏈分析報告</h3>
+          <p>四維度實務分析：三大護城河定價權 ‧ CoWoS 先進封裝戰略 ‧ 0050 權重集中度 ‧ 大一跨域人才成長計畫</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：陳冠宇)" style="width: 150px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307042)" style="width: 150px;">
+            <input type="text" id="hwTargetPlan" placeholder="規劃主題 (例如：台積電護城河與 0050 投資組合分析)" style="width: 320px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn" onclick="loadHomeworkTemplate()">📄 載入第十三週產業分析示範範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. 三大護城河與定價權 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#0284c7; color:#fff;">維度一 (25%)</span>
+              <h5>1. 台積電三大護城河與 53% 毛利率定價權深度剖析</h5>
+            </div>
+            <textarea id="hwDim1Inventory" rows="4" placeholder="分析技術領先、製造卓越與客戶信任三大護城河，說明台積電如何維持 53% 以上毛利率抵禦高折舊成本..."></textarea>
+          </div>
+
+          <!-- 2. CoWoS 先進封裝戰略 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#e11d48; color:#fff;">維度二 (25%)</span>
+              <h5>2. CoWoS 先進封裝戰略價值與 AI 晶片出貨瓶頸剖析</h5>
+            </div>
+            <textarea id="hwDim2CashFlow" rows="4" placeholder="說明 CoWoS 2.5D/3D 異質整合如何超越摩爾定律突破記憶體頻寬牆，分析其對全球 AI 伺服器晶片出貨的決定性影響..."></textarea>
+          </div>
+
+          <!-- 3. 0050 權重集中度 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#d97706; color:#fff;">維度三 (25%)</span>
+              <h5>3. 0050 權重達 50% 投資意涵與個人資產配置策略</h5>
+            </div>
+            <textarea id="hwDim3ReserveDebt" rows="4" placeholder="評析 0050 台積電權重過半之優勢與單一產業集中風險，說明如何搭配 VT 等全球全市場指數進行核心-衛星資產配置..."></textarea>
+          </div>
+
+          <!-- 4. 矽島優勢與跨域職涯 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#059669; color:#fff;">維度四 (25%)</span>
+              <h5>4. 矽島一小時供應鏈優勢與大一商管跨領域職涯發展行動</h5>
+            </div>
+            <textarea id="hwDim4FireRoadmap" rows="4" placeholder="分析台灣高鐵 S 廊帶供應鏈聚落奇蹟，擬定大專學生四年跨域發展（財務、採購、國際法規、ESG）之具體職涯行動里程碑..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>作業自評等級：</label>
+            <select id="hwConclusionGrade">
+              <option value="A+ (全面且具備實戰避險可行性)">A+ (全面且具備實戰避險可行性)</option>
+              <option value="A (理論與財務數據分析完整)">A (理論與財務數據分析完整)</option>
+              <option value="B (具備基本產業健全觀念)">B (具備基本產業健全觀念)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：掌握台積電三大護城河與 CoWoS 戰略核心，透過 0050 與 VT 雙軌配置啟動長線指數投資)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action" onclick="window.print()">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action" onclick="exportHomeworkJson()">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step" onclick="exportHomeworkMd()" style="background:#0284c7;">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第十三週教學進度表與 3 小時結構</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #0284c7;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>半導體產業三大分工與台積電破壞式創新 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">摩爾定律、IC設計/代工/封測、純晶圓代工創新、三大護城河、奈米製程昂貴Fab與矽島鏈。</span></td>
+              <td>🔬 <strong>專屬活動：台積電先進製程與毛利率估值試算器</strong><br><span style="font-size: 0.78rem;">輸入營收與毛利率精算每股盈餘與市值估值。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #e11d48;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>先進封裝 CoWoS、地緣政治與三大財報指標 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">CoWoS突破頻寬牆、美日德海外設廠矽盾、毛利率53%定價權、3-4年景氣循環與S廊帶。</span></td>
+              <td>🏭 <strong>專屬活動：半導體資本支出 (CapEx) 與產能效益試算器</strong><br><span style="font-size: 0.78rem;">精算每年數百億美元 CapEx 產能轉化率。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #d97706;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>0050 投資權重、跨域人才職涯與 4 大金律 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">0050台積電權重破50%評析、商管文組科技職涯、ASML EUV光刻機、MOPS營收查閱與4大金律。</span></td>
+              <td>🎮 <strong>小遊戲：半導體產業達人大挑戰 (4大關卡)</strong><br>📝 <strong>作業：台積電財務指標與矽島產業鏈分析報告</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')" style="background:#0284c7;">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 官方數據平台與產業研調指引</h3>
+          <p>台灣證券交易所 ‧ 公開資訊觀測站 ‧ 工研院產科國際所 權威數據查詢入口</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hubs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #0284c7; font-size: 0.95rem; margin-bottom: 4px;">1. 公開資訊觀測站 (MOPS)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">查詢台積電 (2330) 每月 10 日營收、季報財測、法說會簡報與先進製程營收比重。</p>
+            <a href="https://mops.twse.com.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #0284c7; font-weight: 700;">前往 MOPS 官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #e11d48; font-size: 0.95rem; margin-bottom: 4px;">2. 台灣證券交易所 (TWSE)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">查詢大盤市值排名、0050 ETF 成份股最新權重與外資三大法人每日買賣超明細。</p>
+            <a href="https://www.twse.com.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #e11d48; font-weight: 700;">前往證交所官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #d97706; font-size: 0.95rem; margin-bottom: 4px;">3. 工研院產科國際所 (ISTI)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">掌握台灣 IC 設計、製造、封測季度產值統計與全球半導體市場預測白皮書。</p>
+            <a href="https://ieknet.iek.org.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #d97706; font-weight: 700;">前往工研院產科網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #059669; font-size: 0.95rem; margin-bottom: 4px;">4. 台積電投資人關係 (TSMC IR)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">下載最新季度財報新聞稿、法說音訊錄音、ESG 永續報告書與年報 PDF。</p>
+            <a href="https://investor.tsmc.com" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #059669; font-weight: 700;">前往台積電 IR 官網 ➔</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')" style="background:#0284c7;">關閉視窗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules Execution -->
+  <script src="w13-slides-data.js"></script>
+  <script src="w13-activities-data.js"></script>
+  <script src="w13-app.js"></script>
+
+</body>
+</html>

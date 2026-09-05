@@ -1,0 +1,117 @@
+/* ==========================================================================
+   W6 SPECIFIC STYLES & INFOGRAPHICS EXTENSION
+   Loaded alongside base style.css
+   ========================================================================== */
+
+.visual-diagram-card {
+  background: transparent;
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  box-shadow: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.diagram-header {
+  margin-bottom: 12px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.diagram-header h4 {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.diagram-header .sub-tag {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* NIM Meter */
+.nim-diagram-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.nim-rates-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.nim-rate-chip {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.nim-rate-chip.deposit { background: #eff6ff; color: #1d4ed8; }
+.nim-rate-chip.loan { background: #fef2f2; color: #dc2626; }
+.nim-rate-chip.spread { background: #f0fdf4; color: #16a34a; font-weight: 900; }
+
+/* 2FA Shield */
+.two-fa-shield-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.shield-card {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+.shield-card .icon { font-size: 1.6rem; margin-bottom: 4px; }
+.shield-card h5 { font-size: 0.85rem; font-weight: 800; color: #1e293b; margin: 2px 0; }
+.shield-card p { font-size: 0.72rem; color: #64748b; }
+
+/* Account 1+2 Trio */
+.account-trio-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 8px;
+}
+
+.acc-trio-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+.acc-trio-card.hub { border-top: 4px solid #2563eb; }
+.acc-trio-card.savings { border-top: 4px solid #10b981; }
+.acc-trio-card.social { border-top: 4px solid #8b5cf6; }
+
+/* Calculation Callouts */
+.calc-callout-box {
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.82rem;
+  color: #166534;
+}
+
+.warning-callout-box {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.82rem;
+  color: #991b1b;
+}

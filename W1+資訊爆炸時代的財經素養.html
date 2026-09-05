@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W1 資訊爆炸時代的財經素養 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：資訊爆炸時代的財經素養" data-i18n-en="Explorations in Management II: Financial Literacy">管理探索二：資訊爆炸時代的財經素養</h1>
+        <p data-i18n-zh="115學年度 ‧ 第一週 3小時互動教案 (30頁卡片 + 3大活動 + 4D作業)" data-i18n-en="Week 1: 3-Hour Interactive Courseware (30 Slides + 3 Labs + 4D Report)">115學年度 ‧ 第一週 3小時互動教案 (30頁卡片 + 3大活動 + 4D作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalSnr')">
+        <span>🎯</span>
+        <span data-i18n-zh="1小時: SNR計算" data-i18n-en="Hr 1: SNR Lab">1小時: SNR計算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalReframing')">
+        <span>🎯</span>
+        <span data-i18n-zh="2小時: 標題重組" data-i18n-en="Hr 2: Reframing">2小時: 標題重組</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalDetective')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 偵探遊戲" data-i18n-en="Hr 3: Game">3小時: 偵探遊戲</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="4D Assignment">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Syllabus">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="四大數據庫" data-i18n-en="Data Hubs">四大數據庫</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+        <button class="btn-draw-tool" data-tool="eraser">🧹 <span data-i18n-zh="橡皮擦" data-i18n-en="Eraser">橡皮擦</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active" style="background: #ef4444;" data-color="#ef4444"></span>
+        <span class="color-swatch" style="background: #3b82f6;" data-color="#3b82f6"></span>
+        <span class="color-swatch" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch" style="background: #f59e0b;" data-color="#f59e0b"></span>
+        <span class="color-swatch" style="background: #8b5cf6;" data-color="#8b5cf6"></span>
+        <span class="color-swatch" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnClearDrawing" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+        <button id="btnSaveDrawing" class="btn-draw-action">💾 <span data-i18n-zh="存圖" data-i18n-en="Snapshot">存圖</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">課程導引 ‧ 核心理念</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第一週 課程導論：資訊爆炸時代的財經素養</h2>
+            <p id="slideSubtitle" class="subtitle">在生成式 AI 與演算法同溫層中，培養獨立提煉「真實訊號」的批判性財經大腦</p>
+          </div>
+
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">載入中...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer (100+ words detailed teaching core) -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 100+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (100+ Words)">📘 教學指引詳解 (每頁 100+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #b45309; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Deck Controls -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu" onchange="jumpToSlide(parseInt(this.value))">
+          <option value="0">Slide 01: 課程導論</option>
+          <option value="1">Slide 02: 3小時教學藍圖</option>
+          <option value="2">Slide 03: 媒體史一：紙本與廣播</option>
+          <option value="3">Slide 04: 媒體史二：社群與AI</option>
+          <option value="4">Slide 05: 倒 U 曲線</option>
+          <option value="5">Slide 06: 過度交易偏誤</option>
+          <option value="6">Slide 07: SNR 數學模型</option>
+          <option value="7">Slide 08: 標題黨情緒拉扯</option>
+          <option value="8">Slide 09: 雜訊交易者風險</option>
+          <option value="9">Slide 10: 媒體商業模式解密</option>
+          <option value="10">Slide 11: 框架效應概念</option>
+          <option value="11">Slide 12: 美股暴跌 vs 健康修正</option>
+          <option value="12">Slide 13: 檸檬市場與劣幣驅逐</option>
+          <option value="13">Slide 14: 飆股簡訊與詐騙劇本</option>
+          <option value="14">Slide 15: Deepfake 與 AI 假新聞</option>
+          <option value="15">Slide 16: 新聞情緒指數與 VIX</option>
+          <option value="16">Slide 17: 均值回歸機制</option>
+          <option value="17">Slide 18: 4D Filter 核心法則</option>
+          <option value="18">Slide 19: 四大權威數據源</option>
+          <option value="19">Slide 20: 資訊飲食健檢架構</option>
+          <option value="20">Slide 21: 數據質疑二次驗證</option>
+          <option value="21">Slide 22: 法人與散戶時差</option>
+          <option value="22">Slide 23: 演算法同溫層偏見</option>
+          <option value="23">Slide 24: 事件驅動避險思維</option>
+          <option value="24">Slide 25: 法說會術語解碼</option>
+          <option value="25">Slide 26: 圖表軸線誇大迷思</option>
+          <option value="26">Slide 27: 綠色洗白辨驗</option>
+          <option value="27">Slide 28: 終身財經批判思維</option>
+          <option value="28">Slide 29: 全週知識體系關聯圖</option>
+          <option value="29">Slide 30: 學習反思與下週預告</option>
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 SNR CALCULATOR ==================== -->
+  <div id="modalSnr" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3 data-i18n-zh="🎯 第 1 小時專屬活動：資訊飲食與 SNR 計算盤" data-i18n-en="🎯 Hour 1 Lab: Information Diet & SNR Calculator">🎯 第 1 小時專屬活動：資訊飲食與 SNR 計算盤</h3>
+          <p data-i18n-zh="量化個人每日資訊攝取的健康純度，診斷大腦是否處於過度雜訊中毒狀態" data-i18n-en="Quantify your daily information purity and diagnose noise intoxication">量化個人每日資訊攝取的健康純度，診斷大腦是否處於過度雜訊中毒狀態</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSnr')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="snr-grid-calc">
+          <!-- Signal Column -->
+          <div class="calc-panel panel-signal">
+            <div class="panel-title-bar">
+              <h4 style="color: #1e40af;">💎 客觀真實訊號 (Signal)</h4>
+              <span id="totalSignalMins" class="total-mins-badge">60 min</span>
+            </div>
+            <div class="source-slider-row">
+              <div class="slider-label-row">
+                <span>上市公司經審計財報 (MOPS/SEC)</span>
+                <span id="val-s1">20 min</span>
+              </div>
+              <input type="range" id="s1" class="slider-signal" min="0" max="180" step="5" value="20">
+            </div>
+            <div class="source-slider-row">
+              <div class="slider-label-row">
+                <span>中央銀行/官方總經統計 (CBC/FRED)</span>
+                <span id="val-s2">15 min</span>
+              </div>
+              <input type="range" id="s2" class="slider-signal" min="0" max="180" step="5" value="15">
+            </div>
+            <div class="source-slider-row">
+              <div class="slider-label-row">
+                <span>同儕審查學術論文/專業智庫深度報告</span>
+                <span id="val-s3">15 min</span>
+              </div>
+              <input type="range" id="s3" class="slider-signal" min="0" max="180" step="5" value="15">
+            </div>
+            <div class="source-slider-row">
+              <div class="slider-label-row">
+                <span>法說會完整逐字稿與財務附註 (Footnotes)</span>
+                <span id="val-s4">10 min</span>
+              </div>
+              <input type="range" id="s4" class="slider-signal" min="0" max="180" step="5" value="10">
+            </div>
+          </div>
+
+          <!-- Noise Column -->
+          <div class="calc-panel panel-noise">
+            <div class="panel-title-bar">
+              <h4 style="color: #991b1b;">📢 市場情緒雜訊 (Noise)</h4>
+              <span id="totalNoiseMins" class="total-mins-badge">120 min</span>
+            </div>
+            <div class="source-slider-row">
+              <div class="slider-label-row">
+                <span>LINE 飆股群組、炒股社群未經證實傳言</span>
+                <span id="val-n1">35 min</span>
+              </div>
+              <input type="range" id="n1" class="slider-noise" min="0" max="180" step="5" value="35">
+            </div>
+            <div class="source-slider-row">
+              <div class="slider-label-row">
+                <span>短影音投資網紅、誇張縮圖標題黨影片</span>
+                <span id="val-n2">40 min</span>
+              </div>
+              <input type="range" id="n2" class="slider-noise" min="0" max="180" step="5" value="40">
+            </div>
+            <div class="source-slider-row">
+              <div class="slider-label-row">
+                <span>商業流量新聞農場（血洗、崩盤警告字眼）</span>
+                <span id="val-n3">30 min</span>
+              </div>
+              <input type="range" id="n3" class="slider-noise" min="0" max="180" step="5" value="30">
+            </div>
+            <div class="source-slider-row">
+              <div class="slider-label-row">
+                <span>電視投顧名嘴即時看盤激進喊單</span>
+                <span id="val-n4">15 min</span>
+              </div>
+              <input type="range" id="n4" class="slider-noise" min="0" max="180" step="5" value="15">
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Diagnosis Card -->
+        <div class="snr-result-card">
+          <div class="snr-gauge-display">
+            <div id="snrScoreNumber" class="snr-score-number">0.50</div>
+            <div class="snr-score-label">SNR 純度比值</div>
+          </div>
+          <div class="snr-diagnosis-info">
+            <span id="snrDiagnosisBadge" class="badge-diagnosis-tier">🟡 診斷評定中...</span>
+            <p id="snrDiagnosisDesc" class="snr-diagnosis-desc">載入診斷中...</p>
+            <div id="snrDiagnosisRx" class="snr-diagnosis-rx">載入處方中...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSnr')">完成診斷並返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 REFRAMING CHALLENGE ==================== -->
+  <div id="modalReframing" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3 data-i18n-zh="🎯 第 2 小時專屬活動：新聞標題框架重組大考驗" data-i18n-en="🎯 Hour 2 Lab: Headline Reframing Challenge">🎯 第 2 小時專屬活動：新聞標題框架重組大考驗</h3>
+          <p data-i18n-zh="訓練學生剝離情緒修詞，運用 4D Filter 將聳動標題黨轉化為學術中立的客觀 Signal" data-i18n-en="Reconstruct clickbait into objective, academic Signal using 4D Filter">訓練學生剝離情緒修詞，運用 4D Filter 將聳動標題黨轉化為學術中立的客觀 Signal</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalReframing')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="reframing-case-tabs">
+          <button class="tab-reframing-case active" data-index="0">案例 1：台積電建廠預算</button>
+          <button class="tab-reframing-case" data-index="1">案例 2：央行房市信用管制</button>
+          <button class="tab-reframing-case" data-index="2">案例 3：巴菲特大砍蘋果持股</button>
+        </div>
+
+        <div class="reframing-workspace">
+          <!-- Left: Clickbait card -->
+          <div class="card-clickbait-showcase">
+            <h4>💥 聳動情緒雜訊標題 (Noise)</h4>
+            <div id="clickbaitQuoteText" class="clickbait-quote-text">「台積電海外建廠驚爆巨虧？！美日建廠預算大暴增，毛利恐被徹底拖垮！」</div>
+            <div>
+              <span style="font-size: 0.78rem; font-weight: 700; color: #be123c;">偵測到的情緒煽動修詞：</span>
+              <span id="clickbaitTriggersText" class="triggers-pill">「驚爆巨虧」、「徹底拖垮」</span>
+            </div>
+          </div>
+
+          <!-- Right: Real verified facts -->
+          <div class="card-facts-context">
+            <h4>📊 第一手審計與法說會客觀事實 (Signal)</h4>
+            <div id="factsBodyText" class="facts-body-text">載入事實中...</div>
+          </div>
+
+          <!-- Bottom: Student rewrite workspace -->
+          <div class="reframing-input-section">
+            <h4 style="font-size: 0.95rem; font-weight: 800; color: #1e293b;">✏️ 學生重組實作區：改寫為學術中立 Signal 報導</h4>
+            <p id="reframingPromptHint" style="font-size: 0.82rem; color: #64748b; margin-top: 4px;">重組提示...</p>
+            <textarea id="studentReframedText" placeholder="請在此輸入你剝離形容詞後改寫的中立標題..."></textarea>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+              <span style="font-size: 0.8rem; color: #10b981;">💡 評估標準：包含客觀數字、移除主觀恐慌修飾、符合時間軸</span>
+              <button id="btnCompareExpert" class="btn-nav-step" style="border-color: #c4b5fd; color: #6d28d9; background: #f5f3ff;">
+                <span>🔍</span>
+                <span>對照機構研究員示範</span>
+              </button>
+            </div>
+
+            <!-- Expert Model comparison box -->
+            <div id="expertComparisonBox" class="expert-comparison-box">
+              <strong style="color: #6d28d9; font-size: 0.85rem; display: block; margin-bottom: 4px;">🏛️ 頂級機構研究員中立改寫示範：</strong>
+              <div id="expertModelText" style="font-size: 0.95rem; font-weight: 700; color: #4338ca;">示範載入中...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalReframing')">確認並返回投影片</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 DETECTIVE GAME ==================== -->
+  <div id="modalDetective" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3 data-i18n-zh="🎮 第 3 小時小遊戲：財經新聞真假與雜訊偵測大挑戰" data-i18n-en="🎮 Hour 3 Lab: Financial News Detective Challenge">🎮 第 3 小時小遊戲：財經新聞真假與雜訊偵測大挑戰</h3>
+          <p data-i18n-zh="化身首席財經偵探，挑戰 4 大擬真新聞盲測關卡，全對獲頒專屬認證徽章！" data-i18n-en="Conquer 4 real-world news detection levels to earn your Chief Detective Badge!">化身首席財經偵探，挑戰 4 大擬真新聞盲測關卡，全對獲頒專屬認證徽章！</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDetective')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="detective-progress-header">
+          <span id="gameStepBadge" class="badge-hour" style="background: #eff6ff; color: #1e40af;">關卡 1 / 4</span>
+          <span id="gameScoreBadge" class="detective-score-badge">目前積分: 0 pts</span>
+        </div>
+
+        <!-- Level Scenario Card -->
+        <div id="gameScenarioCard" class="game-scenario-card">
+          <div id="gameHeadlineAlert" class="game-headline-alert">新聞標題載入中...</div>
+          <div id="gameSnippetText" class="game-snippet-text">情境載入中...</div>
+          <div id="gameQuestionText" class="game-question-text">題目載入中...</div>
+
+          <div id="gameOptionsContainer" class="game-options-list">
+            <!-- Dynamically populated options -->
+          </div>
+
+          <div id="gameFeedbackPanel" class="game-feedback-panel">
+            <!-- Feedback -->
+          </div>
+        </div>
+
+        <!-- Certificate Screen (Hidden until finished) -->
+        <div id="gameCertificateCard" class="badge-certificate-card" style="display: none;">
+          <div class="badge-certificate-icon">🏅</div>
+          <h2>榮譽認證：首席財經偵探徽章</h2>
+          <p style="color: #78350f; font-size: 0.95rem; margin-bottom: 16px;">
+            恭喜你！成功通過 4 大擬真新聞盲測關卡，熟練運用 4D Filter 破除情緒框架與 AI 假新聞！
+          </p>
+
+          <div style="max-width: 400px; margin: 0 auto 16px; text-align: left;">
+            <label style="font-size: 0.85rem; font-weight: 700; color: #92400e;">請輸入受頒學生姓名：</label>
+            <input type="text" id="certStudentName" placeholder="例如：王小明" style="width: 100%; padding: 8px 12px; border: 1px solid #fcd34d; border-radius: 6px; margin-top: 4px;">
+          </div>
+
+          <div style="font-size: 0.8rem; color: #92400e; margin-bottom: 20px;">
+            頒發課程：115學年度「管理探索二」第一週 資訊爆炸時代的財經素養 ‧ 授證日期：<span id="certDate">2026-09-04</span>
+          </div>
+
+          <button class="btn-nav-step btn-primary-step" style="margin: 0 auto;" onclick="window.print()">
+            <span>🖨️</span>
+            <span>列印 / 存為榮譽證書 PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step" onclick="closeModal('modalDetective')">關閉視窗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOUR 3 4D FILTER HOMEWORK ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3 data-i18n-zh="📝 第 3 小時課堂實務作業：4D Filter 財經新聞檢驗報告" data-i18n-en="📝 Hour 3 Assignment: 4D Filter Verification Report">📝 第 3 小時課堂實務作業：4D Filter 財經新聞檢驗報告</h3>
+          <p data-i18n-zh="自選或載入本週真實新聞，運用 4D Filter 進行多維度深度查核並在線生成/匯出專業報告" data-i18n-en="Audit a real news article using the 4D Filter framework">自選或載入本週真實新聞，運用 4D Filter 進行多維度深度查核並在線生成/匯出專業報告</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Rubric Badges -->
+        <div class="hw-rubric-grid">
+          <div class="rubric-card-pill">
+            <div class="rubric-weight">D1 - Data (30%)</div>
+            <div style="font-size: 0.78rem; font-weight: 700;">官方審計數據查核</div>
+          </div>
+          <div class="rubric-card-pill">
+            <div class="rubric-weight">D2 - Disclosure (20%)</div>
+            <div style="font-size: 0.78rem; font-weight: 700;">利益揭露與贊助分析</div>
+          </div>
+          <div class="rubric-card-pill">
+            <div class="rubric-weight">D3 - Divergence (25%)</div>
+            <div style="font-size: 0.78rem; font-weight: 700;">多元對立觀點交叉比對</div>
+          </div>
+          <div class="rubric-card-pill">
+            <div class="rubric-weight">D4 - Duration (25%)</div>
+            <div style="font-size: 0.78rem; font-weight: 700;">短線波動 vs 長線價值</div>
+          </div>
+        </div>
+
+        <!-- Quick Preset Case Selector -->
+        <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 16px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 0.85rem; font-weight: 700; color: #1e40af;">🚀 課堂示範或快速試寫：載入經典新聞案例模板</span>
+          <select id="hwPresetSelect" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #93c5fd; font-size: 0.82rem;">
+            <option value="">-- 點此選擇預設範例 --</option>
+            <option value="sample1">【經典案例 1】半導體大廠海外建廠毛利報導</option>
+            <option value="sample2">【經典案例 2】高股息 ETF 宣稱 12% 穩賺新聞</option>
+          </select>
+        </div>
+
+        <!-- Homework Form -->
+        <form id="homeworkForm">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="hw-form-row">
+              <label>學生姓名：</label>
+              <input type="text" id="hwStudentName" placeholder="例如：林書宇">
+            </div>
+            <div class="hw-form-row">
+              <label>學號：</label>
+              <input type="text" id="hwStudentId" placeholder="例如：B11234567">
+            </div>
+          </div>
+
+          <div class="hw-form-row">
+            <label>查核財經新聞標題：</label>
+            <input type="text" id="hwNewsTitle" placeholder="例如：外媒驚爆某大廠海外建廠預算大超支...">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;">
+            <div class="hw-form-row">
+              <label>新聞媒體 / 來源：</label>
+              <input type="text" id="hwNewsOutlet" placeholder="例如：某知名免費財經新聞網">
+            </div>
+            <div class="hw-form-row">
+              <label>新聞發布日期：</label>
+              <input type="text" id="hwNewsDate" placeholder="例如：2026-08-28">
+            </div>
+            <div class="hw-form-row">
+              <label>原文連結 URL：</label>
+              <input type="text" id="hwNewsUrl" placeholder="https://...">
+            </div>
+          </div>
+
+          <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 16px 0;">
+
+          <div class="hw-form-row">
+            <label>1. Data 數據查核 (佔比 30%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">是否有查核 MOPS / SEC / 央行等官方第一手審計報表？新聞引用的數字是否有誇大或斷章取義？</p>
+            <textarea id="hwDataInput" placeholder="請填寫你的官方數據查核對比..."></textarea>
+          </div>
+
+          <div class="hw-form-row">
+            <label>2. Disclosure 利益揭露 (佔比 20%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">作者或媒體是否有持股、業配分潤、開戶佣金，或依靠標題黨賺取流量廣告的動機？</p>
+            <textarea id="hwDisclosureInput" placeholder="請分析作者與媒體背後的商業誘因結構..."></textarea>
+          </div>
+
+          <div class="hw-form-row">
+            <label>3. Divergence 多元觀點 (佔比 25%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">是否有主動搜尋對立機構的研究報告？反方提出了哪些被主流演算法隱蔽的論點？</p>
+            <textarea id="hwDivergenceInput" placeholder="請列舉反方權威或機構研究的對立論點..."></textarea>
+          </div>
+
+          <div class="hw-form-row">
+            <label>4. Duration 時間維度 (佔比 25%)：</label>
+            <p style="font-size: 0.78rem; color: #64748b; margin-bottom: 4px;">此新聞引發的是 24 小時內的短線情緒震盪，還是會實質改變企業未來 3~5 年的自由現金流？</p>
+            <textarea id="hwDurationInput" placeholder="請評估短線雜訊 vs 長期基本面的時間跨度..."></textarea>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 14px;">
+            <div class="hw-form-row">
+              <label>綜合性質研判：</label>
+              <select id="hwConclusion">
+                <option value="Signal">💎 Signal (真實高價值訊號)</option>
+                <option value="Mixed">🟡 Mixed (包裝了微量數據的情緒雜訊)</option>
+                <option value="Noise">📢 Noise (純標題黨與劣質檸檬雜訊)</option>
+              </select>
+            </div>
+            <div class="hw-form-row">
+              <label>理性投資決策與批判反思：</label>
+              <input type="text" id="hwDecisionText" placeholder="基於上述 4D 查核，你對該新聞的行動建議為何？">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer" style="justify-content: space-between;">
+        <span id="hwSaveStatus" style="font-size: 0.8rem; color: #10b981; font-weight: 700;"></span>
+        <div style="display: flex; gap: 8px;">
+          <button id="btnExportJson" class="btn-nav-step">💾 匯出 JSON</button>
+          <button id="btnExportMd" class="btn-nav-step">📋 複製 Markdown</button>
+          <button id="btnPrintHomework" class="btn-nav-step btn-primary-step">🖨️ 列印 / 轉存 PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE & TIMELINE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 3 小時教學進度與活動配比表</h3>
+          <p>總授課時間 180 分鐘 ‧ 講授、互動盤、盲測遊戲與實務作業完美配置</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #2563eb;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>理論與歷史背景 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">媒體演進、倒 U 曲線、過度交易、SNR 數學模型、雜訊交易者風險</span></td>
+              <td>🎯 <strong>專屬活動：資訊飲食與 SNR 計算盤</strong><br><span style="font-size: 0.78rem;">學生評估每日看財報與標題黨分鐘數，計算資訊純度分數。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #7c3aed;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>偏誤與防禦工具 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">框架效應、檸檬市場、Deepfake 威脅、4D Filter 核心法則、四大權威數據源</span></td>
+              <td>🎯 <strong>專屬活動：新聞標題框架重組大考驗</strong><br><span style="font-size: 0.78rem;">將聳動標題黨新聞重組改寫為客觀中立的學術級 Signal 報導。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #059669;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>實證與工具應用 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">二次交叉驗證、利多出盡時差、同溫層偏見、法說術語解碼、綠色洗白、全景架構</span></td>
+              <td>🎮 <strong>重磅小遊戲：財經新聞真假與雜訊偵測大挑戰 (4關卡)</strong><br>📝 <strong>課堂實務作業：4D Filter 檢驗報告現場填寫提交。</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: FOUR AUTHORITATIVE HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 四大官方第一手權威數據源導航</h3>
+          <p>4D Filter 中 Data 數據驗證的金標準工具庫</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="four-sources-matrix">
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://mops.twse.com.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🇹🇼 台灣公開資訊觀測站 (MOPS)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              上市公司法定申報中心。查閱經會計師簽證之資產負債表、損益表、現金流量表、法說會簡報及官方重大訊息澄清聲明。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.sec.gov/edgar" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🇺🇸 美國 SEC EDGAR 系統</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              美股上市公司法定義務申報處。包含 10-K (年度報告)、10-Q (季度報告)、8-K (重大即時事件) 及 Form 4 內部人持股變更。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.cbc.gov.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🏦 台灣中央銀行 (CBC) & 美聯儲 (Fed)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              貨幣政策第一手源頭。發布重貼現率決議、存款準備率調整公報、銀行房貸限額政策說明及總裁理監事會議事錄。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://fred.stlouisfed.org" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>📈 聖路易聯邦儲備銀行 FRED & TWSE</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              全球最完備的免費總體經濟資料庫。提供數十萬條經濟時間序列（CPI 通膨率、殖利率曲線、就業數據、三大法人進出明細）。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="slides-data.js"></script>
+  <script src="activities-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

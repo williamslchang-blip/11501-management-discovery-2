@@ -1,0 +1,203 @@
+/* ==========================================================================
+   W4 SPECIFIC STYLES & INFOGRAPHICS EXTENSION
+   Loaded alongside base style.css
+   ========================================================================== */
+
+/* Visual Diagram Card Container */
+.visual-diagram-card {
+  background: transparent;
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  box-shadow: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.diagram-header {
+  margin-bottom: 14px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 8px;
+}
+
+.diagram-header h4 {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.diagram-header .sub-tag {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Equity Presets & Comparison Matrix */
+.equity-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.equity-stat-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+}
+
+.equity-stat-card .e-icon { font-size: 2.2rem; margin-bottom: 6px; }
+.equity-stat-card h5 { font-size: 0.95rem; font-weight: 800; color: #1e293b; margin-bottom: 4px; }
+.equity-stat-card .e-num { font-size: 1.5rem; font-weight: 900; color: #2563eb; margin: 4px 0; }
+.equity-stat-card p { font-size: 0.78rem; color: #64748b; line-height: 1.4; }
+
+/* Boba Valuation Comparison */
+.boba-compare-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.boba-card {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.boba-card.boba-cheap { background: #f0fdf4; border-color: #bbf7d0; }
+.boba-card.boba-expensive { background: #fff5f5; border-color: #fecaca; }
+
+.boba-card h5 { font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+.boba-card .boba-pe { font-size: 1.6rem; font-weight: 900; margin: 6px 0; }
+.boba-card.boba-cheap .boba-pe { color: #15803d; }
+.boba-card.boba-expensive .boba-pe { color: #dc2626; }
+
+.boba-card .peg-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+.boba-card.boba-cheap .peg-badge { background: #dcfce7; color: #166534; }
+.boba-card.boba-expensive .peg-badge { background: #fee2e2; color: #991b1b; }
+
+.boba-card p { font-size: 0.78rem; color: #475569; line-height: 1.4; }
+
+/* Formula Boxes */
+.formula-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  text-align: center;
+}
+
+.formula-box .math-eq {
+  font-size: 1.15rem;
+  color: #166534;
+  font-weight: 800;
+  font-family: var(--font-mono, monospace);
+}
+
+.info-callout {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  color: #1e40af;
+  line-height: 1.5;
+}
+
+.warning-callout {
+  background: #fef2f2;
+  border-left: 4px solid #ef4444;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  color: #991b1b;
+  line-height: 1.5;
+}
+
+/* DuPont Analysis Grid */
+.dupont-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dupont-col {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 12px 8px;
+  text-align: center;
+}
+
+.dupont-col .d-title { font-size: 0.75rem; font-weight: 800; color: #64748b; margin-bottom: 4px; }
+.dupont-col .d-val { font-size: 1.1rem; font-weight: 900; color: #1e293b; margin-bottom: 2px; }
+.dupont-col p { font-size: 0.72rem; color: #64748b; line-height: 1.3; }
+
+/* Moats Grid */
+.moats-five-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.moat-mini-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 12px 6px;
+  text-align: center;
+}
+
+.moat-mini-box .m-icon { font-size: 1.6rem; margin-bottom: 4px; }
+.moat-mini-box h6 { font-size: 0.82rem; font-weight: 800; color: #1e293b; margin-bottom: 2px; }
+.moat-mini-box p { font-size: 0.7rem; color: #64748b; line-height: 1.2; }
+
+/* Lab & Modal Styles */
+.equity-lab-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 20px;
+}
+
+.equity-results-panel {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.stat-metric-val {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #1e293b;
+}
+
+.stat-metric-val.good { color: #16a34a; }
+.stat-metric-val.bad { color: #dc2626; }

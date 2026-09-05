@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W14 生成式AI革命人工智慧產業鏈與未來職場轉型 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w14-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge" style="background: linear-gradient(135deg, #7c3aed, #6d28d9);">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：生成式 AI 革命、人工智慧產業鏈與未來職場轉型" data-i18n-en="Explorations in Management II: Generative AI Revolution, Value Chain & Workforce Transformation">管理探索二：生成式 AI 革命、人工智慧產業鏈與未來職場轉型</h1>
+        <p data-i18n-zh="115學年度 ‧ 第十四週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 14: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第十四週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalAiRoiLab')">
+        <span>🤖</span>
+        <span data-i18n-zh="1小時: 企業 AI ROI" data-i18n-en="Hr 1: AI ROI Lab">1小時: 企業 AI ROI</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalAiChainLab')">
+        <span>⚖️</span>
+        <span data-i18n-zh="2小時: 產業鏈價值分配" data-i18n-en="Hr 2: AI Chain Lab">2小時: 產業鏈價值分配</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalAiGame')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 人機協作挑戰" data-i18n-en="Hr 3: AI Game">3小時: 人機協作挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="官方數據平台" data-i18n-en="Official Hubs">官方數據平台</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button id="btnToolPen" class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button id="btnToolHighlighter" class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active btn-color-dot" style="background: #7c3aed;" data-color="#7c3aed"></span>
+        <span class="color-swatch btn-color-dot" style="background: #06b6d4;" data-color="#06b6d4"></span>
+        <span class="color-swatch btn-color-dot" style="background: #f59e0b;" data-color="#f59e0b"></span>
+        <span class="color-swatch btn-color-dot" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch btn-color-dot" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnToolClear" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">AI導論 ‧ 技術突破</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第十四週課程導論：生成式 AI 革命、人工智慧產業鏈與未來職場轉型</h2>
+            <p id="slideSubtitle" class="subtitle">深度解析生成式 AI 產業鏈價值流動、企業 ROI 與大專生人機協作核心競爭力</p>
+          </div>
+
+          <!-- CRITICAL: .slide-content-grid Container -->
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">同學們平時使用 ChatGPT 或 Claude 做過哪些最神奇或最節省時間的事情？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 150+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (150+ Words)">📘 教學指引詳解 (每頁 150+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #7c3aed; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Presentation Bar -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step" style="background:#7c3aed;">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalAiRoiLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🤖 第 1 小時專屬活動：企業生成式 AI 導入投資報酬率 (ROI) 試算器</h3>
+          <p>輸入團隊人數、AI 訂閱授權費用、每日節省工時與時薪 ‧ 精算月度工時價值、淨效益與年化 ROI</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalAiRoiLab')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">ROI 投資效益精算</div>
+          <h4>小額訂閱換取高額工時釋放！人機協作將枯燥庶務轉化為核心競爭力！</h4>
+          <p>點選下方代表性團隊情境，或自行調整參數，系統即時精算年度淨收益與投資報酬率。</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入團隊情境：</span>
+          <button class="asset-preset-btn btn-preset-roi active" data-preset="marketing_team">行銷電商團隊 (30人 ‧ 省2小時)</button>
+          <button class="asset-preset-btn btn-preset-roi" data-preset="rnd_data_team">軟體研發團隊 (50人 ‧ 省2.5小時)</button>
+          <button class="asset-preset-btn btn-preset-roi" data-preset="admin_support_team">行政客服團隊 (100人 ‧ 省1小時)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 團隊員工人數 (人)</label>
+            <input type="number" id="roiEmployees" value="30" min="5" max="500" step="5">
+          </div>
+          <div class="calc-field">
+            <label>2. 每人每月 AI 訂閱 (美元 USD)</label>
+            <input type="number" id="roiMonthlyFee" value="30" min="10" max="100" step="5">
+          </div>
+          <div class="calc-field">
+            <label>3. 每日人均節省工時 (小時/天)</label>
+            <input type="number" id="roiHoursSaved" value="2.0" min="0.5" max="5.0" step="0.5">
+          </div>
+          <div class="calc-field">
+            <label>4. 員工平均時薪 (NT$/小時)</label>
+            <input type="number" id="roiHourlyWage" value="320" min="200" max="1500" step="20">
+          </div>
+          <div class="calc-field">
+            <label>5. 美元兌台幣匯率 (USD/TWD)</label>
+            <input type="number" id="roiUsdFx" value="32.0" min="28" max="36" step="0.5">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1fr 1fr 1.2fr 1fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">每月總 AI 投資額</span>
+            <span id="outRoiTotalCost" class="r-value" style="color: #64748b; font-weight: 800;">NT$ 28,800 元/月</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">每月節省工時價值</span>
+            <span id="outRoiLaborSaved" class="r-value" style="color: #7c3aed; font-weight: 900;">NT$ 422,400 元/月</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">每月實質淨效益</span>
+            <span id="outRoiNetBenefit" class="r-value" style="color: #059669; font-weight: 900;">NT$ 393,600 元/月</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">年化投資報酬率</span>
+            <span id="outRoiAnnualPercentage" class="r-value" style="color: #d97706; font-weight: 900;">1367%</span>
+          </div>
+        </div>
+
+        <div id="outRoiDiagnosis" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #f5f3ff; border: 1px solid #ddd6fe; font-size: 0.88rem; line-height: 1.55; color: #5b21b6;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalAiRoiLab')" style="background:#7c3aed;">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalAiChainLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>⚖️ 第 2 小時專屬活動：AI 人工智慧產業鏈價值分配與成本結構試算器</h3>
+          <p>分配基礎算力晶片、雲端機房、基礎模型與終端垂直應用預算 ‧ 評估不同商業模式變現能力</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalAiChainLab')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">產業鏈成本配置</div>
+          <h4>淘金熱賣鏟人吃香，垂直落地看變現！模擬三層產業結構預算流向！</h4>
+          <p>輸入企業 AI 總預算與四項比重分配，系統即時精算各分層支出與策略建言。</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入架構類型：</span>
+          <button class="asset-preset-btn btn-preset-chain active" data-preset="vertical_enterprise">垂直領域微調型 (預算350萬)</button>
+          <button class="asset-preset-btn btn-preset-chain" data-preset="private_cloud_heavy">自建算力重硬體型 (預算500萬)</button>
+          <button class="asset-preset-btn btn-preset-chain" data-preset="cloud_api_agile">雲端 API 敏捷型 (預算200萬)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 10px;">
+          <div class="calc-field">
+            <label>1. 企業 AI 專案總預算 (萬 NT$)</label>
+            <input type="number" id="chainBudget" value="350" min="50" max="2000" step="50">
+          </div>
+          <div class="calc-field">
+            <label>2. 硬體運算晶片 (GPU) 比重 (%)</label>
+            <input type="number" id="chainHwRatio" value="20" min="5" max="70" step="5">
+          </div>
+          <div class="calc-field">
+            <label>3. 雲端基礎架構比重 (%)</label>
+            <input type="number" id="chainCloudRatio" value="25" min="5" max="50" step="5">
+          </div>
+          <div class="calc-field">
+            <label>4. 基礎大模型 API 比重 (%)</label>
+            <input type="number" id="chainModelRatio" value="25" min="5" max="50" step="5">
+          </div>
+          <div class="calc-field">
+            <label>5. 垂直應用與員工培訓 (%)</label>
+            <input type="number" id="chainAppRatio" value="30" min="10" max="60" step="5">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1fr 1fr 1fr 1fr; margin-top: 12px;">
+          <div class="result-metric">
+            <span class="r-label">硬體算力晶片支出</span>
+            <span id="outChainHw" class="r-value" style="color: #e11d48; font-weight: 800;">70.0 萬元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">雲端機房租賃支出</span>
+            <span id="outChainCloud" class="r-value" style="color: #0284c7; font-weight: 800;">87.5 萬元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">基礎模型授權調校</span>
+            <span id="outChainModel" class="r-value" style="color: #7c3aed; font-weight: 800;">87.5 萬元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">垂直應用開發培訓</span>
+            <span id="outChainApp" class="r-value" style="color: #059669; font-weight: 900;">105.0 萬元</span>
+          </div>
+        </div>
+
+        <div id="outChainAdvice" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #ede9fe; border: 1px solid #c4b5fd; font-size: 0.88rem; line-height: 1.55; color: #4c1d95;">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalAiChainLab')" style="background:#6d28d9;">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalAiGame" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時互動遊戲：生成式 AI 產業鏈與未來職場達人大挑戰</h3>
+          <p>挑戰四大關鍵智慧關卡 ‧ 生成式 vs 判別式 ‧ NVIDIA CUDA 生態壁壘 ‧ 企業導入 ROI ‧ 人機協作競爭力</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalAiGame')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="aiGameContainer">
+          <!-- Populated by initAiGame() -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalAiGame')" style="background:#7c3aed;">離開挑戰，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK SYSTEM ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container" style="max-width: 900px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第十四週課堂作業：生成式 AI 產業鏈分析與商管個人職涯人機協作轉型報告</h3>
+          <p>四維度實務分析：三層價值鏈 ‧ 企業導入 ROI 評估 ‧ 文組商管人機協作 ‧ 幻覺資安倫理落地 SOP</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：張語婕)" style="width: 150px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307085)" style="width: 150px;">
+            <input type="text" id="hwTargetPlan" placeholder="規劃主題 (例如：商管學生人機協作工作流與未來職場競爭力)" style="width: 320px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn" onclick="loadHomeworkTemplate()">📄 載入第十四週 AI 分析示範範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. 三層產業鏈價值分配 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#7c3aed; color:#fff;">維度一 (25%)</span>
+              <h5>1. 從底層晶片至頂層應用之 AI 產業鏈價值分配深度剖析</h5>
+            </div>
+            <textarea id="hwDim1Inventory" rows="4" placeholder="分析基礎設施層 (NVIDIA/台積電)、模型層 (OpenAI/Anthropic) 與應用層之商業模式，剖析各層毛利與獲利持續性..."></textarea>
+          </div>
+
+          <!-- 2. 企業導入 ROI 評估 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#06b6d4; color:#fff;">維度二 (25%)</span>
+              <h5>2. 企業導入生成式 AI 之 ROI 成本效益與變現模型評估</h5>
+            </div>
+            <textarea id="hwDim2CashFlow" rows="4" placeholder="量化計算每人月訂閱費與每日節省工時價值，評估年化 ROI 與企業如何透過人機協作提升全體產能與業務創新..."></textarea>
+          </div>
+
+          <!-- 3. 商管人機協作競爭力 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#f59e0b; color:#fff;">維度三 (25%)</span>
+              <h5>3. 大學四年文組/商管學生人機協作核心競爭力培養方案</h5>
+            </div>
+            <textarea id="hwDim3ReserveDebt" rows="4" placeholder="提出精準提問力 (Prompting)、批判性查核力 (Critical Inquiry) 與跨領域整合力的具體培養 SOP，打造個人專屬 AI 工作流..."></textarea>
+          </div>
+
+          <!-- 4. 幻覺資安與倫理 SOP -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#10b981; color:#fff;">維度四 (25%)</span>
+              <h5>4. AI 幻覺防範、數據資安防護與著作權倫理規範落地 SOP</h5>
+            </div>
+            <textarea id="hwDim4FireRoadmap" rows="4" placeholder="說明如何防範大模型一本正經胡說八道、杜絕企業內部原始碼與敏感個資外洩，並符合歐盟 AI 法案與學術誠信標註..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>作業自評等級：</label>
+            <select id="hwConclusionGrade">
+              <option value="A+ (全面且具備實戰避險可行性)">A+ (全面且具備實戰避險可行性)</option>
+              <option value="A (理論與財務數據分析完整)">A (理論與財務數據分析完整)</option>
+              <option value="B (具備基本 AI 協作觀念)">B (具備基本 AI 協作觀念)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：以批判思考與人機協作工作流為槓桿，將 AI 轉化為大學四年與未來職場躍升的超能力)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action" onclick="window.print()">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action" onclick="exportHomeworkJson()">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step" onclick="exportHomeworkMd()" style="background:#7c3aed;">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第十四週教學進度表與 3 小時結構</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #7c3aed;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>生成式 AI 原理、三層產業鏈與 NVIDIA 護城河 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">生成式vs傳統AI、Transformer、三層金字塔、NVIDIA CUDA、台廠伺服器代工霸權與液冷散熱。</span></td>
+              <td>🤖 <strong>專屬活動：企業生成式 AI 導入投資報酬率 (ROI) 試算器</strong><br><span style="font-size: 0.78rem;">輸入團隊規模與時薪精算工時節省價值與年化 ROI。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #6d28d9;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>提示詞工程、企業 ROI 算術與防範幻覺法規 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">Prompt四要素、財報速讀、AI ROI公式、幻覺防範、數據資安、歐盟AI法案與淘金賣鏟人投資法。</span></td>
+              <td>⚖️ <strong>專屬活動：AI 人工智慧產業鏈價值分配試算器</strong><br><span style="font-size: 0.78rem;">模擬自建算力 vs 雲端 API 之預算成本效益結構。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #0891b2;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>個人 AI 協作工作流、跨域 3 大能力與 4 大金律 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">個人自動化工作流、3大不可替代能力、Edge AI、Deepfake防詐SOP、NVIDIA財報查閱與4大金律。</span></td>
+              <td>🎮 <strong>小遊戲：生成式 AI 產業鏈與未來職場達人大挑戰 (4大關卡)</strong><br>📝 <strong>作業：個人職涯人機協作轉型報告</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')" style="background:#7c3aed;">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 官方數據平台與 AI 前沿指引</h3>
+          <p>數位發展部 ‧ 人工智慧科技基金會 ‧ NVIDIA IR ‧ OpenAI 官方資源查詢入口</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hubs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #7c3aed; font-size: 0.95rem; margin-bottom: 4px;">1. 數位發展部 (MODA)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">查詢台灣生成式 AI 倫理指引、公部門 AI 使用規範與數位產業前瞻推動計畫。</p>
+            <a href="https://moda.gov.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #7c3aed; font-weight: 700;">前往數位發展部官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #0891b2; font-size: 0.95rem; margin-bottom: 4px;">2. 人工智慧科技基金會 (AIF)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">掌握台灣產業 AI 化現況調查報告、企業生成式 AI 導入成熟度指引與培訓手冊。</p>
+            <a href="https://aif.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #0891b2; font-weight: 700;">前往 AIF 官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #b45309; font-size: 0.95rem; margin-bottom: 4px;">3. NVIDIA 投資人關係 (IR)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">查閱季度財報中 Data Center 營收、Blackwell 晶片出貨量與全球 AI 運算展望。</p>
+            <a href="https://investor.nvidia.com" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #b45309; font-weight: 700;">前往 NVIDIA IR 官網 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #059669; font-size: 0.95rem; margin-bottom: 4px;">4. 歐盟人工智慧辦公室 (EU AI Act)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">歐盟 AI 法案官方合規條文、高風險分類指南、深偽浮水印技術標準與消費者保障。</p>
+            <a href="https://artificialintelligenceact.eu" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #059669; font-weight: 700;">前往歐盟 AI 法案官網 ➔</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')" style="background:#7c3aed;">關閉視窗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules Execution -->
+  <script src="w14-slides-data.js"></script>
+  <script src="w14-activities-data.js"></script>
+  <script src="w14-app.js"></script>
+
+</body>
+</html>

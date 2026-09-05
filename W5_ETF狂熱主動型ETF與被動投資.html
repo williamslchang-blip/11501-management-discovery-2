@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W5 ETF狂熱、主動型ETF與被動投資 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w5-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：ETF狂熱、主動型ETF與被動投資" data-i18n-en="Explorations in Management II: ETF Mania, Active ETFs & Passive Investing">管理探索二：ETF狂熱、主動型ETF與被動投資</h1>
+        <p data-i18n-zh="115學年度 ‧ 第五週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 5: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第五週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalDcaCalc')">
+        <span>🎯</span>
+        <span data-i18n-zh="1小時: 定期定額試算" data-i18n-en="Hr 1: DCA Lab">1小時: 定期定額試算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalArbitrage')">
+        <span>🎯</span>
+        <span data-i18n-zh="2小時: 折溢價檢測" data-i18n-en="Hr 2: Arbitrage Lab">2小時: 折溢價檢測</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalEtfGame')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: ETF大挑戰" data-i18n-en="Hr 3: ETF Quiz Game">3小時: ETF大挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>🏛️</span>
+        <span data-i18n-zh="ETF數據庫" data-i18n-en="Data Hubs">ETF數據庫</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+        <button class="btn-draw-tool" data-tool="eraser">🧹 <span data-i18n-zh="橡皮擦" data-i18n-en="Eraser">橡皮擦</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active" style="background: #ef4444;" data-color="#ef4444"></span>
+        <span class="color-swatch" style="background: #3b82f6;" data-color="#3b82f6"></span>
+        <span class="color-swatch" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch" style="background: #f59e0b;" data-color="#f59e0b"></span>
+        <span class="color-swatch" style="background: #8b5cf6;" data-color="#8b5cf6"></span>
+        <span class="color-swatch" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnClearDrawing" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+        <button id="btnSaveDrawing" class="btn-draw-action">💾 <span data-i18n-zh="存圖" data-i18n-en="Snapshot">存圖</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">ETF 本質與被動投資哲學</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">全台 ETF 狂熱現象：從 0050 到全民瘋搶 00940 的集體狂歡</h2>
+            <p id="slideSubtitle" class="subtitle">115學年度 第五週 ‧ 第 1 小時核心模組</p>
+          </div>
+
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">載入中...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer (100+ words detailed teaching core) -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 100+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (100+ Words)">📘 教學指引詳解 (每頁 100+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #b45309; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Deck Controls -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu" onchange="jumpToSlide(parseInt(this.value))">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalDcaCalc" class="modal-overlay">
+    <div class="modal-container" style="max-width: 820px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎯 第 1 小時專屬活動：0050 vs. 傳統高費用基金 定期定額複利試算盤</h3>
+          <p>量化微笑曲線 ‧ 揭開 30 年 1.8% 經理費吞噬 300 萬財富的殘酷真相</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDcaCalc')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">複利飛輪</div>
+          <h4>定期定額微笑曲線 ‧ 費用率損耗精算</h4>
+          <p>輸入每月定額金額、投資年數、預期年化報酬率與 ETF 內扣費用率，立即量化複利終值與費用侵蝕損失！</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">快速載入真實情境：</span>
+          <button class="dca-preset-btn" data-preset="student_0050">大一小資 0050 (3千/25年)</button>
+          <button class="dca-preset-btn" data-preset="pro_voo">全球配置 VOO (1萬/30年)</button>
+          <button class="dca-preset-btn" data-preset="fund_trap">傳統高費率基金 (1.8%警告組)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="calc-field">
+            <label>每月定額 (元)</label>
+            <input type="number" id="dcaMonthlyInput" value="3000" step="500">
+          </div>
+          <div class="calc-field">
+            <label>投資年數 (年)</label>
+            <input type="number" id="dcaYearsInput" value="25" step="5">
+          </div>
+          <div class="calc-field">
+            <label>年化毛報酬率 (%)</label>
+            <input type="number" id="dcaReturnInput" value="8.5" step="0.5">
+          </div>
+          <div class="calc-field">
+            <label>內扣總費用率 (%)</label>
+            <input type="number" id="dcaExpenseInput" value="0.35" step="0.05">
+          </div>
+        </div>
+
+        <div class="calc-results-panel">
+          <div class="result-metric">
+            <span class="r-label">累積投入本金</span>
+            <span id="dcaPrincipalResult" class="r-value">$900,000 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">累積投資淨獲利</span>
+            <span id="dcaProfitResult" class="r-value" style="color: #059669;">+$1,967,314 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">最終累積資產淨值</span>
+            <span id="dcaFinalResult" class="r-value" style="color: #2563eb; font-weight: 900;">$2,867,314 元</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">費用率侵蝕之財富損失</span>
+            <span id="dcaFeeLossResult" class="r-value" style="color: #dc2626;">-$203,782 元</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDcaCalc')">完成試算，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalArbitrage" class="modal-overlay">
+    <div class="modal-container" style="max-width: 850px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎯 第 2 小時專屬活動：ETF 市價淨值折溢價與造市商套利檢測器</h3>
+          <p>看清初級市場 vs 次級市場 ‧ 掌握造市商無風險套利 ‧ 拒當高溢價韭菜</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalArbitrage')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="activity-banner">
+          <div class="banner-tag">定海神針</div>
+          <h4>次級市場市價 vs 實質淨值 NAV 折溢價診斷</h4>
+          <p>輸入次級市場市價與官方成分股淨值，即刻計算折溢價幅度，並揭曉造市商 (AP) 申購/贖回套利機制！</p>
+        </div>
+
+        <div class="preset-buttons-bar">
+          <span class="preset-label">載入經典歷史案例：</span>
+          <button class="arb-case-btn" data-case="0">00940 掛牌破發折價 (-0.8%)</button>
+          <button class="arb-case-btn" data-case="1">海外科技爆炒溢價 (+12.5%)</button>
+          <button class="arb-case-btn" data-case="2">市值型成熟常態 (+0.13%)</button>
+        </div>
+
+        <div class="calc-input-grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="calc-field">
+            <label>次級市場撮合市價 (元)</label>
+            <input type="number" id="arbPriceInput" value="9.92" step="0.05">
+          </div>
+          <div class="calc-field">
+            <label>投信官方每股實質淨值 NAV (元)</label>
+            <input type="number" id="arbNavInput" value="10.00" step="0.05">
+          </div>
+        </div>
+
+        <div class="calc-results-panel" style="grid-template-columns: 1fr 1fr;">
+          <div class="result-metric">
+            <span class="r-label">即時折溢價率</span>
+            <span id="arbRateResult" class="r-value" style="color: #15803d;">-0.80%</span>
+          </div>
+          <div class="result-metric">
+            <span class="r-label">市場診斷狀態</span>
+            <div id="arbStatusBadge"><span class="badge-alert green">折價折扣 (Discount Bargain)</span></div>
+          </div>
+        </div>
+
+        <div id="arbExplainResult" style="margin-top: 15px; padding: 14px; border-radius: 8px; background: #f8fafc; border: 1px solid #e2e8f0; font-size: 0.95rem; line-height: 1.6;">
+          <strong>折價機會！</strong>市價低於淨值超過 1.5%！市場出現非理性恐慌殺盤，次級市場能以低於成分股真實價值的折扣買進，造市商買進市價並向投信申請贖回淨值無風險套利！
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalArbitrage')">完成檢驗，返回課程</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalEtfGame" class="modal-overlay">
+    <div class="modal-container" style="max-width: 820px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時小遊戲：ETF 投資專家與資產配置大挑戰 (4 關卡)</h3>
+          <p>挑戰約翰·柏格乾草堆、收益平準金陷阱、折溢價奪魂鋸與 70/30 核心配置！</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalEtfGame')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="etfGameLevelContainer">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step" onclick="closeModal('modalEtfGame')">暫離遊戲</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container modal-hw-wide">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第五週課堂實務作業：自選 ETF 深度分析與核心衛星配置報告</h3>
+          <p>落實 100 分審計規準 ‧ 支援本地草稿即時儲存、Markdown 一鍵複製與 JSON 匯出</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：張雅婷)" style="width: 160px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307099)" style="width: 160px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn">📄 載入 0050+00878 核心衛星實戰範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. 自選 ETF 基本盤與指數追蹤規則 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度一 (25%)</span>
+              <h5>1. 自選 ETF 基本盤與指數追蹤規則</h5>
+            </div>
+            <textarea id="hwEtfBasics" rows="4" placeholder="挑選一檔台股或美股 ETF，說明其追蹤指數、選股加權邏輯 (市值加權/高股息/智慧貝塔) 與前五大成分股佔比..."></textarea>
+          </div>
+
+          <!-- 2. 費用率、折溢價與平準金體檢 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度二 (25%)</span>
+              <h5>2. 費用率、折溢價與平準金體檢</h5>
+            </div>
+            <textarea id="hwHealthCheck" rows="4" placeholder="查閱發行投信官網與 TWSE 專區，列出總管理費用率 (Expense Ratio)、近一個月平均折溢價率及配息來源 (平準金/資本利得比率)..."></textarea>
+          </div>
+
+          <!-- 3. 市值型 vs 高股息 10年報酬反思 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度三 (25%)</span>
+              <h5>3. 市值型 vs 高股息 10年報酬反思</h5>
+            </div>
+            <textarea id="hwReturnComparison" rows="4" placeholder="比較市值型 (如 0050) 與高股息型 (如 0056) 的總報酬率差異，論述青年投資人為何應重視『含息總報酬』而非單純『配息率』..."></textarea>
+          </div>
+
+          <!-- 4. 個人 70/30 核心衛星配置具體計畫 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge">維度四 (25%)</span>
+              <h5>4. 個人 70/30 核心衛星配置具體計畫</h5>
+            </div>
+            <textarea id="hwPortfolioPlan" rows="4" placeholder="以自身每月 3,000~10,000 元投資預算，規劃具備明確標的代碼、配置比例與股利再投資紀律的長線投資組合..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>配置推薦評級：</label>
+            <select id="hwConclusionGrade">
+              <option value="Balanced Core-Satellite">Balanced Core-Satellite (70/30 核心衛星健全配置)</option>
+              <option value="Pure Market-Cap Bogle">Pure Market-Cap Bogle (100% 全市場指數極致被動)</option>
+              <option value="High-Dividend Focus">High-Dividend Focus (高股息現金流偏重 ‧ 需強化再投資)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：以 70% 0050 市值型為核心、30% 高股息為衛星，堅持低費用與股利再投資複利飛輪)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第五週教學進度表與 3 小時結構</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #2563eb;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>ETF 本質與被動投資哲學 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">一籃子水果便當比喻、John Bogle 指數革命、乾草堆哲學、台股 ETF 規模突破 5 兆、市值加權 vs 股息加權、定期定額 (DCA) 微笑曲線、總費用率複利殺傷力。</span></td>
+              <td>🎯 <strong>專屬活動：0050 vs. 基金定期定額複利試算盤</strong><br><span style="font-size: 0.78rem;">輸入每月扣款額與報酬率，試算 25 年累積資產與 1.8% 經理費侵蝕損失。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #7c3aed;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>高股息陷阱與主動型 ETF 解禁 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">高殖利率 ≠ 高總報酬、收益平準金新規、市價 vs 淨值 (NAV)、折溢價套利機制、成分股吃豆腐現象、金管會主動型 ETF 解禁、主題式 ETF 狂熱警訊。</span></td>
+              <td>🎯 <strong>專屬活動：ETF 市價淨值折溢價與套利檢測器</strong><br><span style="font-size: 0.78rem;">輸入市價與淨值，自動計算折溢價幅度並揭示造市商套利與投資人應對決策。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #059669;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>實證比對與配置長城 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">大一選牌 4 大金律 (規模/流動性/費用/追蹤偏離)、0050 vs 0056 十年累積報酬實證對決、TWSE ETF 專區查核、70/30 核心與衛星配置、美股 VOO/QQQ/VT、股利再投資飛輪。</span></td>
+              <td>🎮 <strong>小遊戲：ETF 投資專家大挑戰 (4關卡)</strong><br>📝 <strong>課堂實務作業：自選 ETF 深度分析與核心衛星配置報告現場提交。</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🏛️ 官方第一手 ETF 與被動投資資料庫</h3>
+          <p>拒絕網路情緒炒作 ‧ 以第一手即時折溢價與審計級費用率建立長線配置智慧</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="four-sources-matrix">
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://mis.twse.com.tw/stock/etf_nav.jsp" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🇹🇼 TWSE 基本市況報導 (MIS) ETF 折溢價專區</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              台灣證交所盤中即時揭露所有上市 ETF 預估淨值 (iNAV)、次級市場撮合市價與即時折溢價率之最權威官方網站。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.sitca.org.tw" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>📈 中華民國投信投顧公會 (SITCA)</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              法定各投信基金總費用率 (含經理費、保管費、手續費、交易稅等全部內扣費用) 之全面公告資料庫。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://investor.vanguard.com" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🏦 先鋒集團 Vanguard Research Center</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              指數化被動投資鼻祖。提供全球資產配置回測白皮書、低成本優勢實證、股債配置再平衡研究報告。
+            </p>
+          </div>
+
+          <div class="source-item-card" style="padding: 18px;">
+            <a href="https://www.morningstar.com" target="_blank" rel="noopener" style="font-size: 1.05rem;">
+              <span>🇺🇸 晨星 (Morningstar) ETF 評級與持股分析</span> ↗
+            </a>
+            <p style="margin-top: 8px; font-size: 0.85rem; line-height: 1.5;">
+              全球最完備之 ETF 與基金獨立評級機構。提供 Style Box 風格箱、成分股穿透重疊率分析與經理人績效評估。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="w5-slides-data.js"></script>
+  <script src="w5-activities-data.js"></script>
+  <script src="w5-app.js"></script>
+</body>
+</html>

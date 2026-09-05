@@ -1,0 +1,154 @@
+/* ==========================================================================
+   W11 SPECIFIC STYLES & INFOGRAPHICS EXTENSION: INDIVIDUAL INCOME TAX & FILING
+   Loaded alongside base style.css
+   ========================================================================== */
+
+:root {
+  --w11-primary: #4f46e5;       /* Royal Tax Indigo */
+  --w11-primary-light: #eef2ff;
+  --w11-secondary: #0284c7;     /* Ocean Blue */
+  --w11-secondary-light: #f0f9ff;
+  --w11-accent: #f59e0b;        /* Amber Alert */
+  --w11-accent-light: #fffbeb;
+  --w11-success: #10b981;       /* Refund Emerald */
+  --w11-success-light: #f0fdf4;
+  --w11-danger: #ef4444;        /* Penalties Crimson */
+  --w11-danger-light: #fef2f2;
+  --w11-border: #e2e8f0;
+  --w11-card-bg: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Visual Diagram Container & Infographic Components
+   -------------------------------------------------------------------------- */
+.visual-diagram-card {
+  background: transparent;
+  border-radius: var(--radius-sm, 8px);
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.diagram-header {
+  margin-bottom: 10px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.diagram-header h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+
+.diagram-header .sub-tag {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Tax Formula & Pillars
+   -------------------------------------------------------------------------- */
+.tax-pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tax-pillar-box {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.tax-pillar-box.exemption {
+  border-top: 4px solid var(--w11-primary);
+  background: #eef2ff;
+}
+
+.tax-pillar-box.std-deduct {
+  border-top: 4px solid #0284c7;
+  background: #f0f9ff;
+}
+
+.tax-pillar-box.salary-deduct {
+  border-top: 4px solid #10b981;
+  background: #f0fdf4;
+}
+
+/* --------------------------------------------------------------------------
+   Tax Bracket Steps
+   -------------------------------------------------------------------------- */
+.tax-bracket-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.bracket-step-item {
+  border-radius: 6px;
+  padding: 6px 4px;
+  text-align: center;
+  font-size: 0.72rem;
+}
+
+.bracket-step-item.b5 { background: #f0fdf4; border: 1px solid #86efac; color: #15803d; }
+.bracket-step-item.b12 { background: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; }
+.bracket-step-item.b20 { background: #fffbeb; border: 1px solid #fde68a; color: #b45309; }
+.bracket-step-item.b30 { background: #fff7ed; border: 1px solid #fed7aa; color: #c2410c; }
+.bracket-step-item.b40 { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; }
+
+/* --------------------------------------------------------------------------
+   Modal Calculator Components
+   -------------------------------------------------------------------------- */
+.calc-field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 4px;
+}
+
+.calc-field input, .calc-field select {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.calc-results-panel {
+  display: grid;
+  gap: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.result-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-metric .r-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.result-metric .r-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+}

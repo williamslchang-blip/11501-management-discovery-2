@@ -1,0 +1,699 @@
+/* ==========================================================================
+   W7 SPECIFIC STYLES & INFOGRAPHICS EXTENSION: FOREX, PPP & GLOBAL TRADE
+   Loaded alongside base style.css
+   ========================================================================== */
+
+:root {
+  --w7-primary: #1e3a8a;       /* Deep Navy Forex */
+  --w7-primary-light: #eff6ff; /* Soft Blue */
+  --w7-secondary: #0d9488;     /* Teal Trade / FX */
+  --w7-secondary-light: #f0fdfa; /* Soft Teal */
+  --w7-accent: #f59e0b;        /* Gold Dollar / Reserves */
+  --w7-accent-light: #fffbeb;  /* Soft Amber */
+  --w7-danger: #ef4444;        /* Bearish / Depreciation */
+  --w7-danger-light: #fef2f2;  /* Soft Red */
+  --w7-success: #10b981;       /* Bullish / Appreciation */
+  --w7-success-light: #f0fdf4; /* Soft Green */
+  --w7-border: #e2e8f0;
+  --w7-card-bg: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Visual Diagram Container & Infographic Components
+   -------------------------------------------------------------------------- */
+.visual-diagram-card {
+  background: transparent;
+  border-radius: var(--radius-sm, 8px);
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.diagram-header {
+  margin-bottom: 12px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.diagram-header h4 {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+
+.diagram-header .sub-tag {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Rate Board Component */
+.rate-board-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 12px 0;
+}
+
+.rate-ticker-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--w7-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rate-ticker-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.rate-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.rate-badge.spot {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.rate-badge.cash {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.rate-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 8px;
+}
+
+.rate-price-num {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.5px;
+}
+
+.rate-price-unit {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-left: 4px;
+}
+
+/* Big Mac Gauge & PPP meter */
+.ppp-gauge-box {
+  background: linear-gradient(135deg, #fef9c3 0%, #ffedd5 100%);
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid #fed7aa;
+  margin: 14px 0;
+  text-align: center;
+}
+
+.ppp-gauge-val {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #9a3412;
+}
+
+.ppp-gauge-sub {
+  font-size: 0.95rem;
+  color: #7c2d12;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* Currency Matrix */
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 12px 0;
+}
+
+.matrix-card {
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.matrix-card.winners {
+  background: #ecfdf5;
+  border-left: 4px solid #10b981;
+  color: #065f46;
+}
+
+.matrix-card.losers {
+  background: #fef2f2;
+  border-left: 4px solid #ef4444;
+  color: #991b1b;
+}
+
+.matrix-card h5 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Visual slide cards */
+.visual-slide-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 14px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+}
+
+.visual-slide-card.navy {
+  background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+  color: #ffffff;
+}
+
+.visual-slide-card.navy .card-title,
+.visual-slide-card.navy .card-metric-val {
+  color: #ffffff;
+}
+
+.visual-slide-card.navy .card-metric-label {
+  color: #94a3b8;
+}
+
+.visual-slide-card.teal {
+  background: linear-gradient(145deg, #f0fdfa 0%, #e6fffa 100%);
+  border-color: #99f6e4;
+}
+
+.visual-slide-card.gold {
+  background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 100%);
+  border-color: #fde68a;
+}
+
+/* --------------------------------------------------------------------------
+   Modal Activity Banners & Controls
+   -------------------------------------------------------------------------- */
+.activity-banner {
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.banner-tag {
+  display: inline-block;
+  padding: 3px 8px;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.activity-banner h4 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.activity-banner p {
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Presets Bar */
+.preset-buttons-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.preset-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.fx-preset-btn,
+.ppp-preset-btn,
+.sav-preset-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fx-preset-btn:hover,
+.ppp-preset-btn:hover,
+.sav-preset-btn:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+  background: #eff6ff;
+}
+
+.fx-preset-btn.active,
+.ppp-preset-btn.active,
+.sav-preset-btn.active {
+  background: #1e3a8a;
+  color: #ffffff;
+  border-color: #1e3a8a;
+  box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25);
+}
+
+/* Calculator Grid */
+.calc-input-grid {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.calc-field label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.calc-field input,
+.calc-field select {
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.calc-field input:focus,
+.calc-field select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Results Panel */
+.calc-results-panel {
+  display: grid;
+  gap: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+}
+
+.result-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.r-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.r-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+/* --------------------------------------------------------------------------
+   Quiz Game Modal Elements
+   -------------------------------------------------------------------------- */
+.quiz-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.quiz-badge-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.quiz-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.quiz-score-badge {
+  background: #fef3c7;
+  color: #b45309;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.quiz-scenario {
+  background: #ffffff;
+  border-left: 4px solid #2563eb;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #1e293b;
+  margin-bottom: 14px;
+}
+
+.quiz-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-quiz-option {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.4;
+}
+
+.btn-quiz-option:hover:not(:disabled) {
+  border-color: #2563eb;
+  background: #f0f7ff;
+  transform: translateX(3px);
+}
+
+.btn-quiz-option.correct {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  color: #15803d;
+  font-weight: 700;
+}
+
+.btn-quiz-option.wrong {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #b91c1c;
+}
+
+/* --------------------------------------------------------------------------
+   Homework Modal Elements
+   -------------------------------------------------------------------------- */
+.modal-hw-wide {
+  max-width: 960px !important;
+  width: 95vw;
+}
+
+.hw-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.hw-student-inputs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hw-student-inputs input,
+.hw-student-inputs select {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e293b;
+  outline: none;
+}
+
+.hw-student-inputs input:focus,
+.hw-student-inputs select:focus {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+}
+
+.hw-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hw-preset-btn {
+  background: #059669;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.hw-preset-btn:hover {
+  background: #047857;
+}
+
+.save-status-text {
+  font-size: 0.78rem;
+  color: #10b981;
+  font-weight: 700;
+}
+
+.hw-rubric-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.hw-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.hw-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.hw-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.hw-card-header h5 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.hw-card textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #1e293b;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 90px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+.hw-card textarea:focus {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+}
+
+.hw-summary-row {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 12px;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+.hw-grade-select label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  margin-right: 6px;
+}
+
+.hw-grade-select select {
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.hw-summary-input input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.hw-footer-flex {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-hw-action {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-hw-action:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+/* --------------------------------------------------------------------------
+   Draw Toolbar Actions
+   -------------------------------------------------------------------------- */
+.draw-action-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding-left: 8px;
+  border-left: 1px solid #cbd5e1;
+}
+
+.btn-draw-action {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-draw-action:hover {
+  background: #e2e8f0;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Rules
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .rate-board-container,
+  .matrix-grid,
+  .hw-rubric-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-input-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .calc-results-panel {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .hw-summary-row {
+    grid-template-columns: 1fr;
+  }
+}

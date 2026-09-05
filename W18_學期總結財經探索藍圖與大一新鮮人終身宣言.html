@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W18 學期總結財經探索藍圖與大一新鮮人終身宣言 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w18-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge" style="background: linear-gradient(135deg, #b45309, #92400e);">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：學期總結、財經探索藍圖與大一新鮮人終身宣言" data-i18n-en="Explorations in Management II: Capstone Blueprint & Freshmen Declaration">管理探索二：學期總結、財經探索藍圖與大一新鮮人終身宣言</h1>
+        <p data-i18n-zh="115學年度 ‧ 第十八週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 18: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第十八週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalMillionBlueprintLab')">
+        <span>💰</span>
+        <span data-i18n-zh="1小時: 百萬第一桶金" data-i18n-en="Hr 1: First Million">1小時: 百萬第一桶金</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalSemesterRadarLab')">
+        <span>🎖️</span>
+        <span data-i18n-zh="2小時: 18週能力雷達" data-i18n-en="Hr 2: Radar Lab">2小時: 18週能力雷達</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalGrandFinaleGame')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: 18週全景大挑戰" data-i18n-en="Hr 3: Grand Finale">3小時: 18週全景大挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="學期結業報告" data-i18n-en="Capstone Homework">學期結業報告</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>📊</span>
+        <span data-i18n-zh="終身學習專區" data-i18n-en="Lifelong Hub">終身學習專區</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button id="btnToolPen" class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button id="btnToolHighlighter" class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active btn-color-dot" style="background: #b45309;" data-color="#b45309"></span>
+        <span class="color-swatch btn-color-dot" style="background: #059669;" data-color="#059669"></span>
+        <span class="color-swatch btn-color-dot" style="background: #d97706;" data-color="#d97706"></span>
+        <span class="color-swatch btn-color-dot" style="background: #0284c7;" data-color="#0284c7"></span>
+        <span class="color-swatch btn-color-dot" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnToolClear" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">學期全景總回顧</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第十八週課程導論：學期總結、財經探索藍圖與大一新鮮人終身宣言</h2>
+            <p id="slideSubtitle" class="subtitle">18 週知識大匯流 ‧ 百萬第一桶金路徑 ‧ 五大維度雷達 ‧ 終身理性財經公民宣言</p>
+          </div>
+
+          <!-- CRITICAL: .slide-content-grid Container -->
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">回顧這 18 週的財經探索之旅，哪一個觀念或模型最深刻地顛覆了你過去對金錢與未來的認知？你打算如何把它落實在大學生活與長期人生中？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 150+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (150+ Words)">📘 教學指引詳解 (每頁 150+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #b45309; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Presentation Bar -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step" style="background:#b45309;">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalMillionBlueprintLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>💰 第 1 小時專屬活動：大學 4 年財經藍圖與百萬第一桶金試算器</h3>
+          <p>輸入目標年數、每月儲蓄與投資金額、年化報酬率與啟動本金 ‧ 精算複利資產積累總額、本金與利息比率及圓夢進度</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalMillionBlueprintLab')">&times;</button>
+      </div>
+      <div class="modal-body">
+<div class="activity-banner">
+<div class="banner-tag">百萬第一桶金</div>
+<h4>時間是年輕人最大的特權！親眼見證時間複利如何把你推向千萬身價！</h4>
+<p>輸入大學每月定期定額預算與畢業後就業儲蓄，系統即時精算破百萬年齡與 30 年複利終值。</p>
+</div>
+<div class="preset-buttons-bar">
+<span class="preset-label">快速載入儲蓄情境：</span>
+<button class="asset-preset-btn btn-preset-blueprint active" data-preset="disciplined_achiever">積極自律衝刺型 (大學月存 8,000 ‧ 畢業存 45萬)</button>
+<button class="asset-preset-btn btn-preset-blueprint" data-preset="steady_smart_saver">穩健小資生活型 (大學月存 5,000 ‧ 畢業存 28萬)</button>
+<button class="asset-preset-btn btn-preset-blueprint" data-preset="light_start_rookie">輕量起步探索型 (大學月存 3,000 ‧ 畢業存 16萬)</button>
+</div>
+<div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr; margin-top: 10px;">
+<div class="calc-field">
+<label>1. 起步年齡 (歲)</label>
+<input id="bpStartAge" max="25" min="18" step="1" type="number" value="18"/>
+</div>
+<div class="calc-field">
+<label>2. 大學兼職月存 (NT$)</label>
+<input id="bpCollegeMonthlySave" max="30000" min="1000" step="1000" type="number" value="5000"/>
+</div>
+<div class="calc-field">
+<label>3. 預期年化報酬 (%)</label>
+<input id="bpReturnRate" max="12.0" min="4.0" step="0.5" type="number" value="8.0"/>
+</div>
+<div class="calc-field">
+<label>4. 畢業出社會月存 (NT$)</label>
+<input id="bpWorkMonthlySave" max="50000" min="5000" step="1000" type="number" value="10000"/>
+</div>
+<div class="calc-field">
+<label>5. 長期滾存年限 (年)</label>
+<input id="bpLongYears" max="40" min="10" step="5" type="number" value="30"/>
+</div>
+</div>
+<div class="calc-results-panel" style="grid-template-columns: 1.2fr 1fr 1fr 1.2fr; margin-top: 12px;">
+<div class="result-metric">
+<span class="r-label">大學畢業累積資產</span>
+<span class="r-value" id="outGradWealth" style="color: #b45309; font-weight: 900;">NT$ 284,380 元</span>
+</div>
+<div class="result-metric">
+<span class="r-label">大學 4 年自提本金</span>
+<span class="r-value" id="outGradPrincipal" style="color: #64748b; font-weight: 800;">NT$ 240,000 元</span>
+</div>
+<div class="result-metric">
+<span class="r-label">百萬第一桶金達成</span>
+<span class="r-value" id="outAgeAtMillion" style="color: #059669; font-weight: 900;">27.4 歲達成！</span>
+</div>
+<div class="result-metric">
+<span class="r-label">30年長期複利終值</span>
+<span class="r-value" id="out30YrWealth" style="color: #b45309; font-weight: 900;">NT$ 1,482.5 萬元</span>
+</div>
+</div>
+<div id="outBlueprintAdvice" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #fefce8; border: 1px solid #fde047; font-size: 0.88rem; line-height: 1.55; color: #854d0e;">
+<!-- Populated by JavaScript -->
+</div>
+</div>
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalMillionBlueprintLab')" style="background:#b45309;">完成試算，返回簡報</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalSemesterRadarLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎖️ 第 2 小時專屬活動：18 週全景知識能力診斷與結業榮譽試算器</h3>
+          <p>評估五大核心領域（宏觀貨幣、企業財報、金融科技、個人理財、永續前沿）掌握度 ‧ 生成學期能力雷達與專屬結業榮譽稱號</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSemesterRadarLab')">&times;</button>
+      </div>
+      <div class="modal-body">
+<div class="activity-banner">
+<div class="banner-tag">全景能力診斷</div>
+<h4>檢核十八週的修煉成果！為自己的五大核心維度打分，獲頒結業榮耀！</h4>
+<p>調整五項維度得分，系統即時精算綜合平均分、榮譽等第與客觀診斷評語。</p>
+</div>
+<div class="preset-buttons-bar">
+<span class="preset-label">快速載入能力範本：</span>
+<button class="asset-preset-btn btn-preset-radar active" data-preset="all_round_elite">全能商業菁英 (五維均 95分 ‧ 特優金牌)</button>
+<button class="asset-preset-btn btn-preset-radar" data-preset="invest_tech_pioneer">投資科技先鋒 (投資與科技 98分 ‧ 卓越銀牌)</button>
+<button class="asset-preset-btn btn-preset-radar" data-preset="risk_control_guardian">自律風控守護者 (防詐記帳 98分 ‧ 卓越銀牌)</button>
+</div>
+<div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr; margin-top: 10px;">
+<div class="calc-field">
+<label>1. 個人記帳與現金流</label>
+<input id="dimBudget" max="100" min="60" step="1" type="number" value="96"/>
+</div>
+<div class="calc-field">
+<label>2. 指數投資與複利</label>
+<input id="dimIndexInvest" max="100" min="60" step="1" type="number" value="98"/>
+</div>
+<div class="calc-field">
+<label>3. 房貸與大型決策</label>
+<input id="dimMortgage" max="100" min="60" step="1" type="number" value="94"/>
+</div>
+<div class="calc-field">
+<label>4. 科技產業AI與ESG</label>
+<input id="dimTechFrontier" max="100" min="60" step="1" type="number" value="95"/>
+</div>
+<div class="calc-field">
+<label>5. 簡報表達與防詐</label>
+<input id="dimPitchDefense" max="100" min="60" step="1" type="number" value="96"/>
+</div>
+</div>
+<div class="calc-results-panel" style="grid-template-columns: 1fr 1.5fr; margin-top: 12px;">
+<div class="result-metric">
+<span class="r-label">18週全景綜合得分</span>
+<span class="r-value" id="outRadarTotalScore" style="color: #b45309; font-weight: 900;">95.8 分 / 100</span>
+</div>
+<div class="result-metric">
+<span class="r-label">結業榮譽等第</span>
+<span class="r-value" id="outRadarAwardTitle" style="color: #059669; font-weight: 900;">🏆 特優金牌商管菁英 (Summa Cum Laude)</span>
+</div>
+</div>
+<div id="outRadarDiagnosis" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; font-size: 0.88rem; line-height: 1.55; color: #166534;">
+<!-- Populated by JavaScript -->
+</div>
+</div>
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSemesterRadarLab')" style="background:#b45309;">完成診斷，返回簡報</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalGrandFinaleGame" class="modal-overlay">
+    <div class="modal-container" style="max-width: 800px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時互動遊戲：18 週全景財經通識總大挑戰</h3>
+          <p>4 大終極全景跨領域關卡 ‧ 檢驗通膨貨幣學、本益比財報估值、資產配置抗震防護與理性公民自律防詐能力</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalGrandFinaleGame')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="finaleGameContainer"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-nav-step" onclick="closeModal('modalGrandFinaleGame')" style="background:#334155; color:#fff;">關閉遊戲視窗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container" style="max-width: 900px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第十八週課堂作業：個人大學 4 年財經探索藍圖與結業感言</h3>
+          <p>四維度全景總結：18 週知識大回顧 ‧ 百萬第一桶金藍圖 ‧ 五大維度能力補強 ‧ 終身理性財經公民獨立宣言</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：林宥廷)" style="width: 150px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307116)" style="width: 150px;">
+            <input type="text" id="hwTargetPlan" placeholder="規劃主題 (例如：個人大學 4 年財經探索藍圖與大一新鮮人終身宣言)" style="width: 320px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn" onclick="loadHomeworkTemplate()">📄 載入第十八週結業藍圖範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. 18 週全景回顧 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#b45309; color:#fff;">維度一 (25%)</span>
+              <h5>1. 18 週財經探索學習歷程全景回顧與核心知識整合</h5>
+            </div>
+            <textarea id="hwDim1Inventory" rows="4" placeholder="貫通宏觀貨幣政策、利率匯率、企業三大財務報表、ETF指數投資與Web3/ESG前沿，總結最深刻的財經認知轉變..."></textarea>
+          </div>
+
+          <!-- 2. 百萬第一桶金執行藍圖 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#059669; color:#fff;">維度二 (25%)</span>
+              <h5>2. 大學四年第一桶金 (100 萬) 儲蓄與複利投資執行藍圖</h5>
+            </div>
+            <textarea id="hwDim2CashFlow" rows="4" placeholder="訂定大一至大四每月儲蓄目標、兼職收入分配、定期定額標的 (0050+00878) 與畢業累積 100 萬元的具體數字模型..."></textarea>
+          </div>
+
+          <!-- 3. 五大能力雷達自我評估 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#d97706; color:#fff;">維度三 (25%)</span>
+              <h5>3. 個人五大財經能力雷達診斷自我評估與補強策略</h5>
+            </div>
+            <textarea id="hwDim3ReserveDebt" rows="4" placeholder="分析宏觀宏景、財報估值、金融科技、個人理財與永續責任五大維度強弱項，擬定未來四年跨系選修與專業考照補強計畫..."></textarea>
+          </div>
+
+          <!-- 4. 終身理性公民獨立宣言 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#1e293b; color:#fff;">維度四 (25%)</span>
+              <h5>4. 大一新鮮人終身理性財富公民獨立宣言與自律防詐承諾</h5>
+            </div>
+            <textarea id="hwDim4FireRoadmap" rows="4" placeholder="莊嚴宣讀個人的財務自律宣言：拒絕高利誘惑與假投資詐騙、堅持長期價值投資、以自律誠信守護每一分財富並實踐世代正義..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>作業自評等級：</label>
+            <select id="hwConclusionGrade">
+              <option value="A+ (全面且具備實戰避險可行性)">A+ (全面且具備實戰避險可行性)</option>
+              <option value="A (理論與財務數據分析完整)">A (理論與財務數據分析完整)</option>
+              <option value="B (具備基本學期探索觀念)">B (具備基本學期探索觀念)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：以自律儲蓄、理性投資與世代正義，成為頂天立地的理性現代財經公民)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action" onclick="window.print()">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action" onclick="exportHomeworkJson()">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step" onclick="exportHomeworkMd()" style="background:#b45309;">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第十八週教學進度表與結業典禮流程</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #b45309;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>18 週全景總回顧與大學 4 年財經藍圖 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">通膨貨幣、財報估值、指數投資、Web3與ESG全景匯流，百萬第一桶金路徑規劃。</span></td>
+              <td>💰 <strong>專屬活動：大學 4 年財經藍圖與百萬第一桶金試算器</strong><br><span style="font-size: 0.78rem;">輸入目標年數與定期定額精算複利積累與圓夢進度。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #059669;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>五大維度能力雷達與終身學習地圖 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">宏觀貨幣、企業財報、金融科技、個人理財與永續前沿五大維度診斷與跨領域學習通道。</span></td>
+              <td>🎖️ <strong>專屬活動：18 週全景知識能力診斷與結業榮譽試算器</strong><br><span style="font-size: 0.78rem;">精算能力雷達總分、診斷強弱項並領取結業稱號。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #991b1b;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>理性財富公民宣言、防身護城河與揚帆啟航 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">終身防身護城河、大一新鮮人理性公民獨立宣言、結業勉勵與未來四年揚帆啟航。</span></td>
+              <td>🎮 <strong>小遊戲：18 週全景財經通識總大挑戰 (4大關卡)</strong><br>📝 <strong>作業：個人大學 4 年財經探索藍圖與結業感言</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')" style="background:#b45309;">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📊 第十八週 結業榮譽與終身學習資源專區</h3>
+          <p>全學期學習成果統計指標與國際權威財經進修地圖總整</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hubs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #b45309; font-size: 0.95rem; margin-bottom: 4px;">1. CFA Institute 國際特許金融分析師</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">查詢全球金融頂級證照 CFA Level 1 考試大綱、職業道德準則與獎學金申請通道。</p>
+            <a href="https://www.cfainstitute.org" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #b45309; font-weight: 700;">前往 CFA 官方網站 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #059669; font-size: 0.95rem; margin-bottom: 4px;">2. 證券暨期貨市場發展基金會 (SFI)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">查詢證券商業務員、高級業務員、投信投顧業務員與期貨業務員之報名與題庫。</p>
+            <a href="https://www.sfi.org.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #059669; font-weight: 700;">前往證基會測驗中心 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #d97706; font-size: 0.95rem; margin-bottom: 4px;">3. 台灣金融研訓院 (TABF)</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">查詢銀行招考資訊、初階外匯、理財規劃人員與永續金融證照考試日程。</p>
+            <a href="https://www.tabf.org.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #d97706; font-weight: 700;">前往金研院官方網站 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #0284c7; font-size: 0.95rem; margin-bottom: 4px;">4. 國家圖書館台灣博碩士論文加值系統</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">免費檢索全國商學、財務金融、經濟學最新博碩士論文，培養終身獨立研究能力。</p>
+            <a href="https://ndltd.ncl.edu.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #0284c7; font-weight: 700;">前往論文知識加值系統 ➔</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')" style="background:#b45309;">關閉資料中心</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules Execution -->
+  <script src="w18-slides-data.js"></script>
+  <script src="w18-activities-data.js"></script>
+  <script src="w18-app.js"></script>
+
+</body>
+</html>

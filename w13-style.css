@@ -1,0 +1,80 @@
+/* ==========================================================================
+   W13 SPECIFIC STYLES & INFOGRAPHICS EXTENSION: SEMICONDUCTOR & TSMC
+   Loaded alongside base style.css
+   ========================================================================== */
+
+:root {
+  --w13-primary: #0284c7;       /* Semiconductor Silicon Cyan */
+  --w13-primary-light: #f0f9ff;
+  --w13-secondary: #0369a1;     /* Deep Tech Blue */
+  --w13-secondary-light: #e0f2fe;
+  --w13-accent: #d97706;        /* Wafer Amber */
+  --w13-accent-light: #fffbeb;
+  --w13-tsmc: #e11d48;          /* TSMC Red Accent */
+  --w13-tsmc-light: #ffe4e6;
+  --w13-border: #cbd5e1;
+  --w13-card-bg: #ffffff;
+}
+
+.visual-diagram-card {
+  background: transparent;
+  border-radius: var(--radius-sm, 8px);
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.diagram-header {
+  margin-bottom: 10px;
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 6px;
+}
+
+.diagram-header h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 2px;
+}
+
+.diagram-header .sub-tag {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Semi Pillars Grid */
+.semi-pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.semi-pillar-box {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.semi-pillar-box.design {
+  border-top: 4px solid var(--w13-primary);
+  background: #f0f9ff;
+}
+
+.semi-pillar-box.foundry {
+  border-top: 4px solid #e11d48;
+  background: #fff1f2;
+}
+
+.semi-pillar-box.package {
+  border-top: 4px solid #d97706;
+  background: #fffbeb;
+}

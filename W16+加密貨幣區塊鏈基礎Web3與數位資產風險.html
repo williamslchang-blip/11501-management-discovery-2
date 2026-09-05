@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W16 加密貨幣區塊鏈基礎Web3與數位資產風險 | 管理探索二 互動教學系統</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="w16-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ==================== TOP NAVIGATION ==================== -->
+  <header class="top-navbar">
+    <div class="brand-section">
+      <div class="brand-logo-badge" style="background: linear-gradient(135deg, #d97706, #b45309);">AGY</div>
+      <div class="brand-titles">
+        <h1 data-i18n-zh="管理探索二：加密貨幣、區塊鏈基礎、Web3 與數位資產風險" data-i18n-en="Explorations in Management II: Crypto, Blockchain, Web3 & Digital Asset Risk">管理探索二：加密貨幣、區塊鏈基礎、Web3 與數位資產風險</h1>
+        <p data-i18n-zh="115學年度 ‧ 第十六週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)" data-i18n-en="Week 16: 3-Hour Interactive Courseware (30 Slides + 3 Labs + Homework)">115學年度 ‧ 第十六週 3小時互動教案 (30頁卡片 + 3大活動 + 實務作業)</p>
+      </div>
+    </div>
+
+    <!-- Quick Activity Jumps -->
+    <nav class="nav-actions">
+      <button class="btn-nav-action btn-h1" onclick="openModal('modalBtcHalvingLab')">
+        <span>🪙</span>
+        <span data-i18n-zh="1小時: 減半產量試算" data-i18n-en="Hr 1: Halving Lab">1小時: 減半產量試算</span>
+      </button>
+
+      <button class="btn-nav-action btn-h2" onclick="openModal('modalCryptoAllocLab')">
+        <span>⚖️</span>
+        <span data-i18n-zh="2小時: 5% 避險配置" data-i18n-en="Hr 2: Allocation Lab">2小時: 5% 避險配置</span>
+      </button>
+
+      <button class="btn-nav-action btn-h3" onclick="openModal('modalWeb3Game')">
+        <span>🎮</span>
+        <span data-i18n-zh="3小時: Web3 防詐挑戰" data-i18n-en="Hr 3: Defense Game">3小時: Web3 防詐挑戰</span>
+      </button>
+
+      <button class="btn-nav-action btn-hw" onclick="openModal('modalHomework')">
+        <span>📝</span>
+        <span data-i18n-zh="本週課堂作業" data-i18n-en="Homework Report">本週課堂作業</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalSchedule')">
+        <span>📅</span>
+        <span data-i18n-zh="教學進度表" data-i18n-en="Schedule">教學進度表</span>
+      </button>
+
+      <button class="btn-nav-action" onclick="openModal('modalDataHubs')">
+        <span>📊</span>
+        <span data-i18n-zh="數據資料中心" data-i18n-en="Data Hubs">數據資料中心</span>
+      </button>
+    </nav>
+
+    <!-- Presentation & Annotation Controls -->
+    <div class="toolbar-controls">
+      <button id="btnToggleDrawing" class="btn-icon-control" title="手繪筆刷與螢光筆 (D)">
+        <span>🖌️</span>
+      </button>
+
+      <button id="btnToggleView" class="btn-icon-control" title="模組總覽 / 簡報視圖 (M)">
+        <span>👁️</span>
+      </button>
+
+      <button id="btnToggleLang" class="btn-icon-control" title="切換中英雙語">
+        <span class="lang-switch-badge" id="langText">EN</span>
+      </button>
+
+      <button id="btnToggleFullscreen" class="btn-icon-control" title="全螢幕模式 (F)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT AREA ==================== -->
+  <main class="app-container">
+
+    <!-- Canvas Drawing Overlay -->
+    <canvas id="drawingCanvas"></canvas>
+
+    <!-- Floating Annotation Toolbar -->
+    <div id="drawingToolbar" class="drawing-floating-toolbar hidden">
+      <div class="draw-tool-group">
+        <button id="btnToolPen" class="btn-draw-tool active" data-tool="pen">✏️ <span data-i18n-zh="原子筆" data-i18n-en="Pen">原子筆</span></button>
+        <button id="btnToolHighlighter" class="btn-draw-tool" data-tool="highlighter">🖍️ <span data-i18n-zh="螢光筆" data-i18n-en="Highlighter">螢光筆</span></button>
+      </div>
+
+      <div class="draw-color-swatches">
+        <span class="color-swatch active btn-color-dot" style="background: #d97706;" data-color="#d97706"></span>
+        <span class="color-swatch btn-color-dot" style="background: #0284c7;" data-color="#0284c7"></span>
+        <span class="color-swatch btn-color-dot" style="background: #8b5cf6;" data-color="#8b5cf6"></span>
+        <span class="color-swatch btn-color-dot" style="background: #10b981;" data-color="#10b981"></span>
+        <span class="color-swatch btn-color-dot" style="background: #1e293b;" data-color="#1e293b"></span>
+      </div>
+
+      <div class="draw-action-group">
+        <button id="btnToolClear" class="btn-draw-action">🗑️ <span data-i18n-zh="清除" data-i18n-en="Clear">清除</span></button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: Slide Deck Mode (Default) -->
+    <section id="deckViewport" class="slide-deck-viewport">
+      <article id="slideStageCard" class="slide-stage-card hour-1">
+        
+        <!-- Slide Card Header -->
+        <header class="slide-card-header">
+          <div class="slide-meta-tags">
+            <span id="slideNumBadge" class="badge-slide-num">Slide 01 / 30</span>
+            <span id="slideHourBadge" class="badge-hour">第 1 小時</span>
+            <span id="slideCategoryBadge" class="badge-category">區塊鏈與比特幣</span>
+          </div>
+          <div class="slide-quick-actions">
+            <button id="btnToggleNotes" class="btn-teacher-notes-toggle" title="顯示教師講授指引 (N)">
+              <span>📖</span>
+              <span data-i18n-zh="講授指引與提問" data-i18n-en="Teaching Notes">講授指引與提問</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- Slide Card Body -->
+        <div class="slide-card-body">
+          <div class="slide-title-group">
+            <h2 id="slideTitle">第十六週課程導論：加密貨幣、區塊鏈基礎、Web3 與數位資產風險</h2>
+            <p id="slideSubtitle" class="subtitle">去中心化帳本革命 ‧ 數位黃金稀缺性 ‧ 智能合約與全方位風控思維</p>
+          </div>
+
+          <!-- CRITICAL: .slide-content-grid Container -->
+          <div class="slide-content-grid">
+            <!-- Left: Diagrams & Visual Content -->
+            <div id="slideVisualContainer" class="slide-visual-container">
+              <!-- Dynamically populated by renderSlideVisual() -->
+            </div>
+
+            <!-- Right: Takeaways & Discussion Prompt -->
+            <div class="slide-info-container">
+              <div class="takeaways-box">
+                <h4 data-i18n-zh="🎯 核心學習速記 (Takeaways)" data-i18n-en="🎯 Key Takeaways">🎯 核心學習速記 (Takeaways)</h4>
+                <ul id="slideTakeawaysList" class="takeaways-list">
+                  <!-- Dynamically populated by renderSlide() -->
+                </ul>
+              </div>
+
+              <div class="slide-guiding-card">
+                <h4 data-i18n-zh="💬 課堂提問與引導思辨" data-i18n-en="💬 Classroom Discussion Prompt">💬 課堂提問與引導思辨</h4>
+                <p id="slideGuideQuestion">針對「加密貨幣與去中心化技術」，身為大一新鮮人，你如何在追求前沿金融科技紅利的同時，確保個人私鑰絕對安全並嚴控資產曝險？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Notes Collapsible Drawer -->
+        <div id="teacherNotesDrawer" class="teacher-notes-drawer collapsed">
+          <div class="notes-header">
+            <h4 data-i18n-zh="📘 教學指引詳解 (每頁 150+ 字精解)" data-i18n-en="📘 Detailed Teaching Guide (150+ Words)">📘 教學指引詳解 (每頁 150+ 字精解)</h4>
+            <span style="font-size: 0.78rem; color: #64748b;">按 N 鍵可收合或展開</span>
+          </div>
+          <div class="notes-content">
+            <div class="notes-core">
+              <strong style="color: #1e293b; display: block; margin-bottom: 4px;" data-i18n-zh="【講授核心與背景說明】" data-i18n-en="[Core Concepts & Background]">[講授核心與背景說明]</strong>
+              <span id="notesCoreText">載入中...</span>
+            </div>
+            <div class="notes-questions">
+              <strong style="color: #d97706; display: block; margin-bottom: 4px;" data-i18n-zh="【課堂提問引導指引】" data-i18n-en="[Pedagogical Guidance]">[課堂提問引導指引]</strong>
+              <span id="notesQuestionsText">載入中...</span>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- VIEW 2: Grid Overview Mode (All 30 Slides) -->
+    <section id="gridViewport" class="slide-grid-viewport" style="display: none;">
+      <div class="grid-filter-bar">
+        <div class="hour-filter-tabs">
+          <button class="tab-hour-filter active" data-hour="all" data-i18n-zh="全部 30 頁卡片" data-i18n-en="All 30 Slides">全部 30 頁卡片</button>
+          <button class="tab-hour-filter" data-hour="1" data-i18n-zh="第一小時 (Slide 01-10)" data-i18n-en="Hour 1 (Slide 01-10)">第一小時 (Slide 01-10)</button>
+          <button class="tab-hour-filter" data-hour="2" data-i18n-zh="第二小時 (Slide 11-20)" data-i18n-en="Hour 2 (Slide 11-20)">第二小時 (Slide 11-20)</button>
+          <button class="tab-hour-filter" data-hour="3" data-i18n-zh="第三小時 (Slide 21-30)" data-i18n-en="Hour 3 (Slide 21-30)">第三小時 (Slide 21-30)</button>
+        </div>
+
+        <div class="grid-search-box">
+          <span>🔍</span>
+          <input id="gridSearchInput" type="text" placeholder="搜尋投影片關鍵字..." data-i18n-placeholder-zh="搜尋投影片關鍵字..." data-i18n-placeholder-en="Search slides keyword...">
+        </div>
+      </div>
+
+      <div id="gridCardsContainer" class="cards-grid-layout">
+        <!-- Dynamically rendered 30 overview cards -->
+      </div>
+    </section>
+
+    <!-- Bottom Presentation Bar -->
+    <footer class="bottom-presentation-bar">
+      <div class="deck-progress-container">
+        <div class="progress-track">
+          <div id="deckProgressFill" class="progress-fill"></div>
+        </div>
+        <span id="deckProgressLabel" class="progress-label">1 / 30</span>
+      </div>
+
+      <div class="deck-nav-buttons">
+        <button id="btnPrevSlide" class="btn-nav-step">
+          <span>◀</span>
+          <span data-i18n-zh="上一頁" data-i18n-en="Prev">上一頁</span>
+        </button>
+
+        <select id="quickSlideSelect" class="btn-jump-menu">
+          <!-- Populated dynamically by populateQuickSelect() -->
+        </select>
+
+        <button id="btnNextSlide" class="btn-nav-step btn-primary-step" style="background:#d97706;">
+          <span data-i18n-zh="下一頁" data-i18n-en="Next">下一頁</span>
+          <span>▶</span>
+        </button>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==================== MODAL 1: HOUR 1 ACTIVITY ==================== -->
+  <div id="modalBtcHalvingLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🪙 第 1 小時專屬活動：比特幣減半產量與冷熱錢包資安評估計算器</h3>
+          <p>輸入減半週期、比特幣美元價格、冷錢包存放比例與硬體 2FA ‧ 精算每日全網挖礦產值、年通膨率與個人資安防禦評分</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalBtcHalvingLab')">&times;</button>
+      </div>
+      <div class="modal-body">
+<div class="activity-banner">
+<div class="banner-tag">減半產量與私鑰資安</div>
+<h4>稀缺性驅動價值，私鑰守護身家！親自體驗純數學抗通膨與冷錢包防禦力！</h4>
+<p>選擇歷史減半週期或調整冷熱錢包比例，系統即時精算全網日產量、通膨壓抑度與資安得分。</p>
+</div>
+<div class="preset-buttons-bar">
+<span class="preset-label">快速載入情境：</span>
+<button class="asset-preset-btn btn-preset-btc active" data-preset="post_2024_halving">2024 第四次減半 (3.125 BTC ‧ 80% 冷錢包)</button>
+<button class="asset-preset-btn btn-preset-btc" data-preset="post_2028_halving">2028 第五次減半 (1.5625 BTC ‧ 95% 冷錢包)</button>
+<button class="asset-preset-btn btn-preset-btc" data-preset="high_risk_rookie">新手高危情境 (100% 放熱錢包 ‧ 零冷錢包)</button>
+</div>
+<div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; margin-top: 10px;">
+<div class="calc-field">
+<label>1. 減半週期選擇</label>
+<select id="btcCycleSelect" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+<option value="1">2012 第 1 次 (25 BTC/塊)</option>
+<option value="2">2016 第 2 次 (12.5 BTC/塊)</option>
+<option value="3">2020 第 3 次 (6.25 BTC/塊)</option>
+<option selected="" value="4">2024 第 4 次 (3.125 BTC/塊)</option>
+<option value="5">2028 第 5 次 (1.5625 BTC/塊)</option>
+</select>
+</div>
+<div class="calc-field">
+<label>2. 比特幣單價 (USD)</label>
+<input id="btcPriceUsd" max="500000" min="1000" step="5000" type="number" value="65000"/>
+</div>
+<div class="calc-field">
+<label>3. 冷錢包持有比例 (%)</label>
+<input id="btcColdRatio" max="100" min="0" step="10" type="number" value="80"/>
+</div>
+<div class="calc-field">
+<label>4. 啟用硬體 2FA / 多簽保護？</label>
+<select id="btcUse2Fa" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+<option selected="" value="yes">是 (啟用實體安全金鑰/2FA)</option>
+<option value="no">否 (僅帳密或簡訊 SMS)</option>
+</select>
+</div>
+</div>
+<div class="calc-results-panel" style="grid-template-columns: 1fr 1.2fr 1fr 1fr; margin-top: 12px;">
+<div class="result-metric">
+<span class="r-label">全網每日新挖產量</span>
+<span class="r-value" id="outDailyBtc" style="color: #b45309; font-weight: 900;">450 BTC / 日</span>
+</div>
+<div class="result-metric">
+<span class="r-label">全網每日產出市值</span>
+<span class="r-value" id="outDailyValue" style="color: #0284c7; font-weight: 900;">$29.3 百萬美元</span>
+</div>
+<div class="result-metric">
+<span class="r-label">比特幣年化通膨率</span>
+<span class="r-value" id="outInflation" style="color: #059669; font-weight: 900;">0.83% / 年</span>
+</div>
+<div class="result-metric">
+<span class="r-label">個人資安防禦得分</span>
+<span class="r-value" id="outSecurityScore" style="color: #059669; font-weight: 900;">86 分 / 100</span>
+</div>
+</div>
+<div id="outSecurityDiagnosis" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #fffbeb; border: 1px solid #fde68a; font-size: 0.88rem; line-height: 1.55; color: #92400e;">
+<!-- Populated by JavaScript -->
+</div>
+</div>
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalBtcHalvingLab')" style="background:#d97706;">完成試算，返回簡報</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: HOUR 2 ACTIVITY ==================== -->
+  <div id="modalCryptoAllocLab" class="modal-overlay">
+    <div class="modal-container" style="max-width: 880px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>⚖️ 第 2 小時專屬活動：DeFi 年化收益風險與數位資產 5% 避險配置試算器</h3>
+          <p>調整核心大盤與加密資產衛星配置比例，模擬暴漲 200% 或暴跌 80% 極端行情下之抗震非對稱損益</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalCryptoAllocLab')">&times;</button>
+      </div>
+      <div class="modal-body">
+<div class="activity-banner">
+<div class="banner-tag">非對稱配置</div>
+<h4>用 5% 捕捉未來十倍爆發力，用 95% 牢牢鎖住財務安全底線！</h4>
+<p>調整核心大盤與衛星加密資產比率，選擇市場極端壓力情境，驗證衛星配置之抗震韌性。</p>
+</div>
+<div class="preset-buttons-bar">
+<span class="preset-label">快速載入配置組合：</span>
+<button class="asset-preset-btn btn-preset-alloc active" data-preset="balanced_satellite_5">穩健 5% 衛星配置 (核心 95% + 加密 5%)</button>
+<button class="asset-preset-btn btn-preset-alloc" data-preset="aggressive_speculative">極端投機高曝險 (核心 40% + 加密 60%)</button>
+<button class="asset-preset-btn btn-preset-alloc" data-preset="conservative_zero_crypto">零加密保守型 (純傳統 0050 100%)</button>
+</div>
+<div class="calc-input-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top: 10px;">
+<div class="calc-field">
+<label>1. 總投資本金 (NT$)</label>
+<input id="allocCapital" max="10000000" min="10000" step="10000" type="number" value="100000"/>
+</div>
+<div class="calc-field">
+<label>2. 核心大盤比率 (%)</label>
+<input id="allocCoreRatio" max="100" min="0" step="5" type="number" value="95"/>
+</div>
+<div class="calc-field">
+<label>3. 核心年化預期報酬 (%)</label>
+<input id="allocCoreReturn" max="12.0" min="4.0" step="0.5" type="number" value="8.0"/>
+</div>
+<div class="calc-field">
+<label>4. 衛星加密資產比率 (%)</label>
+<input id="allocCryptoRatio" max="100" min="0" step="5" type="number" value="5"/>
+</div>
+<div class="calc-field">
+<label>5. DeFi 質押質息收益 (%)</label>
+<input id="allocCryptoYield" max="30.0" min="0.0" step="1.0" type="number" value="5.0"/>
+</div>
+<div class="calc-field">
+<label>6. 幣圈極端行情壓力測試</label>
+<select id="allocScenario" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px;">
+<option value="-80%">熊市黑天鵝 (-80% 暴跌)</option>
+<option selected="" value="-50%">大幅回調 (-50% 回撤)</option>
+<option value="0%">橫盤震盪 (0% 波動)</option>
+<option value="+50%">溫和上漲 (+50% 成長)</option>
+<option value="+200%">牛市大爆發 (+200% 飆漲)</option>
+</select>
+</div>
+</div>
+<div class="calc-results-panel" style="grid-template-columns: 1.2fr 1fr 1fr 1fr; margin-top: 12px;">
+<div class="result-metric">
+<span class="r-label">一年期滿總資產</span>
+<span class="r-value" id="outAllocTotalValue" style="color: #b45309; font-weight: 900;">NT$ 105,350 元</span>
+</div>
+<div class="result-metric">
+<span class="r-label">核心大盤收益</span>
+<span class="r-value" id="outAllocCoreGain" style="color: #059669; font-weight: 800;">+NT$ 7,600 元</span>
+</div>
+<div class="result-metric">
+<span class="r-label">加密資產收益</span>
+<span class="r-value" id="outAllocCryptoGain" style="color: #dc2626; font-weight: 800;">-NT$ 2,250 元</span>
+</div>
+<div class="result-metric">
+<span class="r-label">投組整體淨報酬率</span>
+<span class="r-value" id="outAllocNetReturn" style="color: #059669; font-weight: 900;">+5.4%</span>
+</div>
+</div>
+<div id="outAllocDiagnosis" style="margin-top: 12px; padding: 12px 16px; border-radius: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; font-size: 0.88rem; line-height: 1.55; color: #166534;">
+<!-- Populated by JavaScript -->
+</div>
+</div>
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalCryptoAllocLab')" style="background:#d97706;">完成配置，返回簡報</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: HOUR 3 GAME ==================== -->
+  <div id="modalWeb3Game" class="modal-overlay">
+    <div class="modal-container" style="max-width: 800px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>🎮 第 3 小時互動遊戲：Web3 數位資產防詐大挑戰</h3>
+          <p>4 大實戰資安防詐關卡 ‧ 檢驗 Telegram 釣魚、助記詞防禦、DeFi 無常損失與 VASP 金管會法遵知識</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalWeb3Game')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="web3GameContainer"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-nav-step" onclick="closeModal('modalWeb3Game')" style="background:#334155; color:#fff;">關閉遊戲視窗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: HOMEWORK ==================== -->
+  <div id="modalHomework" class="modal-overlay">
+    <div class="modal-container" style="max-width: 900px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📝 第十六週課堂作業：個人數位資產風險評估與 Web3 報告</h3>
+          <p>四維度實務分析：區塊鏈底層特質 ‧ 冷熱錢包私鑰防禦 ‧ 5% 衛星配置試算 ‧ 合規出入金與 4 大防詐金律</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalHomework')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hw-top-bar">
+          <div class="hw-student-inputs">
+            <input type="text" id="hwStudentName" placeholder="學生姓名 (例如：林宥廷)" style="width: 150px;">
+            <input type="text" id="hwStudentId" placeholder="學號 (例如：B11307116)" style="width: 150px;">
+            <input type="text" id="hwTargetPlan" placeholder="規劃主題 (例如：大一小資族 5% 數位資產衛星配置與冷錢包資安實踐計畫)" style="width: 320px;">
+          </div>
+          <div class="hw-actions-right">
+            <button class="hw-preset-btn" onclick="loadHomeworkTemplate()">📄 載入第十六週數位資產範本</button>
+            <span id="hwSaveStatus" class="save-status-text"></span>
+          </div>
+        </div>
+
+        <div class="hw-rubric-cards">
+          <!-- 1. 區塊鏈底層特質與比特幣減半 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#d97706; color:#fff;">維度一 (25%)</span>
+              <h5>1. 區塊鏈去中心化底層特質與比特幣減半機制深度剖析</h5>
+            </div>
+            <textarea id="hwDim1Inventory" rows="4" placeholder="分析密碼學雜湊 SHA-256、分散記帳、比特幣 2,100 萬枚稀缺性以及 2024 第四次減半對年化通膨壓抑之效應..."></textarea>
+          </div>
+
+          <!-- 2. 私鑰管理準則與風控反思 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#0284c7; color:#fff;">維度二 (25%)</span>
+              <h5>2. 冷熱錢包私鑰管理準則與 2022 FTX 倒閉事件風控反思</h5>
+            </div>
+            <textarea id="hwDim2CashFlow" rows="4" placeholder="說明 Not your keys not your coins、助記詞手抄離線保存 SOP，剖析 FTX 挪用資金黑天鵝與金管會要求資產信託隔離之必要性..."></textarea>
+          </div>
+
+          <!-- 3. 5% 衛星配置試算 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#8b5cf6; color:#fff;">維度三 (25%)</span>
+              <h5>3. 5% 數位資產衛星配置模型試算與極端行情壓力測試</h5>
+            </div>
+            <textarea id="hwDim3ReserveDebt" rows="4" placeholder="以 10 萬元本金試算 95% 大盤與 5% BTC 組合，模擬暴漲 200% 與暴跌 80% 之實質收益，說明非對稱配置之抗震力..."></textarea>
+          </div>
+
+          <!-- 4. 合規出入金與 4 大防詐金律 -->
+          <div class="hw-card">
+            <div class="hw-card-header">
+              <span class="hw-badge" style="background:#10b981; color:#fff;">維度四 (25%)</span>
+              <h5>4. 台灣合法交易所出入金 SOP 與個人 Web3 4 大防詐金律實踐</h5>
+            </div>
+            <textarea id="hwDim4FireRoadmap" rows="4" placeholder="詳述金管會法遵平臺 KYC 與同名銀行帳戶出入金流程，說明拒絕場外 OTC 防範警示帳戶，並列出個人 4 大防詐守則..."></textarea>
+          </div>
+        </div>
+
+        <div class="hw-summary-row">
+          <div class="hw-grade-select">
+            <label>作業自評等級：</label>
+            <select id="hwConclusionGrade">
+              <option value="A+ (全面且具備實戰避險可行性)">A+ (全面且具備實戰避險可行性)</option>
+              <option value="A (理論與財務數據分析完整)">A (理論與財務數據分析完整)</option>
+              <option value="B (具備基本 Web3 觀念)">B (具備基本 Web3 觀念)</option>
+            </select>
+          </div>
+          <div class="hw-summary-input">
+            <input type="text" id="hwDecisionSummary" placeholder="核心反思總結一句話 (例如：堅守私鑰安全鐵律，以 5% 衛星配置兼顧成長與避險，合規防詐保護財富)...">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer hw-footer-flex">
+        <button id="btnPrintHomework" class="btn-hw-action" onclick="window.print()">🖨️ 列印報告 (PDF)</button>
+        <button id="btnExportJson" class="btn-hw-action" onclick="exportHomeworkJson()">📦 匯出 JSON</button>
+        <button id="btnExportMd" class="btn-nav-step btn-primary-step" onclick="exportHomeworkMd()" style="background:#d97706;">📋 一鍵複製 Markdown 報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: SCHEDULE ==================== -->
+  <div id="modalSchedule" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📅 第十六週教學進度表與 3 小時結構</h3>
+          <p>115學年度 管理探索二 ‧ 30 頁純教學卡片 + 3 大活動 + 課堂實務作業</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalSchedule')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <table class="jargon-table">
+          <thead>
+            <tr>
+              <th>授課時段</th>
+              <th>30頁純教學模組內容</th>
+              <th>專屬活動與課堂作業</th>
+              <th>時間分配</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight: 800; color: #d97706;">第一小時<br>(00:00-00:50)</td>
+              <td><strong>區塊鏈、比特幣減半與 Web3 (Slide 01 - 10)</strong><br><span style="font-size: 0.78rem; color: #64748b;">去中心化帳本、比特幣2100萬枚稀缺性、減半經濟學、以太坊智慧合約與冷熱錢包私鑰管理。</span></td>
+              <td>🪙 <strong>專屬活動：比特幣減半產量與冷熱錢包資安評估計算器</strong><br><span style="font-size: 0.78rem;">精算每日挖礦產值、年通膨率與資安評分。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #0284c7;">第二小時<br>(00:50-01:40)</td>
+              <td><strong>DeFi、穩定幣與 VASP 監管 (Slide 11 - 20)</strong><br><span style="font-size: 0.78rem; color: #64748b;">Uniswap流動性做市、USDT/USDC儲備、FTX倒閉警鐘、金管會VASP法遵與現貨ETF。</span></td>
+              <td>⚖️ <strong>專屬活動：DeFi 年化收益風險與 5% 避險配置試算器</strong><br><span style="font-size: 0.78rem;">模擬暴漲200%與暴跌80%之非對稱收益抗震力。</span></td>
+              <td style="font-weight: 700;">講授 35 分<br>活動 15 分</td>
+            </tr>
+            <tr>
+              <td style="font-weight: 800; color: #8b5cf6;">第三小時<br>(01:40-02:30)</td>
+              <td><strong>防詐 SOP、數位資產配置與 4 大金律 (Slide 21 - 30)</strong><br><span style="font-size: 0.78rem; color: #64748b;">Telegram釣魚手法、大學生Web3三大素養、RWA資產代幣化、合規出入金與4大金律。</span></td>
+              <td>🎮 <strong>小遊戲：Web3 數位資產防詐大挑戰 (4大關卡)</strong><br>📝 <strong>作業：個人數位資產風險評估與 Web3 報告</strong></td>
+              <td style="font-weight: 700;">講授 20 分<br>遊戲 15 分<br>作業 15 分</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalSchedule')" style="background:#d97706;">關閉進度表</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: DATA HUBS ==================== -->
+  <div id="modalDataHubs" class="modal-overlay">
+    <div class="modal-container" style="max-width: 860px;">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h3>📊 第十六週 核心數據權威發布專區</h3>
+          <p>國際鏈上權威指標與台灣金融主管機關即時資訊總整</p>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal('modalDataHubs')">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="hubs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #d97706; font-size: 0.95rem; margin-bottom: 4px;">1. CoinMarketCap & CoinGecko</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">即時追蹤全球代幣市值排行、成交量、FDV 全稀釋估值與恐慌貪婪指數。</p>
+            <a href="https://coinmarketcap.com" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #d97706; font-weight: 700;">前往 CoinMarketCap ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #0284c7; font-size: 0.95rem; margin-bottom: 4px;">2. DeFiLlama 全網數據</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">追蹤全網跨鏈 TVL（總鎖倉量）、DEX 交易量與各借貸協議手續費收入。</p>
+            <a href="https://defillama.com" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #0284c7; font-weight: 700;">前往 DeFiLlama ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #8b5cf6; font-size: 0.95rem; margin-bottom: 4px;">3. 金管會證期局 VASP 專區</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">公開完成洗錢防制法遵聲明之合規虛擬資產業者名冊與風險警訊公告。</p>
+            <a href="https://www.sfb.gov.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #8b5cf6; font-weight: 700;">前往金管會證期局 ➔</a>
+          </div>
+
+          <div class="hub-card" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc;">
+            <h5 style="color: #10b981; font-size: 0.95rem; margin-bottom: 4px;">4. 警政署 165 全民防騙網</h5>
+            <p style="font-size: 0.78rem; color: #475569; line-height: 1.5;">即時通報高風險假投資 APP、假交易所與 Telegram 釣魚詐騙名單。</p>
+            <a href="https://165.npa.gov.tw" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.75rem; color: #10b981; font-weight: 700;">前往 165 防騙網 ➔</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-nav-step btn-primary-step" onclick="closeModal('modalDataHubs')" style="background:#d97706;">關閉資料中心</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules Execution -->
+  <script src="w16-slides-data.js"></script>
+  <script src="w16-activities-data.js"></script>
+  <script src="w16-app.js"></script>
+
+</body>
+</html>
