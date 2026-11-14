@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理探索二｜第12週 財務知識與計算分析教學指引（教學用網頁WORD形式）</title>
+  
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #1F4E79;
+      --primary-light: #2E75B6;
+      --secondary: #556677;
+      --accent: #C07D2B;
+      --success: #059669;
+      --danger: #DC2626;
+      --bg: #F1F5F9;
+      --paper-bg: #FFFFFF;
+      --text: #1E293B;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --callout-blue: #F0F4F8;
+      --callout-amber: #FDF9F3;
+      --callout-green: #F0FDF4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.8;
+      color: var(--text);
+      background-color: var(--bg);
+      padding: 30px 16px;
+    }
+
+    .word-container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--paper-bg);
+      padding: 60px 50px;
+      border-radius: 8px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+      border: 1px solid #E2E8F0;
+    }
+
+    /* Header & Title */
+    .doc-header {
+      text-align: center;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+    }
+
+    .badge-course {
+      display: inline-block;
+      padding: 4px 14px;
+      background: #EBF3FA;
+      color: var(--primary);
+      border-radius: 9999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    h1.doc-title {
+      font-size: 1.95rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .doc-meta {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .doc-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Navigation Action Bar */
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-action-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-action-outline:hover {
+      background: #EBF3FA;
+      color: var(--primary);
+    }
+
+    /* Headings */
+    h2.section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--primary);
+      border-left: 5px solid var(--primary);
+      padding-left: 14px;
+      margin-top: 42px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-light);
+      background: #F0F6FC;
+      padding: 8px 14px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h3.sub-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 24px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    p {
+      margin-bottom: 14px;
+      text-align: justify;
+      color: #334155;
+    }
+
+    /* Equation Box */
+    .equation-box {
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 18px 24px;
+      margin: 16px 0 20px 0;
+      text-align: center;
+    }
+
+    .equation-caption {
+      font-size: 0.88rem;
+      color: var(--secondary);
+      margin-top: 8px;
+      font-style: normal;
+    }
+
+    /* Callout Card */
+    .callout-card {
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 22px 0;
+      border-left: 5px solid;
+    }
+
+    .callout-blue {
+      background: var(--callout-blue);
+      border-color: var(--primary);
+    }
+
+    .callout-amber {
+      background: var(--callout-amber);
+      border-color: var(--accent);
+    }
+
+    .callout-green {
+      background: var(--callout-green);
+      border-color: var(--success);
+    }
+
+    .callout-header {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .callout-blue .callout-header { color: var(--primary); }
+    .callout-amber .callout-header { color: var(--accent); }
+    .callout-green .callout-header { color: var(--success); }
+
+    .callout-card ul, .callout-card ol {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+
+    .callout-card li {
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 20px 0 26px 0;
+    }
+
+    table.custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      text-align: left;
+    }
+
+    table.custom-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 14px;
+      font-weight: 700;
+      border: 1px solid #1B365D;
+      text-align: center;
+    }
+
+    table.custom-table td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: #334155;
+    }
+
+    table.custom-table tr:nth-child(even) td {
+      background: #F8FAFC;
+    }
+
+    table.custom-table tr:hover td {
+      background: #F1F5F9;
+    }
+
+    /* Sticky Quick Nav */
+    .quick-nav {
+      position: sticky;
+      top: 15px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 30px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+
+    .quick-nav a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .quick-nav a:hover, .quick-nav a.active {
+      color: var(--primary);
+      background: #EBF3FA;
+    }
+
+    /* Footer */
+    .doc-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 50px;
+      padding-top: 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+      .word-container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .quick-nav, .action-bar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="word-container">
+  
+  <!-- Header -->
+  <div class="doc-header">
+    <div class="badge-course"><i class="fa-solid fa-graduation-cap"></i> 115 學年度 大一通識核心「管理探索二」第12週</div>
+    <h1 class="doc-title">個人與家庭理財規劃：第3–7項財務知識與計算分析<br><span style="font-size: 1.35rem; font-weight: 600; color: var(--primary-light);">教學用網頁講義暨完整理論方程式指引（Word 原生規格對應）</span></h1>
+    <div class="doc-meta">
+      <span><i class="fa-solid fa-user-group"></i> 對象：大一非財金專業學生</span>
+      <span><i class="fa-solid fa-book-open"></i> 性質：課堂講義、互動試算與自主學習</span>
+      <span><i class="fa-solid fa-calculator"></i> 具備 MathJax & Word 原生方程式</span>
+    </div>
+  </div>
+
+  <!-- Quick Nav -->
+  <nav class="quick-nav">
+    <a href="#overview"><i class="fa-solid fa-sitemap"></i> 教學架構</a>
+    <a href="#m3"><i class="fa-solid fa-shield-halved"></i> 3. 緊急預備金</a>
+    <a href="#m4"><i class="fa-solid fa-scale-balanced"></i> 4. 雪球 vs 雪崩</a>
+    <a href="#m5"><i class="fa-solid fa-bullseye"></i> 5. 四年存30萬</a>
+    <a href="#m6"><i class="fa-solid fa-hourglass-half"></i> 6. 提早 vs 延後</a>
+    <a href="#m7"><i class="fa-solid fa-fire"></i> 7. FIRE 退休金</a>
+    <a href="#guide"><i class="fa-solid fa-laptop-code"></i> 操作與作業</a>
+  </nav>
+
+  <!-- Action Bar -->
+  <div class="action-bar">
+    <div>
+      <span style="font-weight: 700; color: var(--primary);"><i class="fa-solid fa-file-word text-blue-600"></i> 教學教材配套資源：</span>
+      <span style="font-size: 0.9rem; color: var(--secondary);">已同步產製 Word 原生方程式檔與互動試算網站</span>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="管理探索二_W12_第3至7項財務知識與計算分析.docx" class="btn-action btn-action-outline">
+        <i class="fa-solid fa-download"></i> 下載 Word 講義 (.docx)
+      </a>
+      <a href="W12_財務計算分析_五大決策互動試算系統.html" class="btn-action">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> 開啟互動試算系統
+      </a>
+    </div>
+  </div>
+
+  <!-- Overview Framework -->
+  <section id="overview">
+    <h2 class="section-title"><i class="fa-solid fa-sitemap"></i> 教學架構與五大核心決策地圖</h2>
+    <div class="section-subtitle">
+      <i class="fa-solid fa-compass"></i> 本教材涵蓋大一個人理財最關鍵之五大財務計算決策，協助非商管學生掌握貨幣時間價值與風險觀念。
+    </div>
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th style="width: 28%;">模組編號與主題</th>
+            <th style="width: 38%;">核心計算與數學模型</th>
+            <th style="width: 34%;">關鍵財務決策與行為洞察</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>模組 3：緊急預備金達標計畫</strong></td>
+            <td>目標預備金 $T = E 	imes m$、缺口 $G = \max(0, T-C)$、達標月數 $N = \lceil G/S ceil$</td>
+            <td>流動性第一、本金安全性防禦，精確定義必要支出生活基線</td>
+          </tr>
+          <tr>
+            <td><strong>模組 4：債務雪球法 vs 雪崩法</strong></td>
+            <td>逐月利息 $I_t = B_t \cdot rac{i}{12}$、餘額遞推 $B_{t+1}$、全期總利息</td>
+            <td>雪崩法數學總利息最佳化 vs 雪球法心理動機與自我效能激勵</td>
+          </tr>
+          <tr>
+            <td><strong>模組 5：四年存30萬元計畫</strong></td>
+            <td>普通年金月複利終值 $FV$、達標倒推所需最低月存額 $PMT^*$</td>
+            <td>目標導向理財、固定儲蓄安全底線與短期投資市場波動風險認知</td>
+          </tr>
+          <tr>
+            <td><strong>模組 6：提早與延後儲蓄比較</strong></td>
+            <td>終值 $FV$、投入本金 $PMT 	imes n$、差距完全正交拆解模型</td>
+            <td>貨幣時間價值（TVM）複利效應，拆解「多存本金」與「純複利增量」</td>
+          </tr>
+          <tr>
+            <td><strong>模組 7：FIRE與退休金規劃精算</strong></td>
+            <td>通膨後名目支出 $E_{ret}$、4%提領法則目標資產 $T$、月提存金</td>
+            <td>長期實質購買力侵蝕、長壽風險、提領率限制與情境壓力測試</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Module 3 -->
+  <section id="m3">
+    <h2 class="section-title"><i class="fa-solid fa-shield-halved"></i> 模組 3｜緊急預備金達標計畫</h2>
+    <div class="section-subtitle">
+      <i class="fa-solid fa-bullseye"></i> 學習目標｜估算財務安全防禦緩衝，並規劃從現有資金到目標金額的時間與執行策略。
+    </div>
+
+    <h3 class="sub-title">一、核心財務知識</h3>
+    <p>1. <strong>緊急預備金（Emergency Fund）</strong>是個人與家庭因應突發失業、無薪假、突發醫療或重大緊急維修等非預期事件的流動性防禦安全網。其核心目的在於保證資產的「安全性」與「即時可變現性」，而非追求高投資回報率。</p>
+    <p>2. <strong>必要生活費（Essential Expenses, E）</strong>應嚴格包含維持基本生活與法定義務所必需之支出：基本食宿租金、水電瓦斯通訊費、基本通勤交通、人身基本醫療意外保險與各項借貸最低還款；非必要之娛樂購物、高檔外食不應計入此防禦底線。</p>
+    <p>3. <strong>3–6 個月必要生活費</strong>為常規財務安全指標。對於自由接案者、收入波動大或身為家庭唯一經濟支柱者，建議將覆蓋目標提升至 6–12 個月。</p>
+    <p>4. 預備金應優先配置於高流動性且本金保證之工具（如活期存款、數位帳戶高利活存或短天期國庫券定存），切忌將高波動性之股票、高股息 ETF 或加密貨幣直接當作緊急預備金。</p>
+
+    <h3 class="sub-title">二、計算公式與變數定義</h3>
+    <div class="equation-box">
+      $$T = E 	imes m$$
+      <div class="equation-caption">【目標預備金總額 $T$】：每月必要生活費 $E$ 乘以目標覆蓋月數 $m$</div>
+    </div>
+    <div class="equation-box">
+      $$G = \max\left(0, \, T - Cight)$$
+      <div class="equation-caption">【資金缺口 $G$】：目標總額 $T$ 減去現有可動用預備金 $C$，若已達標則缺口為 0</div>
+    </div>
+    <div class="equation-box">
+      $$	ext{覆蓋月數} = rac{C}{E}$$
+      <div class="equation-caption">【現有資金覆蓋月數】：代表在完全零收入狀態下，現有資金可支撐基本生活的月數</div>
+    </div>
+    <div class="equation-box">
+      $$N = \left\lceil rac{G}{S} ightceil \quad (S > 0)$$
+      <div class="equation-caption">【不計利息之達標月數 $N$】：資金缺口除以每月固定儲蓄額 $S$ 並向上取整數</div>
+    </div>
+
+    <h3 class="sub-title">三、精算案例與數值步驟解析</h3>
+    <p><strong>【教學範例】</strong>：大一學生每月必要生活支出 $E = 10,000$ 元，設定目標覆蓋 $m = 6$ 個月。目前帳戶現有預備金 $C = 15,000$ 元，每月打工結餘後可固定存入 $S = 2,000$ 元：</p>
+    <ul>
+      <li>步驟 1：計算目標預備金 $T = 10,000 	imes 6 = 60,000$ 元。</li>
+      <li>步驟 2：計算資金缺口 $G = \max(0, 60,000 - 15,000) = 45,000$ 元。</li>
+      <li>步驟 3：現有資金覆蓋月數 $= 15,000 / 10,000 = 1.5$ 個月（處於高財務脆弱度警戒狀態）。</li>
+      <li>步驟 4：達標所需時間 $N = \lceil 45,000 / 2,000 ceil = 23$ 個月。</li>
+      <li>敏感度加速測試：若透過節流將每月儲蓄提升至 $S = 3,000$ 元，達標時間大幅縮短為 $\lceil 45,000 / 3,000 ceil = 15$ 個月，提前 8 個月建立完全防護。</li>
+    </ul>
+
+    <div class="callout-card callout-blue">
+      <div class="callout-header"><i class="fa-solid fa-lightbulb"></i> 課堂引導與學生思維檢核題</div>
+      <ol>
+        <li>現有預備金僅能支撐 1.5 個月，若此時遭遇突發事件，最主要的連鎖性財務風險是什麼？（提示：可能被迫使用信用卡高利借款，陷入債務惡性循環）。</li>
+        <li>若希望在一年（12 個月）內完全達標，每個月的儲蓄金額最少必須提升到多少元？（解答：$45,000 / 12 = 3,750$ 元）。</li>
+        <li>為什麼將預備金存放於股票或高股息 ETF 存在嚴重的「負面流動性螺旋」？（提示：景氣蕭條往往伴隨股市大跌，若在此時被迫賣股變現將承受巨大資本損失）。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Module 4 -->
+  <section id="m4">
+    <h2 class="section-title"><i class="fa-solid fa-scale-balanced"></i> 模組 4｜債務雪球法 vs 雪崩法清償決策</h2>
+    <div class="section-subtitle">
+      <i class="fa-solid fa-bullseye"></i> 學習目標｜比較不同清償順序對總利息支出、清償年限與還款心理動機的實質影響。
+    </div>
+
+    <h3 class="sub-title">一、核心財務知識</h3>
+    <p>1. <strong>債務本金（Principal）</strong>是借入尚未償還的原始金額；<strong>利息（Interest）</strong>是資金的時間成本，隨年利率（APR）、未償餘額與計息週期動態累積。</p>
+    <p>2. <strong>雪球法（Debt Snowball）</strong>：在支付所有債務的最低應繳金額後，將剩餘的所有還款預算集中優先清償「<strong>餘額最小（Lowest Balance）</strong>」的債務。其核心優勢在於迅速消滅債務筆數，提供強大的心理成就感與自我效能激勵。</p>
+    <p>3. <strong>雪崩法（Debt Avalanche）</strong>：在支付所有債務的最低應繳金額後，將剩餘預算集中優先清償「<strong>利率最高（Highest Interest Rate）</strong>」的債務。在數學理論上，雪崩法能夠保證支付最少總利息，並以最短時間全數清償。</p>
+    <p>4. <strong>高利率循環信用的殺傷力</strong>：信用卡循環利息（年息高達 15%）若僅繳納最低應繳金額，本金償還極其緩慢，大部分支出皆淪為利息浪費。</p>
+
+    <h3 class="sub-title">二、計算公式與動態遞推模型</h3>
+    <div class="equation-box">
+      $$I_{j, t} = B_{j, t} 	imes rac{i_j}{12}$$
+      <div class="equation-caption">【月利息計算】：第 $j$ 筆債務在第 $t$ 個月的利息，$B$ 為期初餘額，$i$ 為年利率（APR）</div>
+    </div>
+    <div class="equation-box">
+      $$B_{j, t+1} = \max\left(0, \, B_{j, t} + I_{j, t} - P_{j, t}ight)$$
+      <div class="equation-caption">【期末餘額遞推】：期末餘額等於期初餘額加利息減當月還款 $P_{j, t}$</div>
+    </div>
+    <div class="equation-box">
+      $$\sum_{j} P_{j, t} \le M \quad \left(M \ge \sum_j P_{\min, j}ight)$$
+      <div class="equation-caption">【總預算約束】：每月總還款 $M$ 必須大於等於所有存續債務之最低還款額之和</div>
+    </div>
+    <div class="equation-box">
+      $$	ext{Total Interest} = \sum_{t=1}^{K} \sum_{j} I_{j, t}$$
+      <div class="equation-caption">【全期累計總利息】：所有債務在整個清償週期內支付的利息總和</div>
+    </div>
+
+    <h3 class="sub-title">三、精算案例與策略對比</h3>
+    <p><strong>【個案設定】</strong>：借款人持有三筆債務，本金合計 200,000 元，每月編列總還款預算 $M = 6,000$ 元：</p>
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>債務項目</th>
+            <th>未償本金</th>
+            <th>年利率 (APR)</th>
+            <th>每月最低付款</th>
+            <th>雪球法優先順位</th>
+            <th>雪崩法優先順位</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>信用卡循環卡債</strong></td>
+            <td>30,000 元</td>
+            <td>15.0%</td>
+            <td>1,000 元</td>
+            <td>第 1 順位 (餘額最小)</td>
+            <td>第 1 順位 (利率最高)</td>
+          </tr>
+          <tr>
+            <td><strong>機車分期消費貸</strong></td>
+            <td>50,000 元</td>
+            <td>8.0%</td>
+            <td>1,500 元</td>
+            <td>第 2 順位</td>
+            <td>第 2 順位</td>
+          </tr>
+          <tr>
+            <td><strong>就學貸款</strong></td>
+            <td>120,000 元</td>
+            <td>2.0%</td>
+            <td>1,000 元</td>
+            <td>第 3 順位</td>
+            <td>第 3 順位</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>• 最低付款合計 $= 1,000 + 1,500 + 1,000 = 3,500$ 元；額外可加速預算 $= 6,000 - 3,500 = 2,500$ 元。<br>
+       • 在本案例中，信用卡兼具「餘額最小」與「利率最高」，故兩策略起手式相同。<br>
+       • <strong>策略差異實驗（小額低利 vs 大額高利）</strong>：若有一筆「2萬元 / 年息3% / 最低800」與「10萬元 / 年息15% / 最低2,500」，雪球法會先將加速款給予2萬元低利債，最快消除該筆帳戶；而雪崩法則全力壓制15%高利卡債，在數學上可節省數千至上萬元的利息支出。</p>
+
+    <div class="callout-card callout-amber">
+      <div class="callout-header"><i class="fa-solid fa-scale-balanced"></i> 課堂引導與行為財務學分析題</div>
+      <ol>
+        <li>既然雪崩法在數學上永遠能保證「支付最少利息」，為什麼實務上很多理財研究仍推薦雪球法？（提示：行為財務學與心理帳戶理論，快速達成小目標能有效強化還款意志）。</li>
+        <li>若每月總預算因生活意外驟降至 3,000 元（低於最低應繳合計 3,500 元），應如何應對？（提示：啟動預算不足防呆警示，優先協商債務而非隨意停繳）。</li>
+        <li>利用互動計算器測試：如果每月總還款預算增加 1,000 元（至 7,000 元），總利息與清償月數哪一個改善幅度更顯著？</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Module 5 -->
+  <section id="m5">
+    <h2 class="section-title"><i class="fa-solid fa-bullseye"></i> 模組 5｜四年存30萬元計畫</h2>
+    <div class="section-subtitle">
+      <i class="fa-solid fa-bullseye"></i> 學習目標｜從目標導向理財倒推每月定期定額儲蓄，並精確區分確定性本金與市場投資波動風險。
+    </div>
+
+    <h3 class="sub-title">一、核心財務知識</h3>
+    <p>1. <strong>目標導向理財（Goal-Based Financial Planning）</strong>：先確認未來的明確資金用途、目標金額與實現年限，再透過折現模型逆推每月應投入之可行儲蓄或投資金額。</p>
+    <p>2. <strong>複利乘數效應</strong>：前期獲取的利息或報酬留在本金中共同生息，隨時間呈指數型增長。</p>
+    <p>3. <strong>短期資金之波動風險認知</strong>：四年（48個月）屬於中短期目標。金融市場歷史數據顯示，股票資產在四年維度內可能面臨 20%~30% 的市場回檔。因此，四年的剛性目標（如畢業創業金或出國留學保證金）不應盲目押注於高波動標的。</p>
+    <p>4. <strong>確定情境終值 vs 達標機率</strong>：固定報酬率公式計算之結果僅為「確定情境終值（Deterministic Future Value）」，絕不能誤導學生視為保證獲利之機率。</p>
+
+    <h3 class="sub-title">二、計算公式與變數定義</h3>
+    <div class="equation-box">
+      $$r = (1 + R)^{rac{1}{12}} - 1 \quad (	ext{若 } R=0 \implies r=0)$$
+      <div class="equation-caption">【有效年化報酬轉月複合報酬率】：$R$ 為有效年化報酬率，$r$ 為對應之月有效報酬率</div>
+    </div>
+    <div class="equation-box">
+      $$FV = PV(1+r)^n + PMT 	imes \left[ rac{(1+r)^n - 1}{r} ight]$$
+      <div class="equation-caption">【期末資產總終值 $FV$】：$PV$ 為起始存款本金，$PMT$ 為每月底固定儲蓄，$n = 48$ 個月</div>
+    </div>
+    <div class="equation-box">
+      $$	ext{投入總本金} = PV + n 	imes PMT$$
+      <div class="equation-caption">【實質累計投入總本金】：投資人自身口袋拿出的資金總額，不含投資收益</div>
+    </div>
+    <div class="equation-box">
+      $$PMT^* = rac{FV^* - PV(1+r)^n}{rac{(1+r)^n - 1}{r}} \quad (	ext{若 } PMT^* < 0 \implies 0)$$
+      <div class="equation-caption">【達標所需最低月存額 $PMT^*$】：給定目標金額 $FV^*$ 時，每月底必須存入的理論金額</div>
+    </div>
+
+    <h3 class="sub-title">三、精算案例與跨報酬率敏感度矩陣</h3>
+    <p><strong>【基準參數】</strong>：目前存款 $PV = 20,000$ 元，目標四年存達 $FV^* = 300,000$ 元（$n = 48$ 個月）：</p>
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>假設年化報酬情境</th>
+            <th>每月底投入</th>
+            <th>48個月累計本金</th>
+            <th>累積投資收益</th>
+            <th>期末總終值</th>
+            <th>目標缺口 / 狀態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>0.0% (純存款/固定儲蓄)</strong></td>
+            <td>5,000 元</td>
+            <td>260,000 元</td>
+            <td>0 元</td>
+            <td>260,000 元</td>
+            <td>缺口 40,000 元</td>
+          </tr>
+          <tr>
+            <td><strong>3.0% (優利活存/短債)</strong></td>
+            <td>5,000 元</td>
+            <td>260,000 元</td>
+            <td>16,846 元</td>
+            <td>276,846 元</td>
+            <td>缺口 23,154 元</td>
+          </tr>
+          <tr>
+            <td><strong>6.0% (穩健平衡型配置)</strong></td>
+            <td>5,000 元</td>
+            <td>260,000 元</td>
+            <td>36,011 元</td>
+            <td>296,011 元</td>
+            <td>缺口 3,989 元</td>
+          </tr>
+          <tr>
+            <td><strong>0.0% (完全達標所需月存)</strong></td>
+            <td><strong>5,834 元</strong></td>
+            <td>300,032 元</td>
+            <td>0 元</td>
+            <td>300,032 元</td>
+            <td><strong>100% 確定達標</strong></td>
+          </tr>
+          <tr>
+            <td><strong>3.0% (完全達標所需月存)</strong></td>
+            <td><strong>5,472 元</strong></td>
+            <td>282,656 元</td>
+            <td>17,350 元</td>
+            <td>300,006 元</td>
+            <td><strong>預估達標</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>• 核心啟示：在完全不依賴市場波動的情況下，每月儲蓄 5,834 元即可 100% 確定達標；若依靠 3% 預期報酬，每月僅可少存 362 元，卻必須承擔潛在波動風險。</p>
+
+    <div class="callout-card callout-green">
+      <div class="callout-header"><i class="fa-solid fa-bullseye"></i> 課堂引導與風險敏感度思考題</div>
+      <ol>
+        <li>在 0% 報酬率下，四年存 30 萬元的數學缺口是多少？為什麼說「儲蓄率是短期財務目標最重要的控制變數」？</li>
+        <li>若每月可存上限僅 4,000 元，面對 30 萬目標，在「延長達標時間至 6 年」、「打工兼職增加收入」與「追逐 12% 高風險標的」之間，何者符合健全財務倫理？</li>
+        <li>若在第四年畢業前夕市場遭遇金融風暴下跌 25%，過度仰賴股票投資的學生會面臨什麼後果？</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Module 6 -->
+  <section id="m6">
+    <h2 class="section-title"><i class="fa-solid fa-hourglass-half"></i> 模組 6｜提早儲蓄與延後儲蓄（時間價值與複利拆解）</h2>
+    <div class="section-subtitle">
+      <i class="fa-solid fa-bullseye"></i> 學習目標｜深度理解起始時間、累計投入本金與時間複利對長期財富積累的本質差異。
+    </div>
+
+    <h3 class="sub-title">一、核心財務知識</h3>
+    <p>1. <strong>貨幣時間價值（Time Value of Money, TVM）</strong>：今天的 1 元在價值上大於未來的 1 元，因為今天的資金具備獲取投資報酬的潛力。提早開始投資，資金享有更長的時間滾存週期。</p>
+    <p>2. <strong>嚴格區分「本金差距」與「純複利增量」</strong>：普及型讀物常宣稱「提早十年投資資產翻倍全因複利神奇」，這在統計上混淆了早開始者「多投入了 10 年本金」的事實。教學時必須進行嚴密分解。</p>
+    <p>3. <strong>長期投資之真實路徑</strong>：儘管歷史實證顯示長期股市具備均值回歸趨勢，但真實市場路徑充滿極端波動，固定直線向上的複利曲線僅為教學情境模擬。</p>
+
+    <h3 class="sub-title">二、計算公式與差距拆解模型</h3>
+    <div class="equation-box">
+      $$FV = PMT 	imes \left[ rac{(1+r)^n - 1}{r} ight]$$
+      <div class="equation-caption">【普通年金終值公式】：$PMT$ 為每月底投入儲蓄，$n$ 為總投入月數</div>
+    </div>
+    <div class="equation-box">
+      $$\Delta FV = FV_A - FV_B = \Delta 	ext{Principal} + \Delta 	ext{Compounding Gain}$$
+      <div class="equation-caption">【總資產差距之完全正交拆解模型】：本金差額 ＋ 純粹時間複利增量</div>
+    </div>
+    <div class="equation-box">
+      $$PMT_B^* = rac{FV_A}{\left[ rac{(1+r)^{n_B} - 1}{r} ight]}$$
+      <div class="equation-caption">【晚開始者追趕月存額】：晚開始者（B）要在相同年齡達到早開始者（A）之終值，每月所需投入的追趕金額</div>
+    </div>
+
+    <h3 class="sub-title">三、精算案例與差距深度拆解</h3>
+    <p><strong>【情境設定】</strong>：兩人皆於 60 歲退休結算，每月底固定投入 $PMT = 3,000$ 元，假設有效年化報酬率 $R = 5.0\%$（月複合報酬率 $r pprox 0.4074\%$）：</p>
+    <ul>
+      <li><strong>人選 A（早開始，20歲至60歲，40年 / 480個月）</strong>：投入本金 $= 3,000 	imes 480 = 1,440,000$ 元。</li>
+      <li><strong>人選 B（晚開始，30歲至60歲，30年 / 360個月）</strong>：投入本金 $= 3,000 	imes 360 = 1,080,000$ 元。</li>
+    </ul>
+
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>比較維度</th>
+            <th>人選 A (20歲開始 / 40年)</th>
+            <th>人選 B (30歲開始 / 30年)</th>
+            <th>兩者差距 (A - B)</th>
+            <th>差距來源屬性拆解</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>0% 報酬率下終值</strong></td>
+            <td>1,440,000 元</td>
+            <td>1,080,000 元</td>
+            <td>360,000 元</td>
+            <td>100% 來自本金差距 (多存10年)</td>
+          </tr>
+          <tr>
+            <td><strong>5% 報酬率下終值</strong></td>
+            <td>4,586,836 元</td>
+            <td>2,497,293 元</td>
+            <td>2,089,543 元</td>
+            <td><strong>本金差 36 萬 ＋ 複利增量 172.95 萬元</strong></td>
+          </tr>
+          <tr>
+            <td><strong>資產中收益佔比</strong></td>
+            <td>68.6% (投資獲利 314.7萬)</td>
+            <td>56.7% (投資獲利 141.7萬)</td>
+            <td>+11.9% 效率差距</td>
+            <td>提早 10 年讓投資收益多出 173 萬元</td>
+          </tr>
+          <tr>
+            <td><strong>B 追平所需月存</strong></td>
+            <td>3,000 元/月</td>
+            <td><strong>5,510 元/月</strong></td>
+            <td>+2,510 元/月</td>
+            <td>晚開始者每月必須多提撥 83.7% 資金</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-card callout-blue">
+      <div class="callout-header"><i class="fa-solid fa-hourglass-half"></i> 課堂引導與時間價值深度探討題</div>
+      <ol>
+        <li>為什麼提早 10 年開始累積的資產差距（209 萬元），遠遠高於多存 10 年的本金（36 萬元）？這體現了複利的什麼數學特性？</li>
+        <li>若人選 B 延遲至 30 歲才開始，每月必須大幅增加至 5,510 元才能追平。這對於初入職場年輕人的生活品質會產生什麼代價？</li>
+        <li><strong>公平比較模式</strong>：若限定兩人在人生中「總共都只投入 144 萬元本金」，早開始者拉長至 40 年（月存 3,000 元），晚開始者壓縮在 20 年內投入（月存 6,000 元），期末資產結果會如何？（可在互動試算器中即時驗證）。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Module 7 -->
+  <section id="m7">
+    <h2 class="section-title"><i class="fa-solid fa-fire"></i> 模組 7｜FIRE 與退休金規劃精算模型</h2>
+    <div class="section-subtitle">
+      <i class="fa-solid fa-bullseye"></i> 學習目標｜整合通膨率、複利累積、提領率安全邊際與退休後長壽風險的整合規劃模型。
+    </div>
+
+    <h3 class="sub-title">一、核心財務知識</h3>
+    <p>1. <strong>FIRE 運動（Financial Independence, Retire Early）</strong>：追求提早達成財務自主，使被動資產收益能夠完全涵蓋日常生活所需，從而擺脫對單一工資收入的絕對依賴。</p>
+    <p>2. <strong>通貨膨脹（Inflation）對長期購買力的無聲侵蝕</strong>：今天每月 30,000 元的生活水準，若經歷 28 年每年 2% 的通膨洗禮，未來必須花費超過 52,000 元才能維持完全相同的物質生活品質。忽視通膨將導致退休金規劃嚴重低估。</p>
+    <p>3. <strong>經典 4% 提領法則（Trinity Study）</strong>：歷史經驗法則指出，若退休資產配置於股債平衡組合，每年自投資組合初始提領 4% 並隨通膨調整，在 30 年退休期內資產未耗盡之機率極高。但必須嚴格強調：<strong>4% 是安全提領率假設，絕非投資報酬率保證！</strong>若退休長達 40–50 年，應保守下修至 3%–3.5%。</p>
+    <p>4. <strong>退休規劃的複合風險維度</strong>：必須一併考量投資報酬順序風險（Sequence of Returns Risk）、長壽超活風險（Longevity Risk）及高齡長期照護與自費醫療開銷。</p>
+
+    <h3 class="sub-title">二、計算公式與動態精算體系</h3>
+    <div class="equation-box">
+      $$E_{	ext{ret}} = E_0 	imes (1 + \pi)^y$$
+      <div class="equation-caption">【退休時每月名目必要支出】：$E_0$ 為目前月支出，$\pi$ 為年通膨率，$y$ 為距退休年數</div>
+    </div>
+    <div class="equation-box">
+      $$	ext{Annual Expense}_{	ext{ret}} = 12 	imes E_{	ext{ret}}$$
+      <div class="equation-caption">【退休首年名目總生活支出】</div>
+    </div>
+    <div class="equation-box">
+      $$T = rac{12 	imes E_{	ext{ret}}}{w}$$
+      <div class="equation-caption">【簡化 FIRE 目標退休資產總額】：$w$ 為假設初始安全提領率（如 4% 對應 25 倍年支出）</div>
+    </div>
+    <div class="equation-box">
+      $$PMT = rac{T - PV(1+r)^n}{rac{(1+r)^n - 1}{r}} \quad \left(n = 12y, \, r = (1+R)^{rac{1}{12}}-1ight)$$
+      <div class="equation-caption">【退休前每月底所需投入提存額】：$PV$ 為現有退休本金，$R$ 為累積期預期年化報酬率</div>
+    </div>
+
+    <h3 class="sub-title">三、精算案例分析與逐步解構</h3>
+    <p><strong>【個案設定】</strong>：大學生目前 22 歲，立志在 50 歲提前達成 FIRE 退休（$y = 28$ 年）。目前每月生活開銷 $E_0 = 30,000$ 元，現有專屬退休資產 $PV = 100,000$ 元。預期長期通膨率 $\pi = 2.0\%$，設定經典安全提領率 $w = 4.0\%$，退休前投資組合假設有效年化報酬率 $R = 6.0\%$（月複合報酬率 $r pprox 0.4868\%$）：</p>
+    <ul>
+      <li>步驟 1：通膨後生活費 $E_{ret} = 30,000 	imes (1 + 0.02)^{28} pprox 52,235$ 元/月。</li>
+      <li>步驟 2：首年年生活支出 $= 12 	imes 52,235 = 626,820$ 元/年。</li>
+      <li>步驟 3：FIRE 目標退休資產 $T = 626,820 / 0.04 pprox 15,670,500$ 元（約 1,567 萬元）。</li>
+      <li>步驟 4：推算每月需存額：累積期 $n = 28 	imes 12 = 336$ 個月。代入年金公式，每月每月底需穩定存入約 <strong>15,770 元</strong>。</li>
+    </ul>
+
+    <h3 class="sub-title">四、跨維度敏感度測試分析</h3>
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>敏感度情境維度</th>
+            <th>通膨後退休月支出</th>
+            <th>目標退休資產 T</th>
+            <th>每月所需提存 PMT</th>
+            <th>財務決策可行性評估</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>基準情境 (50歲退休, 4%提領, 2%通膨)</strong></td>
+            <td>52,235 元</td>
+            <td>1,567 萬元</td>
+            <td>15,770 元</td>
+            <td>需高度自律與高儲蓄率方案</td>
+          </tr>
+          <tr>
+            <td><strong>保守提領率 (3.0% 提領)</strong></td>
+            <td>52,235 元</td>
+            <td>2,089 萬元</td>
+            <td>21,800 元</td>
+            <td>大幅拉高安全邊際，防禦長壽超活風險</td>
+          </tr>
+          <tr>
+            <td><strong>通膨上升情境 (通膨率升至 3.0%)</strong></td>
+            <td>68,638 元</td>
+            <td>2,059 萬元</td>
+            <td>21,450 元</td>
+            <td>通膨每多 1%，目標資產跳增近 500 萬元</td>
+          </tr>
+          <tr>
+            <td><strong>延後退休情境 (延至 60歲退休/38年)</strong></td>
+            <td>63,674 元</td>
+            <td>1,910 萬元</td>
+            <td>10,240 元</td>
+            <td>多工作10年複利累積更久，月存負擔減半</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout-card callout-blue">
+      <div class="callout-header"><i class="fa-solid fa-shield-virus"></i> 課堂引導與退休規劃深層思考題</div>
+      <ol>
+        <li>為什麼不能把 4% 提領率等同於「退休後資產每年能保證獲利 4%」？如果退休前五年遇到市場空頭，會面臨什麼致命風險？（提示：報酬順序風險導致本金加速消耗）。</li>
+        <li>若大一學生未來初入職場月薪 35,000 元，面對每月需存 15,770 元的 FIRE 門檻，該如何動態調整變數？（提示：調整退休年齡至 55 或 60 歲、控制退休後非必要支出、提高人力資本薪資成長率）。</li>
+        <li>本簡化模型中未考慮勞保與勞退新制退休金。若計入勞保與勞退，個人自籌退休金的目標會如何變動？</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Section 5: Guide -->
+  <section id="guide">
+    <h2 class="section-title"><i class="fa-solid fa-laptop-code"></i> 五、網站互動試算教學整合建議與操作指引</h2>
+    <div class="section-subtitle">
+      <i class="fa-solid fa-check-double"></i> 建立「輸入條件 → 公式推導 → 即時試算 → 敏感度衝擊 → 決策解釋」五步驟教學閉環。
+    </div>
+    <p>1. <strong>五步驟教學法</strong>：在課堂或課後自主學習中，學生應依序操作配套的「財務計算分析互動試算網站」，觀察改變變數（如提高儲蓄、調整利率、延後退休）時圖表與數值的即時聯動。</p>
+    <p>2. <strong>學習成果報告匯出</strong>：網站支援一鍵匯出「學生個人財務決策歷程報告（CSV 與列印版）」，可直接作為第12週課後自主學習作業與期末報告素材。</p>
+    <p>3. <strong>教學提醒</strong>：本手冊與相關試算模組僅供通識教育與財經素養推廣之用，所有數值均為教學情境假設，不構成個人化財務或投資顧問建議。</p>
+  </section>
+
+  <div class="doc-footer">
+    <p>115 學年度 大一通識核心課程「管理探索二」教學團隊編製 ｜ 授課教師：張晏仁 博士</p>
+    <p>版權所有 ‧ 僅供教學學術研究與課堂使用 ‧ 嚴禁未授權商業使用</p>
+  </div>
+
+</div>
+
+</body>
+</html>

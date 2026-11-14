@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人財務決策與計算分析互動試算系統 | 管理探索二 W12</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#F0F4F8',
+              100: '#D9E2EC',
+              500: '#2E75B6',
+              600: '#1F4E79',
+              700: '#153A5B',
+              800: '#0F2942',
+              900: '#0A1C2D'
+            },
+            accent: {
+              500: '#C07D2B',
+              600: '#9B611E'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+    input[type=range] {
+      accent-color: #1F4E79;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Header -->
+  <header class="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-600 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-amber-300 text-xl font-bold shadow-inner border border-white/20">
+          <i class="fa-solid fa-calculator"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="bg-amber-400 text-slate-900 text-xs font-black px-2 py-0.5 rounded-full uppercase tracking-wider">大一通識核心</span>
+            <span class="text-xs text-sky-200">115 學年度 ‧ 管理探索二 W12</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
+            個人理財五大核心決策與計算分析互動教學系統
+          </h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 self-end md:self-auto">
+        <a href="管理探索二_W12_第3至7項財務知識與計算分析_教學指引.html" target="_blank" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition flex items-center gap-1.5 border border-white/20">
+          <i class="fa-solid fa-book-open text-amber-300"></i> 教學講義 (網頁Word)
+        </a>
+        <a href="管理探索二_W12_第3至7項財務知識與計算分析.docx" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition flex items-center gap-1.5 border border-white/20">
+          <i class="fa-solid fa-file-word text-blue-300"></i> Word 原生公式檔
+        </a>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-brand-900/60 border-t border-white/10 px-4 sm:px-6">
+      <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto custom-scroll py-2">
+        <button onclick="switchTab('m3')" id="tab-btn-m3" class="tab-btn px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 whitespace-nowrap bg-white text-brand-900 shadow">
+          <i class="fa-solid fa-shield-halved text-sky-500"></i> 模組3：緊急預備金
+        </button>
+        <button onclick="switchTab('m4')" id="tab-btn-m4" class="tab-btn px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 whitespace-nowrap text-slate-300 hover:text-white hover:bg-white/10">
+          <i class="fa-solid fa-scale-balanced text-amber-400"></i> 模組4：債務雪球 vs 雪崩
+        </button>
+        <button onclick="switchTab('m5')" id="tab-btn-m5" class="tab-btn px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 whitespace-nowrap text-slate-300 hover:text-white hover:bg-white/10">
+          <i class="fa-solid fa-bullseye text-emerald-400"></i> 模組5：四年存30萬
+        </button>
+        <button onclick="switchTab('m6')" id="tab-btn-m6" class="tab-btn px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 whitespace-nowrap text-slate-300 hover:text-white hover:bg-white/10">
+          <i class="fa-solid fa-hourglass-half text-purple-400"></i> 模組6：提早 vs 延後儲蓄
+        </button>
+        <button onclick="switchTab('m7')" id="tab-btn-m7" class="tab-btn px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 whitespace-nowrap text-slate-300 hover:text-white hover:bg-white/10">
+          <i class="fa-solid fa-fire text-rose-400"></i> 模組7：FIRE退休金精算
+        </button>
+        <button onclick="switchTab('report')" id="tab-btn-report" class="tab-btn px-4 py-2 rounded-lg text-sm font-bold transition flex items-center gap-2 whitespace-nowrap text-slate-300 hover:text-white hover:bg-white/10 ml-auto">
+          <i class="fa-solid fa-file-invoice text-emerald-300"></i> 學習歷程與成果匯出
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: MODULE 3 EMERGENCY FUND -->
+    <!-- ======================================================== -->
+    <div id="tab-content-m3" class="tab-pane space-y-6">
+      
+      <!-- Top Banner -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-sky-100 text-sky-800 text-xs font-bold px-2.5 py-0.5 rounded-full">資金安全與流動性防禦</span>
+            <span class="text-xs text-slate-500">非商管通識核心技能</span>
+          </div>
+          <h2 class="text-2xl font-black text-brand-900">模組 3｜緊急預備金達標計畫</h2>
+          <p class="text-sm text-slate-600 mt-1">計算基本生存覆蓋防護網，精算資金缺口、覆蓋月數與達成目標所需儲蓄時程。</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-slate-500">快速情境：</span>
+          <button onclick="setM3Preset(10000, 15000, 6, 2000)" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">大一新生案例</button>
+          <button onclick="setM3Preset(22000, 20000, 6, 5000)" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">租屋小資族</button>
+          <button onclick="setM3Preset(45000, 90000, 6, 8000)" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">家庭主要支柱</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Input Form -->
+        <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
+          <h3 class="text-base font-bold text-brand-900 flex items-center gap-2 border-b pb-3">
+            <i class="fa-solid fa-sliders text-sky-600"></i> 輸入生活支出與儲蓄條件
+          </h3>
+
+          <!-- Input E -->
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m3-expense" class="text-slate-700">每月必要生活費 $E$ (元)</label>
+              <span id="m3-expense-val" class="text-brand-600 font-bold">10,000 元</span>
+            </div>
+            <input type="number" id="m3-expense" value="10000" min="3000" max="200000" step="500" oninput="calcM3()" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 font-mono text-sm">
+            <p class="text-xs text-slate-400 mt-1">僅含基本食宿、交通、水電與最低義務；不含娛樂非必要開銷。</p>
+          </div>
+
+          <!-- Input Months -->
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m3-months" class="text-slate-700">目標覆蓋月數 $m$ (月)</label>
+              <span id="m3-months-val" class="text-brand-600 font-bold">6 個月</span>
+            </div>
+            <input type="range" id="m3-months" value="6" min="3" max="12" step="1" oninput="calcM3()" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+            <div class="flex justify-between text-xs text-slate-400 mt-1">
+              <span>3個月 (最低防禦)</span>
+              <span>6個月 (常規標準)</span>
+              <span>12個月 (高防禦)</span>
+            </div>
+          </div>
+
+          <!-- Input Current C -->
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m3-current" class="text-slate-700">現有可動用預備金 $C$ (元)</label>
+              <span id="m3-current-val" class="text-brand-600 font-bold">15,000 元</span>
+            </div>
+            <input type="number" id="m3-current" value="15000" min="0" max="1000000" step="1000" oninput="calcM3()" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 font-mono text-sm">
+            <p class="text-xs text-slate-400 mt-1">僅限活存、數位帳戶或即時可變現現金；不可計入股票或高波動資產。</p>
+          </div>
+
+          <!-- Input Savings S -->
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m3-savings" class="text-slate-700">每月固定儲蓄提撥 $S$ (元/月)</label>
+              <span id="m3-savings-val" class="text-brand-600 font-bold">2,000 元</span>
+            </div>
+            <input type="number" id="m3-savings" value="2000" min="0" max="100000" step="500" oninput="calcM3()" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-500 font-mono text-sm">
+            <div id="m3-savings-warn" class="hidden text-xs text-rose-600 font-bold mt-1">
+              <i class="fa-solid fa-triangle-exclamation"></i> 警告：每月儲蓄為 0 或負數，無法縮小缺口，請先調整現金流！
+            </div>
+          </div>
+
+          <!-- Quick Stress Buttons -->
+          <div class="pt-2 border-t border-slate-100">
+            <div class="text-xs font-bold text-slate-500 mb-2">敏感度壓力測試開關：</div>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="m3AddExpense(0.2)" class="px-2.5 py-1.5 text-xs rounded bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-semibold transition">
+                <i class="fa-solid fa-arrow-trend-up"></i> 生活費增加 20%
+              </button>
+              <button onclick="m3AddSavings(1000)" class="px-2.5 py-1.5 text-xs rounded bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold transition">
+                <i class="fa-solid fa-plus"></i> 每月多存 1,000元
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Cards & Chart -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- 4 KPI Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">目標預備金 $T$</div>
+              <div id="kpi-m3-target" class="text-lg sm:text-xl font-black text-brand-900 mt-1">NT$ 60,000</div>
+              <div class="text-xs text-slate-400 mt-1">E × m</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">資金缺口 $G$</div>
+              <div id="kpi-m3-gap" class="text-lg sm:text-xl font-black text-rose-600 mt-1">NT$ 45,000</div>
+              <div class="text-xs text-slate-400 mt-1">max(0, T - C)</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">現有覆蓋月數</div>
+              <div id="kpi-m3-coverage" class="text-lg sm:text-xl font-black text-amber-600 mt-1">1.5 個月</div>
+              <div id="kpi-m3-coverage-badge" class="text-xs text-amber-700 font-semibold mt-1">警戒狀態</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">達標所需時間 $N$</div>
+              <div id="kpi-m3-months" class="text-lg sm:text-xl font-black text-emerald-600 mt-1">23 個月</div>
+              <div id="kpi-m3-years" class="text-xs text-slate-400 mt-1">約 1.9 年</div>
+            </div>
+          </div>
+
+          <!-- Progress Bar & Chart -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <div class="flex justify-between items-center">
+              <h4 class="text-sm font-bold text-slate-700">預備金達標達成率進度條</h4>
+              <span id="m3-progress-pct" class="text-sm font-black text-brand-600">25.0%</span>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden border border-slate-200">
+              <div id="m3-progress-bar" class="bg-gradient-to-r from-sky-500 to-brand-600 h-full rounded-full transition-all duration-500" style="width: 25%;"></div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100">
+              <h4 class="text-sm font-bold text-slate-700 mb-3 flex items-center justify-between">
+                <span><i class="fa-solid fa-chart-line text-sky-600"></i> 逐月累積資產成長路徑預測</span>
+                <span class="text-xs font-normal text-slate-400">至完全達標月份</span>
+              </h4>
+              <div class="h-64">
+                <canvas id="chart-m3"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formula Step Inspector -->
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 text-xs space-y-2">
+            <div class="font-bold text-slate-700 flex items-center gap-1.5">
+              <i class="fa-solid fa-square-root-variable text-brand-600"></i> 算式逐步透視解析：
+            </div>
+            <div id="m3-math-steps" class="font-mono text-slate-600 space-y-1">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: MODULE 4 DEBT SNOWBALL VS AVALANCHE -->
+    <!-- ======================================================== -->
+    <div id="tab-content-m4" class="tab-pane hidden space-y-6">
+      
+      <!-- Top Banner -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full">還款成本與行為動機抉擇</span>
+            <span class="text-xs text-slate-500">公司金融與行為財務學交叉點</span>
+          </div>
+          <h2 class="text-2xl font-black text-brand-900">模組 4｜債務雪球法 vs 雪崩法清償模擬</h2>
+          <p class="text-sm text-slate-600 mt-1">動態模擬多筆債務還款路徑，對決「心理動機優先」與「利息成本最低」之實際差異。</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-slate-500">預設情境：</span>
+          <button onclick="setM4Scenario('default')" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">基準案例(3筆)</button>
+          <button onclick="setM4Scenario('divergent')" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">策略顯著分歧案例</button>
+          <button onclick="openAddDebtModal()" class="px-2.5 py-1 text-xs font-bold rounded bg-brand-600 hover:bg-brand-700 text-white transition flex items-center gap-1">
+            <i class="fa-solid fa-plus"></i> 新增債務
+          </button>
+        </div>
+      </div>
+
+      <!-- Debt Table & Budget -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <div class="lg:col-span-5 space-y-5">
+          <!-- Debts List Card -->
+          <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+              <h3 class="text-base font-bold text-brand-900 flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-amber-500"></i> 目前負債清單 (<span id="m4-debt-count">3</span> 筆)
+              </h3>
+              <span id="m4-total-principal-badge" class="text-xs font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded">總本金: 200,000元</span>
+            </div>
+
+            <div id="m4-debt-list" class="space-y-3">
+              <!-- Dynamically populated debts -->
+            </div>
+          </div>
+
+          <!-- Repayment Budget Card -->
+          <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+            <h3 class="text-base font-bold text-brand-900 flex items-center gap-2 border-b pb-3">
+              <i class="fa-solid fa-wallet text-emerald-600"></i> 每月總還款預算設定
+            </h3>
+
+            <div>
+              <div class="flex justify-between items-center text-sm font-semibold mb-1">
+                <span class="text-slate-700">每月總還款預算 $M$ (元)</span>
+                <span id="m4-budget-val" class="text-brand-600 font-bold text-base">6,000 元</span>
+              </div>
+              <input type="range" id="m4-budget" min="3500" max="25000" step="500" value="6000" oninput="calcM4()" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+              <div class="flex justify-between text-xs text-slate-400 mt-1">
+                <span id="m4-min-budget-label">最低門檻: 3,500元</span>
+                <span>25,000元</span>
+              </div>
+            </div>
+
+            <div id="m4-budget-alert" class="hidden p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold">
+              <i class="fa-solid fa-triangle-exclamation"></i> 警告：還款預算低於所有債務的每月最低還款額之和！請提高預算以防違約！
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-1.5">
+              <div class="flex justify-between">
+                <span class="text-slate-500">法定最低付款合計：</span>
+                <span id="m4-sum-min" class="font-bold text-slate-800">3,500 元</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-500">額外加速還款額度：</span>
+                <span id="m4-extra-budget" class="font-bold text-emerald-600">2,500 元</span>
+              </div>
+              <div class="text-slate-400 pt-1 text-[11px]">
+                額外預算將在清償優先債務後，滾動轉向下一筆目標！
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparison KPIs & Chart -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- Strategy Comparison Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- Avalanche Card -->
+            <div class="bg-gradient-to-br from-white to-blue-50/50 p-5 rounded-2xl border-2 border-brand-500 shadow-sm relative overflow-hidden">
+              <div class="absolute top-0 right-0 bg-brand-600 text-white text-[11px] font-black px-3 py-0.5 rounded-bl-lg">
+                數學最佳 ‧ 省利息
+              </div>
+              <div class="text-sm font-black text-brand-900 flex items-center gap-1.5">
+                <i class="fa-solid fa-mountain text-brand-600"></i> 雪崩法 (Avalanche)
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">策略：利率最高者優先清償</p>
+              
+              <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-200/60">
+                <div>
+                  <div class="text-xs text-slate-500">累計總利息</div>
+                  <div id="kpi-m4-avalanche-interest" class="text-lg font-black text-brand-900 mt-0.5">NT$ 12,450</div>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500">全部清償月數</div>
+                  <div id="kpi-m4-avalanche-months" class="text-lg font-black text-brand-900 mt-0.5">37 個月</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Snowball Card -->
+            <div class="bg-gradient-to-br from-white to-amber-50/50 p-5 rounded-2xl border-2 border-amber-400 shadow-sm relative overflow-hidden">
+              <div class="absolute top-0 right-0 bg-amber-500 text-slate-900 text-[11px] font-black px-3 py-0.5 rounded-bl-lg">
+                心理成就 ‧ 降壓力
+              </div>
+              <div class="text-sm font-black text-amber-900 flex items-center gap-1.5">
+                <i class="fa-solid fa-snowflake text-amber-500"></i> 雪球法 (Snowball)
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">策略：餘額最小者優先清償</p>
+              
+              <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-200/60">
+                <div>
+                  <div class="text-xs text-slate-500">累計總利息</div>
+                  <div id="kpi-m4-snowball-interest" class="text-lg font-black text-amber-900 mt-0.5">NT$ 12,450</div>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500">全部清償月數</div>
+                  <div id="kpi-m4-snowball-months" class="text-lg font-black text-amber-900 mt-0.5">37 個月</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Difference Callout -->
+          <div id="m4-diff-card" class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-code-compare text-base text-brand-600"></i>
+              <div>
+                <span class="font-bold text-slate-800">雙策略效益評估：</span>
+                <span id="m4-diff-summary" class="text-slate-600">在此情境下，雪崩法比雪球法節省利息 0 元，時間相同。</span>
+              </div>
+            </div>
+            <span id="m4-diff-badge" class="font-black px-2.5 py-1 rounded-full bg-slate-200 text-slate-700 whitespace-nowrap self-start sm:self-auto">初期優先標的相同</span>
+          </div>
+
+          <!-- Chart Card -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <h4 class="text-sm font-bold text-slate-700 flex justify-between items-center">
+              <span><i class="fa-solid fa-chart-line text-brand-600"></i> 雙策略逐月總未償債務餘額下降曲線</span>
+              <span class="text-xs text-slate-400">至債務全數歸零</span>
+            </h4>
+            <div class="h-64">
+              <canvas id="chart-m4"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: MODULE 5 FOUR-YEAR SAVING 300K -->
+    <!-- ======================================================== -->
+    <div id="tab-content-m5" class="tab-pane hidden space-y-6">
+      
+      <!-- Top Banner -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full">目標導向理財與複利</span>
+            <span class="text-xs text-slate-500">短期資金波動與剛性目標認知</span>
+          </div>
+          <h2 class="text-2xl font-black text-brand-900">模組 5｜四年存30萬元計畫</h2>
+          <p class="text-sm text-slate-600 mt-1">從大學畢業或人生短期目標倒推每月定期定額儲蓄，嚴格區分固定本金與市場投資波動風險。</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-slate-500">報酬情境：</span>
+          <button onclick="setM5Rate(0)" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">0% 純儲蓄</button>
+          <button onclick="setM5Rate(3)" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">3% 優利活存</button>
+          <button onclick="setM5Rate(6)" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">6% 穩健配置</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Input Form -->
+        <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
+          <h3 class="text-base font-bold text-brand-900 flex items-center gap-2 border-b pb-3">
+            <i class="fa-solid fa-sliders text-emerald-600"></i> 設定儲蓄目標與投資報酬
+          </h3>
+
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m5-target" class="text-slate-700">目標金額 $FV^*$ (元)</label>
+              <span id="m5-target-val" class="text-brand-600 font-bold">300,000 元</span>
+            </div>
+            <input type="number" id="m5-target" value="300000" min="50000" max="3000000" step="10000" oninput="calcM5()" class="w-full px-3 py-2 border rounded-lg font-mono text-sm">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m5-pv" class="text-slate-700">目前既有存款本金 $PV$ (元)</label>
+              <span id="m5-pv-val" class="text-brand-600 font-bold">20,000 元</span>
+            </div>
+            <input type="number" id="m5-pv" value="20000" min="0" max="500000" step="5000" oninput="calcM5()" class="w-full px-3 py-2 border rounded-lg font-mono text-sm">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m5-pmt" class="text-slate-700">每月固定儲蓄投入 $PMT$ (元/月)</label>
+              <span id="m5-pmt-val" class="text-brand-600 font-bold">5,000 元</span>
+            </div>
+            <input type="number" id="m5-pmt" value="5000" min="1000" max="50000" step="500" oninput="calcM5()" class="w-full px-3 py-2 border rounded-lg font-mono text-sm">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m5-years" class="text-slate-700">目標累積年限 $n$ (年)</label>
+              <span id="m5-years-val" class="text-brand-600 font-bold">4 年 (48 個月)</span>
+            </div>
+            <input type="range" id="m5-years" value="4" min="1" max="10" step="1" oninput="calcM5()" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m5-rate" class="text-slate-700">假設有效年化報酬率 $R$ (%)</label>
+              <span id="m5-rate-val" class="text-brand-600 font-bold">3.0 %</span>
+            </div>
+            <input type="range" id="m5-rate" value="3.0" min="0" max="12" step="0.5" oninput="calcM5()" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+            <div class="flex justify-between text-xs text-slate-400 mt-1">
+              <span>0% (純儲蓄)</span>
+              <span>3% (優利活存)</span>
+              <span>6% (平衡)</span>
+              <span>10% (高風險)</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 leading-relaxed">
+            <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+            <strong>教學警語</strong>：固定報酬率僅為「確定情境終值模擬」，並非保證獲利；四年內需動用之資金，不宜重壓股票以防畢業前夕市場回檔。
+          </div>
+        </div>
+
+        <!-- KPIs & Scenario Table -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">48個月累計總本金</div>
+              <div id="kpi-m5-principal" class="text-lg sm:text-xl font-black text-brand-900 mt-1">NT$ 260,000</div>
+              <div class="text-xs text-slate-400 mt-1">PV + 48 × PMT</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">假設投資收益</div>
+              <div id="kpi-m5-gain" class="text-lg sm:text-xl font-black text-emerald-600 mt-1">NT$ 16,846</div>
+              <div class="text-xs text-slate-400 mt-1">FV - 總本金</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">預估期末終值 $FV$</div>
+              <div id="kpi-m5-fv" class="text-lg sm:text-xl font-black text-brand-900 mt-1">NT$ 276,846</div>
+              <div id="kpi-m5-status" class="text-xs font-semibold text-rose-600 mt-1">尚差 23,154元</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">達標所需月存 $PMT^*$</div>
+              <div id="kpi-m5-req-pmt" class="text-lg sm:text-xl font-black text-indigo-600 mt-1">NT$ 5,472</div>
+              <div class="text-xs text-slate-400 mt-1">0%下需 5,834元</div>
+            </div>
+          </div>
+
+          <!-- Scenario Table -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <h4 class="text-sm font-bold text-slate-700">不同年化報酬率情境終值與達標需求對照表</h4>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs text-left">
+                <thead class="bg-slate-100 text-slate-700 border-b">
+                  <tr>
+                    <th class="p-2">報酬情境</th>
+                    <th class="p-2">月存 5,000 期末終值</th>
+                    <th class="p-2">假設利息收益</th>
+                    <th class="p-2">達成30萬缺口</th>
+                    <th class="p-2 font-bold text-brand-800">完全達標所需月存</th>
+                  </tr>
+                </thead>
+                <tbody id="m5-scenario-tbody" class="divide-y divide-slate-100">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Chart -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <h4 class="text-sm font-bold text-slate-700">48 個月累積本金 vs 總終值成長堆疊路徑</h4>
+            <div class="h-64">
+              <canvas id="chart-m5"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 4: MODULE 6 EARLY VS LATE SAVING -->
+    <!-- ======================================================== -->
+    <div id="tab-content-m6" class="tab-pane hidden space-y-6">
+      
+      <!-- Top Banner -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2.5 py-0.5 rounded-full">時間價值與本金拆解</span>
+            <span class="text-xs text-slate-500">破解複利神話誤區</span>
+          </div>
+          <h2 class="text-2xl font-black text-brand-900">模組 6｜提早與延後儲蓄（時間價值與複利拆解）</h2>
+          <p class="text-sm text-slate-600 mt-1">精確拆解早開始與晚開始之間的「本金差額」與「純時間複利增量」，體會貨幣時間價值的真諦。</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="toggleM6Mode('equal_pmt')" id="m6-btn-mode1" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-brand-600 text-white transition">每月投入相同金額 (3,000元)</button>
+          <button onclick="toggleM6Mode('equal_principal')" id="m6-btn-mode2" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">公平比較：投入相同總本金</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Input Form -->
+        <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
+          <h3 class="text-base font-bold text-brand-900 flex items-center gap-2 border-b pb-3">
+            <i class="fa-solid fa-users text-purple-600"></i> 設定 A/B 兩人投資參數
+          </h3>
+
+          <!-- Person A -->
+          <div class="p-3.5 bg-blue-50/60 rounded-xl border border-blue-200 space-y-2">
+            <div class="font-bold text-xs text-brand-900 flex items-center justify-between">
+              <span><i class="fa-solid fa-user text-blue-600"></i> 人選 A（早開始）</span>
+              <span id="m6-a-years-badge" class="bg-blue-100 text-blue-800 text-[11px] px-2 py-0.5 rounded-full font-bold">40 年 (480個月)</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <label class="text-slate-600 font-semibold">起始年齡：</label>
+                <input type="number" id="m6-a-start" value="20" min="18" max="40" oninput="calcM6()" class="w-full p-1.5 border rounded font-mono">
+              </div>
+              <div>
+                <label class="text-slate-600 font-semibold">結束年齡：</label>
+                <input type="number" id="m6-a-end" value="60" min="50" max="75" oninput="calcM6()" class="w-full p-1.5 border rounded font-mono">
+              </div>
+            </div>
+          </div>
+
+          <!-- Person B -->
+          <div class="p-3.5 bg-purple-50/60 rounded-xl border border-purple-200 space-y-2">
+            <div class="font-bold text-xs text-purple-900 flex items-center justify-between">
+              <span><i class="fa-solid fa-user-clock text-purple-600"></i> 人選 B（晚開始）</span>
+              <span id="m6-b-years-badge" class="bg-purple-100 text-purple-800 text-[11px] px-2 py-0.5 rounded-full font-bold">30 年 (360個月)</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <label class="text-slate-600 font-semibold">起始年齡：</label>
+                <input type="number" id="m6-b-start" value="30" min="25" max="50" oninput="calcM6()" class="w-full p-1.5 border rounded font-mono">
+              </div>
+              <div>
+                <label class="text-slate-600 font-semibold">結束年齡：</label>
+                <input type="number" id="m6-b-end" value="60" min="50" max="75" oninput="calcM6()" class="w-full p-1.5 border rounded font-mono">
+              </div>
+            </div>
+          </div>
+
+          <!-- Common inputs -->
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m6-pmt" class="text-slate-700">每月投入金額 (元/月)</label>
+              <span id="m6-pmt-val" class="text-brand-600 font-bold">3,000 元</span>
+            </div>
+            <input type="number" id="m6-pmt" value="3000" min="1000" max="30000" step="500" oninput="calcM6()" class="w-full px-3 py-2 border rounded-lg font-mono text-sm">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label for="m6-rate" class="text-slate-700">假設有效年化報酬率 $R$ (%)</label>
+              <span id="m6-rate-val" class="text-brand-600 font-bold">5.0 %</span>
+            </div>
+            <input type="range" id="m6-rate" value="5.0" min="0" max="10" step="0.5" oninput="calcM6()" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+            <div class="flex justify-between text-xs text-slate-400 mt-1">
+              <span>0% (無利息)</span>
+              <span>3% (保守)</span>
+              <span>5% (基準)</span>
+              <span>8% (股票)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decomposition Results & Chart -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- A vs B Comparison Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-white p-5 rounded-2xl border-2 border-blue-500 shadow-sm space-y-2">
+              <div class="text-xs font-bold text-blue-700 uppercase">人選 A (早開始 40年)</div>
+              <div id="kpi-m6-a-fv" class="text-2xl font-black text-brand-900">NT$ 4,586,836</div>
+              <div class="text-xs text-slate-500 pt-1 border-t space-y-1">
+                <div class="flex justify-between"><span>投入總本金：</span><span id="kpi-m6-a-prin" class="font-bold text-slate-800">1,440,000 元</span></div>
+                <div class="flex justify-between"><span>累積投資收益：</span><span id="kpi-m6-a-gain" class="font-bold text-emerald-600">3,146,836 元 (68.6%)</span></div>
+              </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border-2 border-purple-400 shadow-sm space-y-2">
+              <div class="text-xs font-bold text-purple-700 uppercase">人選 B (晚開始 30年)</div>
+              <div id="kpi-m6-b-fv" class="text-2xl font-black text-purple-950">NT$ 2,497,293</div>
+              <div class="text-xs text-slate-500 pt-1 border-t space-y-1">
+                <div class="flex justify-between"><span>投入總本金：</span><span id="kpi-m6-b-prin" class="font-bold text-slate-800">1,080,000 元</span></div>
+                <div class="flex justify-between"><span>累積投資收益：</span><span id="kpi-m6-b-gain" class="font-bold text-emerald-600">1,417,293 元 (56.7%)</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Orthogonal Decomposition Card -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <h4 class="text-sm font-bold text-slate-800 flex items-center justify-between">
+              <span><i class="fa-solid fa-puzzle-piece text-amber-500"></i> 資產差距完全正交拆解 (A - B)</span>
+              <span id="m6-gap-total" class="text-sm font-black text-brand-700">差距 NT$ 2,089,543</span>
+            </h4>
+            
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <div class="text-slate-500">多存10年本金差距</div>
+                <div id="m6-gap-principal" class="text-base font-black text-slate-800 mt-1">NT$ 360,000</div>
+                <div id="m6-gap-prin-pct" class="text-[11px] text-slate-400 mt-0.5">佔總差距 17.2%</div>
+              </div>
+              <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+                <div class="text-emerald-800 font-semibold">純時間複利倍數增量</div>
+                <div id="m6-gap-compounding" class="text-base font-black text-emerald-700 mt-1">NT$ 1,729,543</div>
+                <div id="m6-gap-comp-pct" class="text-[11px] text-emerald-600 mt-0.5">佔總差距 82.8%</div>
+              </div>
+            </div>
+
+            <div class="p-3 bg-purple-50 rounded-xl border border-purple-200 text-xs text-purple-900 flex justify-between items-center">
+              <span>晚開始者 (B) 若要追上相同終值，每月需存：</span>
+              <span id="m6-b-catchup" class="font-black text-sm text-purple-700">NT$ 5,510 /月 (+83.7%)</span>
+            </div>
+          </div>
+
+          <!-- Chart -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <h4 class="text-sm font-bold text-slate-700">20 歲至 60 歲兩者資產成長累積曲線</h4>
+            <div class="h-64">
+              <canvas id="chart-m6"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 5: MODULE 7 FIRE & RETIREMENT -->
+    <!-- ======================================================== -->
+    <div id="tab-content-m7" class="tab-pane hidden space-y-6">
+      
+      <!-- Top Banner -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-0.5 rounded-full">實質購買力與退休自由</span>
+            <span class="text-xs text-slate-500">Trinity Study 4% 提領法則精算</span>
+          </div>
+          <h2 class="text-2xl font-black text-brand-900">模組 7｜FIRE 與退休金規劃精算模型</h2>
+          <p class="text-sm text-slate-600 mt-1">綜合考量通膨侵蝕、複利累積、提領率安全邊際與退休後長壽風險的生涯理財終極試算。</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-slate-500">情境切換：</span>
+          <button onclick="setM7Preset(22, 50, 30000, 2.0, 4.0)" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">50歲提前FIRE</button>
+          <button onclick="setM7Preset(22, 60, 30000, 2.0, 4.0)" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">60歲標準退休</button>
+          <button onclick="setM7Preset(22, 50, 30000, 3.0, 3.0)" class="px-2.5 py-1 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 text-slate-700 transition">高通膨+保守提領</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Input Form -->
+        <div class="lg:col-span-5 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+          <h3 class="text-base font-bold text-brand-900 flex items-center gap-2 border-b pb-3">
+            <i class="fa-solid fa-sliders text-rose-600"></i> 設定退休參數與通膨條件
+          </h3>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-xs text-slate-700 font-semibold">目前年齡</label>
+              <input type="number" id="m7-cur-age" value="22" min="18" max="50" oninput="calcM7()" class="w-full px-3 py-2 border rounded-lg font-mono text-sm">
+            </div>
+            <div>
+              <label class="text-xs text-slate-700 font-semibold">預計退休年齡</label>
+              <input type="number" id="m7-ret-age" value="50" min="35" max="75" oninput="calcM7()" class="w-full px-3 py-2 border rounded-lg font-mono text-sm">
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label class="text-slate-700">目前每月生活支出 $E_0$ (元)</label>
+              <span id="m7-exp-val" class="text-brand-600 font-bold">30,000 元</span>
+            </div>
+            <input type="number" id="m7-expense" value="30000" min="10000" max="200000" step="1000" oninput="calcM7()" class="w-full px-3 py-2 border rounded-lg font-mono text-sm">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label class="text-slate-700">預期長期通貨膨脹率 $\pi$ (%)</label>
+              <span id="m7-inf-val" class="text-brand-600 font-bold">2.0 %</span>
+            </div>
+            <input type="range" id="m7-inf" value="2.0" min="1.0" max="5.0" step="0.5" oninput="calcM7()" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-sm font-semibold mb-1">
+              <label class="text-slate-700">安全提領率 $w$ (%)</label>
+              <span id="m7-swr-val" class="text-brand-600 font-bold">4.0 % (25倍)</span>
+            </div>
+            <input type="range" id="m7-swr" value="4.0" min="2.5" max="5.0" step="0.25" oninput="calcM7()" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+            <div class="flex justify-between text-xs text-slate-400 mt-1">
+              <span>3% (超保守)</span>
+              <span>4% (經典)</span>
+              <span>5% (偏積極)</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-2 border-t">
+            <div>
+              <label class="text-xs text-slate-700 font-semibold">現有退休本金 (元)</label>
+              <input type="number" id="m7-pv" value="100000" min="0" max="5000000" step="50000" oninput="calcM7()" class="w-full px-3 py-2 border rounded-lg font-mono text-sm">
+            </div>
+            <div>
+              <label class="text-xs text-slate-700 font-semibold">累積期年化報酬 (%)</label>
+              <input type="number" id="m7-rate" value="6.0" min="1" max="15" step="0.5" oninput="calcM7()" class="w-full px-3 py-2 border rounded-lg font-mono text-sm">
+            </div>
+          </div>
+        </div>
+
+        <!-- KPIs & Sensitivity -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">距退休年數</div>
+              <div id="kpi-m7-years" class="text-lg sm:text-xl font-black text-brand-900 mt-1">28 年</div>
+              <div class="text-xs text-slate-400 mt-1">336 個月</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">通膨後首年月支出</div>
+              <div id="kpi-m7-nom-exp" class="text-lg sm:text-xl font-black text-rose-600 mt-1">NT$ 52,235</div>
+              <div class="text-xs text-slate-400 mt-1">年支出 62.68萬</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">FIRE目標資產 $T$</div>
+              <div id="kpi-m7-target" class="text-lg sm:text-xl font-black text-brand-900 mt-1">1,567 萬元</div>
+              <div class="text-xs text-slate-400 mt-1">年支出 ÷ 4%</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+              <div class="text-xs text-slate-500 font-medium">每月所需提存 $PMT$</div>
+              <div id="kpi-m7-pmt" class="text-lg sm:text-xl font-black text-emerald-600 mt-1">NT$ 15,770</div>
+              <div class="text-xs text-slate-400 mt-1">至退休前每月底</div>
+            </div>
+          </div>
+
+          <!-- Sensitivity Matrix Card -->
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <h4 class="text-sm font-bold text-slate-700">提領率與通膨率敏感度交叉試算矩陣</h4>
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs text-left">
+                <thead class="bg-slate-100 text-slate-700 border-b">
+                  <tr>
+                    <th class="p-2">測試情境維度</th>
+                    <th class="p-2">通膨後退休月支出</th>
+                    <th class="p-2">FIRE目標資產</th>
+                    <th class="p-2">每月所需投入</th>
+                    <th class="p-2">決策評價</th>
+                  </tr>
+                </thead>
+                <tbody id="m7-matrix-tbody" class="divide-y divide-slate-100">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Chart -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <h4 class="text-sm font-bold text-slate-700">退休前積累 ＋ 退休後30年動態提領模擬路徑全景圖</h4>
+            <div class="h-64">
+              <canvas id="chart-m7"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 6: STUDENT REPORT & CSV EXPORT -->
+    <!-- ======================================================== -->
+    <div id="tab-content-report" class="tab-pane hidden space-y-6">
+      
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full">個人財務決策歷程學習單</span>
+            <span class="text-xs text-slate-500">第12週課後自主學習作業專區</span>
+          </div>
+          <h2 class="text-2xl font-black text-brand-900">個人財務決策學習歷程與數據匯出</h2>
+          <p class="text-sm text-slate-600 mt-1">匯整五大模組試算參數、決策分析與個人反思，支援一鍵列印學習單與匯出 CSV 數據檔。</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="exportToCSV()" class="px-4 py-2 text-xs font-bold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition flex items-center gap-1.5 shadow">
+            <i class="fa-solid fa-file-csv"></i> 匯出 CSV 數據檔
+          </button>
+          <button onclick="window.print()" class="px-4 py-2 text-xs font-bold rounded-lg bg-brand-600 hover:bg-brand-700 text-white transition flex items-center gap-1.5 shadow">
+            <i class="fa-solid fa-print"></i> 列印 / 另存 PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Report Card Details -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+        
+        <!-- Student Info -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-4 border-b">
+          <div>
+            <label class="text-xs text-slate-500 font-bold">學號 / 組別：</label>
+            <input type="text" id="rep-student-id" placeholder="例如：B11501001" class="w-full mt-1 px-3 py-1.5 border rounded text-sm font-mono">
+          </div>
+          <div>
+            <label class="text-xs text-slate-500 font-bold">姓名：</label>
+            <input type="text" id="rep-student-name" placeholder="學生姓名" class="w-full mt-1 px-3 py-1.5 border rounded text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-slate-500 font-bold">課程：</label>
+            <input type="text" readonly value="管理探索二（第12週理財規劃）" class="w-full mt-1 px-3 py-1.5 bg-slate-100 border rounded text-sm text-slate-600">
+          </div>
+        </div>
+
+        <!-- 5 Modules Summary Table -->
+        <div>
+          <h4 class="text-base font-bold text-brand-900 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-table-list text-brand-600"></i> 五大模組核心運算成果摘要清冊
+          </h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left border">
+              <thead class="bg-brand-900 text-white">
+                <tr>
+                  <th class="p-3 border">模組主題</th>
+                  <th class="p-3 border">核心輸入條件</th>
+                  <th class="p-3 border">試算成果指標</th>
+                  <th class="p-3 border">關鍵決策指引</th>
+                </tr>
+              </thead>
+              <tbody id="rep-summary-tbody" class="divide-y divide-slate-200">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Student Reflections -->
+        <div class="space-y-4 pt-4 border-t">
+          <h4 class="text-base font-bold text-brand-900 flex items-center gap-2">
+            <i class="fa-solid fa-pen-to-square text-amber-500"></i> 學生個人財務決策反思與學習筆記
+          </h4>
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="font-bold text-slate-700 block mb-1">1. 在「債務雪球法」與「雪崩法」中，如果未來我有負債，我會選擇哪一種策略？為什麼？</label>
+              <textarea id="rep-q1" rows="2" placeholder="請從數學利息成本與個人心理動機的角度闡述您的選擇..." class="w-full p-2.5 border rounded-lg"></textarea>
+            </div>
+            <div>
+              <label class="font-bold text-slate-700 block mb-1">2. 比較模組 6「提早 vs 延後儲蓄」，拆解後的「本金差距」與「複利收益差距」給了您什麼理財啟發？</label>
+              <textarea id="rep-q2" rows="2" placeholder="請說明您對貨幣時間價值（TVM）與提早開始投資的體會..." class="w-full p-2.5 border rounded-lg"></textarea>
+            </div>
+            <div>
+              <label class="font-bold text-slate-700 block mb-1">3. 面對模組 7 的 FIRE 退休金目標，通膨對數十年後的實質購買力造成了什麼衝擊？</label>
+              <textarea id="rep-q3" rows="2" placeholder="請說明您如何調整儲蓄率、提領率或延後退休年齡來因應通膨衝擊..." class="w-full p-2.5 border rounded-lg"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Add Debt Modal -->
+  <div id="modal-add-debt" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center border-b pb-3">
+        <h3 class="text-base font-black text-brand-900 flex items-center gap-2">
+          <i class="fa-solid fa-plus-circle text-amber-500"></i> 新增自訂債務項目
+        </h3>
+        <button onclick="closeAddDebtModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="font-bold text-slate-700">債務名稱</label>
+          <input type="text" id="modal-debt-name" placeholder="例如：信用貸款、個人借款" class="w-full p-2 border rounded-lg mt-1">
+        </div>
+        <div>
+          <label class="font-bold text-slate-700">未償本金殘額 (元)</label>
+          <input type="number" id="modal-debt-balance" placeholder="例如：40000" class="w-full p-2 border rounded-lg mt-1 font-mono">
+        </div>
+        <div>
+          <label class="font-bold text-slate-700">名目年利率 APR (%)</label>
+          <input type="number" id="modal-debt-rate" placeholder="例如：10.5" step="0.1" class="w-full p-2 border rounded-lg mt-1 font-mono">
+        </div>
+        <div>
+          <label class="font-bold text-slate-700">每月法定最低還款額 (元)</label>
+          <input type="number" id="modal-debt-min" placeholder="例如：1200" class="w-full p-2 border rounded-lg mt-1 font-mono">
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-3 border-t">
+        <button onclick="closeAddDebtModal()" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">取消</button>
+        <button onclick="saveNewDebt()" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold">確認新增</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-6 mt-12 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 space-y-1">
+      <p>115 學年度 大一通識核心「管理探索二」教學平台 ｜ 財務知識與計算分析互動試算模組</p>
+      <p>授課教師：張晏仁 博士 ‧ 專供課堂講授與自主學習使用</p>
+    </div>
+  </footer>
+
+  <!-- Application Logic JavaScript -->
+  <script>
+    // Tab switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-brand-900', 'shadow');
+        btn.classList.add('text-slate-300');
+      });
+
+      const targetPane = document.getElementById('tab-content-' + tabId);
+      if (targetPane) targetPane.classList.remove('hidden');
+
+      const targetBtn = document.getElementById('tab-btn-' + tabId);
+      if (targetBtn) {
+        targetBtn.classList.add('bg-white', 'text-brand-900', 'shadow');
+        targetBtn.classList.remove('text-slate-300');
+      }
+
+      if (tabId === 'report') updateReportTab();
+    }
+
+    // Format numbers
+    const fmt = (num) => Number(Math.round(num)).toLocaleString('zh-TW');
+    const fmtDec = (num, dec=2) => Number(num).toLocaleString('zh-TW', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
+    // ==========================================
+    // MODULE 3 LOGIC
+    // ==========================================
+    let chartM3Instance = null;
+
+    function setM3Preset(e, c, m, s) {
+      document.getElementById('m3-expense').value = e;
+      document.getElementById('m3-current').value = c;
+      document.getElementById('m3-months').value = m;
+      document.getElementById('m3-savings').value = s;
+      calcM3();
+    }
+
+    function m3AddExpense(pct) {
+      const el = document.getElementById('m3-expense');
+      el.value = Math.round(Number(el.value) * (1 + pct));
+      calcM3();
+    }
+
+    function m3AddSavings(delta) {
+      const el = document.getElementById('m3-savings');
+      el.value = Number(el.value) + delta;
+      calcM3();
+    }
+
+    function calcM3() {
+      const E = Number(document.getElementById('m3-expense').value) || 0;
+      const m = Number(document.getElementById('m3-months').value) || 6;
+      const C = Number(document.getElementById('m3-current').value) || 0;
+      const S = Number(document.getElementById('m3-savings').value) || 0;
+
+      document.getElementById('m3-expense-val').textContent = fmt(E) + ' 元';
+      document.getElementById('m3-months-val').textContent = m + ' 個月';
+      document.getElementById('m3-current-val').textContent = fmt(C) + ' 元';
+      document.getElementById('m3-savings-val').textContent = fmt(S) + ' 元';
+
+      const target = E * m;
+      const gap = Math.max(0, target - C);
+      const coverage = E > 0 ? (C / E) : 0;
+      
+      let monthsNeeded = 0;
+      const warnEl = document.getElementById('m3-savings-warn');
+      if (gap === 0) {
+        monthsNeeded = 0;
+        warnEl.classList.add('hidden');
+      } else if (S <= 0) {
+        monthsNeeded = Infinity;
+        warnEl.classList.remove('hidden');
+      } else {
+        monthsNeeded = Math.ceil(gap / S);
+        warnEl.classList.add('hidden');
+      }
+
+      document.getElementById('kpi-m3-target').textContent = 'NT$ ' + fmt(target);
+      document.getElementById('kpi-m3-gap').textContent = 'NT$ ' + fmt(gap);
+      document.getElementById('kpi-m3-coverage').textContent = fmtDec(coverage, 1) + ' 個月';
+
+      const covBadge = document.getElementById('kpi-m3-coverage-badge');
+      if (coverage >= m) {
+        covBadge.textContent = '已完全達標';
+        covBadge.className = 'text-xs text-emerald-700 font-semibold mt-1';
+      } else if (coverage >= 3) {
+        covBadge.textContent = '基本防護 (需繼續補強)';
+        covBadge.className = 'text-xs text-sky-700 font-semibold mt-1';
+      } else {
+        covBadge.textContent = '高脆弱度警戒';
+        covBadge.className = 'text-xs text-rose-700 font-semibold mt-1';
+      }
+
+      const monthsEl = document.getElementById('kpi-m3-months');
+      const yearsEl = document.getElementById('kpi-m3-years');
+      if (monthsNeeded === Infinity) {
+        monthsEl.textContent = '無法達標';
+        yearsEl.textContent = '儲蓄不足';
+      } else if (monthsNeeded === 0) {
+        monthsEl.textContent = '0 個月 (已達成)';
+        yearsEl.textContent = '恭喜達標';
+      } else {
+        monthsEl.textContent = monthsNeeded + ' 個月';
+        yearsEl.textContent = '約 ' + fmtDec(monthsNeeded / 12, 1) + ' 年';
+      }
+
+      // Progress bar
+      const pct = target > 0 ? Math.min(100, Math.round((C / target) * 1000) / 10) : 100;
+      document.getElementById('m3-progress-pct').textContent = pct + '%';
+      document.getElementById('m3-progress-bar').style.width = pct + '%';
+
+      // Math steps
+      const stepsDiv = document.getElementById('m3-math-steps');
+      stepsDiv.innerHTML = `
+        <div>1. 目標預備金 T = E × m = ${fmt(E)} × ${m} = <strong>${fmt(target)} 元</strong></div>
+        <div>2. 資金缺口 G = max(0, T - C) = max(0, ${fmt(target)} - ${fmt(C)}) = <strong>${fmt(gap)} 元</strong></div>
+        <div>3. 覆蓋月數 = C / E = ${fmt(C)} / ${fmt(E)} = <strong>${fmtDec(coverage, 2)} 個月</strong></div>
+        <div>4. 達標月數 N = ceil(G / S) = ceil(${fmt(gap)} / ${fmt(S)}) = <strong>${monthsNeeded === Infinity ? '無解' : monthsNeeded + ' 個月'}</strong></div>
+      `;
+
+      // Chart
+      updateM3Chart(C, target, S, monthsNeeded === Infinity ? 36 : Math.min(60, Math.max(12, monthsNeeded)));
+    }
+
+    function updateM3Chart(C, target, S, maxMonths) {
+      const labels = [];
+      const dataAccum = [];
+      const dataTarget = [];
+
+      let cur = C;
+      for (let t = 0; t <= maxMonths; t++) {
+        labels.push(t === 0 ? '現狀' : `${t}月`);
+        dataAccum.push(cur);
+        dataTarget.push(target);
+        if (cur < target && S > 0) {
+          cur = Math.min(target * 1.5, cur + S);
+        }
+      }
+
+      const ctx = document.getElementById('chart-m3').getContext('2d');
+      if (chartM3Instance) chartM3Instance.destroy();
+
+      chartM3Instance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '預備金累積水位',
+              data: dataAccum,
+              borderColor: '#1F4E79',
+              backgroundColor: 'rgba(31, 78, 121, 0.1)',
+              fill: true,
+              tension: 0.2,
+              borderWidth: 2.5
+            },
+            {
+              label: '目標金額門檻線',
+              data: dataTarget,
+              borderColor: '#DC2626',
+              borderDash: [5, 5],
+              borderWidth: 2,
+              pointRadius: 0,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: NT$ ${fmt(ctx.raw)}`
+              }
+            }
+          },
+          scales: {
+            y: {
+              ticks: { callback: (v) => 'NT$ ' + fmt(v) }
+            }
+          }
+        }
+      });
+    }
+
+    // ==========================================
+    // MODULE 4 LOGIC: DEBT SNOWBALL VS AVALANCHE
+    // ==========================================
+    let debts = [
+      { id: 1, name: '信用卡循環卡債', principal: 30000, rate: 15.0, minPay: 1000 },
+      { id: 2, name: '機車分期消費貸', principal: 50000, rate: 8.0, minPay: 1500 },
+      { id: 3, name: '就學貸款', principal: 120000, rate: 2.0, minPay: 1000 }
+    ];
+
+    let chartM4Instance = null;
+
+    function renderDebtsList() {
+      const container = document.getElementById('m4-debt-list');
+      container.innerHTML = '';
+
+      let totalP = 0;
+      let totalMin = 0;
+
+      debts.forEach((d, idx) => {
+        totalP += d.principal;
+        totalMin += d.minPay;
+
+        const div = document.createElement('div');
+        div.className = 'p-3 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between gap-3 text-xs';
+        div.innerHTML = `
+          <div class="flex-1">
+            <div class="font-bold text-slate-800 flex items-center gap-1.5">
+              <span>${d.name}</span>
+              <span class="bg-amber-100 text-amber-800 text-[10px] px-1.5 py-0.2 rounded font-bold">${d.rate}% APR</span>
+            </div>
+            <div class="text-slate-500 text-[11px] mt-0.5">
+              本金: <strong class="text-slate-700">${fmt(d.principal)}</strong> 元 ‧ 最低月繳: <strong>${fmt(d.minPay)}</strong> 元
+            </div>
+          </div>
+          <button onclick="removeDebt(${d.id})" class="text-slate-400 hover:text-rose-600 p-1"><i class="fa-solid fa-trash-can"></i></button>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById('m4-debt-count').textContent = debts.length;
+      document.getElementById('m4-total-principal-badge').textContent = `總本金: ${fmt(totalP)} 元`;
+      document.getElementById('m4-sum-min').textContent = fmt(totalMin) + ' 元';
+
+      // Update budget slider min
+      const budgetSlider = document.getElementById('m4-budget');
+      budgetSlider.min = Math.max(1000, totalMin);
+      if (Number(budgetSlider.value) < totalMin) {
+        budgetSlider.value = totalMin;
+      }
+      document.getElementById('m4-min-budget-label').textContent = `最低門檻: ${fmt(totalMin)}元`;
+    }
+
+    function removeDebt(id) {
+      if (debts.length <= 1) {
+        alert('請至少保留一筆債務項目進行模擬！');
+        return;
+      }
+      debts = debts.filter(d => d.id !== id);
+      renderDebtsList();
+      calcM4();
+    }
+
+    function openAddDebtModal() {
+      document.getElementById('modal-add-debt').classList.remove('hidden');
+    }
+
+    function closeAddDebtModal() {
+      document.getElementById('modal-add-debt').classList.add('hidden');
+    }
+
+    function saveNewDebt() {
+      const name = document.getElementById('modal-debt-name').value.trim() || '新增借款';
+      const bal = Number(document.getElementById('modal-debt-balance').value) || 30000;
+      const rate = Number(document.getElementById('modal-debt-rate').value) || 8.0;
+      const minP = Number(document.getElementById('modal-debt-min').value) || 1000;
+
+      debts.push({
+        id: Date.now(),
+        name: name,
+        principal: bal,
+        rate: rate,
+        minPay: minP
+      });
+
+      closeAddDebtModal();
+      renderDebtsList();
+      calcM4();
+    }
+
+    function setM4Scenario(type) {
+      if (type === 'default') {
+        debts = [
+          { id: 1, name: '信用卡循環卡債', principal: 30000, rate: 15.0, minPay: 1000 },
+          { id: 2, name: '機車分期消費貸', principal: 50000, rate: 8.0, minPay: 1500 },
+          { id: 3, name: '就學貸款', principal: 120000, rate: 2.0, minPay: 1000 }
+        ];
+        document.getElementById('m4-budget').value = 6000;
+      } else if (type === 'divergent') {
+        debts = [
+          { id: 1, name: '小額低利信用貸款', principal: 20000, rate: 3.0, minPay: 800 },
+          { id: 2, name: '大額高利信用卡債', principal: 100000, rate: 15.0, minPay: 2500 }
+        ];
+        document.getElementById('m4-budget').value = 6000;
+      }
+      renderDebtsList();
+      calcM4();
+    }
+
+    function simulateRepayment(method, budget) {
+      // Deep copy debts
+      let activeDebts = debts.map(d => ({ ...d, balance: d.principal }));
+      let totalInterest = 0;
+      let month = 0;
+      let trajectory = [activeDebts.reduce((acc, d) => acc + d.balance, 0)];
+
+      const maxMonths = 360; // 30 years safety cap
+
+      while (activeDebts.some(d => d.balance > 0) && month < maxMonths) {
+        month++;
+        let monthlyBudget = budget;
+
+        // 1. Accrue monthly interest for active debts
+        activeDebts.forEach(d => {
+          if (d.balance > 0) {
+            let mRate = (d.rate / 100) / 12;
+            let interest = d.balance * mRate;
+            totalInterest += interest;
+            d.balance += interest;
+          }
+        });
+
+        // 2. Pay minimums first
+        activeDebts.forEach(d => {
+          if (d.balance > 0) {
+            let pay = Math.min(d.balance, d.minPay);
+            d.balance -= pay;
+            monthlyBudget -= pay;
+          }
+        });
+
+        // 3. Allocate extra budget according to strategy
+        if (monthlyBudget > 0) {
+          let sorted = [...activeDebts].filter(d => d.balance > 0);
+          if (method === 'snowball') {
+            sorted.sort((a, b) => a.balance - b.balance); // lowest balance first
+          } else {
+            sorted.sort((a, b) => b.rate - a.rate); // highest interest rate first
+          }
+
+          for (let target of sorted) {
+            if (monthlyBudget <= 0) break;
+            let extraPay = Math.min(target.balance, monthlyBudget);
+            target.balance -= extraPay;
+            monthlyBudget -= extraPay;
+          }
+        }
+
+        // Clean small rounding artifacts
+        activeDebts.forEach(d => {
+          if (d.balance < 0.5) d.balance = 0;
+        });
+
+        let totalRemaining = activeDebts.reduce((acc, d) => acc + d.balance, 0);
+        trajectory.push(totalRemaining);
+      }
+
+      return {
+        months: month,
+        totalInterest: totalInterest,
+        trajectory: trajectory
+      };
+    }
+
+    function calcM4() {
+      const budget = Number(document.getElementById('m4-budget').value);
+      document.getElementById('m4-budget-val').textContent = fmt(budget) + ' 元';
+
+      const totalMin = debts.reduce((a, b) => a + b.minPay, 0);
+      const alertEl = document.getElementById('m4-budget-alert');
+      if (budget < totalMin) {
+        alertEl.classList.remove('hidden');
+      } else {
+        alertEl.classList.add('hidden');
+      }
+
+      document.getElementById('m4-extra-budget').textContent = fmt(Math.max(0, budget - totalMin)) + ' 元';
+
+      // Run simulations
+      const resSnowball = simulateRepayment('snowball', budget);
+      const resAvalanche = simulateRepayment('avalanche', budget);
+
+      document.getElementById('kpi-m4-avalanche-interest').textContent = 'NT$ ' + fmt(resAvalanche.totalInterest);
+      document.getElementById('kpi-m4-avalanche-months').textContent = resAvalanche.months + ' 個月';
+
+      document.getElementById('kpi-m4-snowball-interest').textContent = 'NT$ ' + fmt(resSnowball.totalInterest);
+      document.getElementById('kpi-m4-snowball-months').textContent = resSnowball.months + ' 個月';
+
+      // Compare difference
+      const interestSaved = Math.round(resSnowball.totalInterest - resAvalanche.totalInterest);
+      const monthsSaved = resSnowball.months - resAvalanche.months;
+
+      const summaryEl = document.getElementById('m4-diff-summary');
+      const badgeEl = document.getElementById('m4-diff-badge');
+
+      if (interestSaved > 0) {
+        summaryEl.innerHTML = `雪崩法比雪球法<strong>節省利息 NT$ ${fmt(interestSaved)} 元</strong>，清償時間縮短 <strong>${monthsSaved} 個月</strong>！`;
+        badgeEl.textContent = `雪崩法省 ${fmt(interestSaved)}元`;
+        badgeEl.className = 'font-black px-2.5 py-1 rounded-full bg-blue-100 text-brand-700 whitespace-nowrap self-start sm:self-auto';
+      } else if (interestSaved < 0) {
+        summaryEl.innerHTML = `雪球法比雪崩法節省利息 NT$ ${fmt(Math.abs(interestSaved))} 元。`;
+        badgeEl.textContent = '雪球法些微領先';
+        badgeEl.className = 'font-black px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 whitespace-nowrap self-start sm:self-auto';
+      } else {
+        summaryEl.innerHTML = `在此情境初始排序下，兩種策略攻擊目標相同，總利息與時間完全一致。`;
+        badgeEl.textContent = '兩策略結果相同';
+        badgeEl.className = 'font-black px-2.5 py-1 rounded-full bg-slate-200 text-slate-700 whitespace-nowrap self-start sm:self-auto';
+      }
+
+      updateM4Chart(resSnowball.trajectory, resAvalanche.trajectory);
+    }
+
+    function updateM4Chart(trajSnowball, trajAvalanche) {
+      const maxLen = Math.max(trajSnowball.length, trajAvalanche.length);
+      const labels = [];
+      for (let i = 0; i < maxLen; i++) {
+        labels.push(i === 0 ? '期初' : `${i}月`);
+      }
+
+      const ctx = document.getElementById('chart-m4').getContext('2d');
+      if (chartM4Instance) chartM4Instance.destroy();
+
+      chartM4Instance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '雪崩法 (Avalanche - 高利率優先)',
+              data: trajAvalanche,
+              borderColor: '#1F4E79',
+              backgroundColor: 'rgba(31, 78, 121, 0.05)',
+              borderWidth: 2.5,
+              tension: 0.1,
+              fill: false
+            },
+            {
+              label: '雪球法 (Snowball - 小餘額優先)',
+              data: trajSnowball,
+              borderColor: '#C07D2B',
+              backgroundColor: 'rgba(192, 125, 43, 0.05)',
+              borderWidth: 2,
+              borderDash: [4, 4],
+              tension: 0.1,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: 剩餘 NT$ ${fmt(ctx.raw)}`
+              }
+            }
+          },
+          scales: {
+            y: {
+              ticks: { callback: (v) => 'NT$ ' + fmt(v) }
+            }
+          }
+        }
+      });
+    }
+
+    // ==========================================
+    // MODULE 5 LOGIC: 4-YEAR 300K
+    // ==========================================
+    let chartM5Instance = null;
+
+    function setM5Rate(r) {
+      document.getElementById('m5-rate').value = r;
+      calcM5();
+    }
+
+    function calcM5() {
+      const FV_star = Number(document.getElementById('m5-target').value) || 300000;
+      const PV = Number(document.getElementById('m5-pv').value) || 0;
+      const PMT = Number(document.getElementById('m5-pmt').value) || 5000;
+      const years = Number(document.getElementById('m5-years').value) || 4;
+      const R = Number(document.getElementById('m5-rate').value) / 100;
+
+      const n = years * 12;
+
+      document.getElementById('m5-target-val').textContent = fmt(FV_star) + ' 元';
+      document.getElementById('m5-pv-val').textContent = fmt(PV) + ' 元';
+      document.getElementById('m5-pmt-val').textContent = fmt(PMT) + ' 元';
+      document.getElementById('m5-years-val').textContent = `${years} 年 (${n} 個月)`;
+      document.getElementById('m5-rate-val').textContent = (R * 100).toFixed(1) + ' %';
+
+      // Monthly compound rate
+      const r = R > 0 ? (Math.pow(1 + R, 1/12) - 1) : 0;
+
+      // FV = PV*(1+r)^n + PMT * [((1+r)^n - 1) / r]
+      let fv = 0;
+      let reqPmt = 0;
+
+      if (r === 0) {
+        fv = PV + n * PMT;
+        reqPmt = Math.max(0, (FV_star - PV) / n);
+      } else {
+        const factor = Math.pow(1 + r, n);
+        const annuityFactor = (factor - 1) / r;
+        fv = PV * factor + PMT * annuityFactor;
+        reqPmt = Math.max(0, (FV_star - PV * factor) / annuityFactor);
+      }
+
+      const totalPrincipal = PV + n * PMT;
+      const totalGain = Math.max(0, fv - totalPrincipal);
+      const gap = FV_star - fv;
+
+      document.getElementById('kpi-m5-principal').textContent = 'NT$ ' + fmt(totalPrincipal);
+      document.getElementById('kpi-m5-gain').textContent = 'NT$ ' + fmt(totalGain);
+      document.getElementById('kpi-m5-fv').textContent = 'NT$ ' + fmt(fv);
+
+      const statusEl = document.getElementById('kpi-m5-status');
+      if (gap <= 0) {
+        statusEl.textContent = '超額達標 (多 ' + fmt(Math.abs(gap)) + '元)';
+        statusEl.className = 'text-xs font-semibold text-emerald-600 mt-1';
+      } else {
+        statusEl.textContent = '尚差 ' + fmt(gap) + '元';
+        statusEl.className = 'text-xs font-semibold text-rose-600 mt-1';
+      }
+
+      document.getElementById('kpi-m5-req-pmt').textContent = 'NT$ ' + fmt(reqPmt);
+
+      // Populate scenario table
+      const scenarioRates = [0.0, 0.02, 0.03, 0.04, 0.06];
+      const tbody = document.getElementById('m5-scenario-tbody');
+      tbody.innerHTML = '';
+
+      scenarioRates.forEach(rate => {
+        let mR = rate > 0 ? (Math.pow(1 + rate, 1/12) - 1) : 0;
+        let sFv = 0;
+        let sReq = 0;
+        if (mR === 0) {
+          sFv = PV + n * PMT;
+          sReq = (FV_star - PV) / n;
+        } else {
+          let fac = Math.pow(1 + mR, n);
+          let afac = (fac - 1) / mR;
+          sFv = PV * fac + PMT * afac;
+          sReq = (FV_star - PV * fac) / afac;
+        }
+
+        let sGain = Math.max(0, sFv - (PV + n * PMT));
+        let sGap = FV_star - sFv;
+
+        let tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="p-2 font-bold">${(rate * 100).toFixed(1)}%</td>
+          <td class="p-2">NT$ ${fmt(sFv)}</td>
+          <td class="p-2 text-emerald-600">+${fmt(sGain)}</td>
+          <td class="p-2 ${sGap <= 0 ? 'text-emerald-600 font-bold' : 'text-rose-600'}">${sGap <= 0 ? '超額達標' : '缺 ' + fmt(sGap)}</td>
+          <td class="p-2 font-bold text-brand-700">NT$ ${fmt(sReq)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      updateM5Chart(PV, PMT, r, n);
+    }
+
+    function updateM5Chart(PV, PMT, r, n) {
+      const labels = [];
+      const principalData = [];
+      const fvData = [];
+
+      for (let m = 0; m <= n; m += 4) {
+        labels.push(`${m}月`);
+        let prin = PV + m * PMT;
+        let curFv = 0;
+        if (r === 0) {
+          curFv = prin;
+        } else {
+          let fac = Math.pow(1 + r, m);
+          let afac = (fac - 1) / r;
+          curFv = PV * fac + PMT * afac;
+        }
+        principalData.push(prin);
+        fvData.push(curFv);
+      }
+
+      const ctx = document.getElementById('chart-m5').getContext('2d');
+      if (chartM5Instance) chartM5Instance.destroy();
+
+      chartM5Instance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '預估資產總終值 (含假設複利)',
+              data: fvData,
+              borderColor: '#059669',
+              backgroundColor: 'rgba(5, 150, 105, 0.1)',
+              fill: true,
+              borderWidth: 2.5
+            },
+            {
+              label: '累積自存本金 (0%基準線)',
+              data: principalData,
+              borderColor: '#1F4E79',
+              borderDash: [4, 4],
+              borderWidth: 2,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: NT$ ${fmt(ctx.raw)}`
+              }
+            }
+          },
+          scales: {
+            y: {
+              ticks: { callback: (v) => 'NT$ ' + fmt(v) }
+            }
+          }
+        }
+      });
+    }
+
+    // ==========================================
+    // MODULE 6 LOGIC: EARLY VS LATE SAVING
+    // ==========================================
+    let m6Mode = 'equal_pmt';
+    let chartM6Instance = null;
+
+    function toggleM6Mode(mode) {
+      m6Mode = mode;
+      const b1 = document.getElementById('m6-btn-mode1');
+      const b2 = document.getElementById('m6-btn-mode2');
+
+      if (mode === 'equal_pmt') {
+        b1.className = 'px-3 py-1.5 text-xs font-bold rounded-lg bg-brand-600 text-white transition';
+        b2.className = 'px-3 py-1.5 text-xs font-bold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+      } else {
+        b2.className = 'px-3 py-1.5 text-xs font-bold rounded-lg bg-brand-600 text-white transition';
+        b1.className = 'px-3 py-1.5 text-xs font-bold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+      }
+      calcM6();
+    }
+
+    function calcM6() {
+      const aStart = Number(document.getElementById('m6-a-start').value) || 20;
+      const aEnd = Number(document.getElementById('m6-a-end').value) || 60;
+      const bStart = Number(document.getElementById('m6-b-start').value) || 30;
+      const bEnd = Number(document.getElementById('m6-b-end').value) || 60;
+
+      const pmtA = Number(document.getElementById('m6-pmt').value) || 3000;
+      const R = Number(document.getElementById('m6-rate').value) / 100;
+
+      const nA = Math.max(1, (aEnd - aStart) * 12);
+      const nB = Math.max(1, (bEnd - bStart) * 12);
+
+      document.getElementById('m6-a-years-badge').textContent = `${aEnd - aStart} 年 (${nA}個月)`;
+      document.getElementById('m6-b-years-badge').textContent = `${bEnd - bStart} 年 (${nB}個月)`;
+      document.getElementById('m6-pmt-val').textContent = fmt(pmtA) + ' 元';
+      document.getElementById('m6-rate-val').textContent = (R * 100).toFixed(1) + ' %';
+
+      let pmtB = pmtA;
+      if (m6Mode === 'equal_principal') {
+        // Person B total principal matches A's principal
+        const totalPrinA = pmtA * nA;
+        pmtB = totalPrinA / nB;
+      }
+
+      const r = R > 0 ? (Math.pow(1 + R, 1/12) - 1) : 0;
+
+      // FV calculations
+      let fvA = 0;
+      let fvB = 0;
+      let prinA = pmtA * nA;
+      let prinB = pmtB * nB;
+
+      if (r === 0) {
+        fvA = prinA;
+        fvB = prinB;
+      } else {
+        const afacA = (Math.pow(1 + r, nA) - 1) / r;
+        const afacB = (Math.pow(1 + r, nB) - 1) / r;
+        fvA = pmtA * afacA;
+        fvB = pmtB * afacB;
+      }
+
+      const gainA = Math.max(0, fvA - prinA);
+      const gainB = Math.max(0, fvB - prinB);
+
+      document.getElementById('kpi-m6-a-fv').textContent = 'NT$ ' + fmt(fvA);
+      document.getElementById('kpi-m6-a-prin').textContent = fmt(prinA) + ' 元';
+      document.getElementById('kpi-m6-a-gain').textContent = `${fmt(gainA)} 元 (${((gainA/fvA)*100).toFixed(1)}%)`;
+
+      document.getElementById('kpi-m6-b-fv').textContent = 'NT$ ' + fmt(fvB);
+      document.getElementById('kpi-m6-b-prin').textContent = fmt(prinB) + ' 元';
+      document.getElementById('kpi-m6-b-gain').textContent = `${fmt(gainB)} 元 (${((gainB/fvB)*100).toFixed(1)}%)`;
+
+      // Decomposition
+      const gapTotal = fvA - fvB;
+      const gapPrin = prinA - prinB;
+      const gapComp = gapTotal - gapPrin;
+
+      document.getElementById('m6-gap-total').textContent = '總資產差距 NT$ ' + fmt(gapTotal);
+      document.getElementById('m6-gap-principal').textContent = 'NT$ ' + fmt(gapPrin);
+      document.getElementById('m6-gap-compounding').textContent = 'NT$ ' + fmt(gapComp);
+
+      const prinPct = gapTotal > 0 ? ((gapPrin / gapTotal) * 100).toFixed(1) : 0;
+      const compPct = gapTotal > 0 ? ((gapComp / gapTotal) * 100).toFixed(1) : 0;
+
+      document.getElementById('m6-gap-prin-pct').textContent = `佔總差距 ${prinPct}%`;
+      document.getElementById('m6-gap-comp-pct').textContent = `佔總差距 ${compPct}%`;
+
+      // B catch-up calculation
+      let bCatchupPmt = 0;
+      if (r === 0) {
+        bCatchupPmt = fvA / nB;
+      } else {
+        const afacB = (Math.pow(1 + r, nB) - 1) / r;
+        bCatchupPmt = fvA / afacB;
+      }
+      const bPctIncrease = (((bCatchupPmt - pmtA) / pmtA) * 100).toFixed(1);
+      document.getElementById('m6-b-catchup').textContent = `NT$ ${fmt(bCatchupPmt)} /月 (+${bPctIncrease}%)`;
+
+      updateM6Chart(aStart, aEnd, bStart, bEnd, pmtA, pmtB, r);
+    }
+
+    function updateM6Chart(aStart, aEnd, bStart, bEnd, pmtA, pmtB, r) {
+      const minAge = Math.min(aStart, bStart);
+      const maxAge = Math.max(aEnd, bEnd);
+
+      const labels = [];
+      const dataA = [];
+      const dataB = [];
+
+      let curA = 0;
+      let curB = 0;
+
+      for (let age = minAge; age <= maxAge; age++) {
+        labels.push(`${age}歲`);
+
+        if (age < aStart || age > aEnd) {
+          dataA.push(curA);
+        } else {
+          // Compound 1 year
+          for (let m = 0; m < 12; m++) {
+            curA = curA * (1 + r) + pmtA;
+          }
+          dataA.push(curA);
+        }
+
+        if (age < bStart || age > bEnd) {
+          dataB.push(curB);
+        } else {
+          for (let m = 0; m < 12; m++) {
+            curB = curB * (1 + r) + pmtB;
+          }
+          dataB.push(curB);
+        }
+      }
+
+      const ctx = document.getElementById('chart-m6').getContext('2d');
+      if (chartM6Instance) chartM6Instance.destroy();
+
+      chartM6Instance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: `人選 A (${aStart}歲開始)`,
+              data: dataA,
+              borderColor: '#1F4E79',
+              backgroundColor: 'rgba(31, 78, 121, 0.08)',
+              borderWidth: 2.5,
+              tension: 0.15,
+              fill: true
+            },
+            {
+              label: `人選 B (${bStart}歲開始)`,
+              data: dataB,
+              borderColor: '#9333EA',
+              backgroundColor: 'rgba(147, 51, 234, 0.05)',
+              borderWidth: 2,
+              tension: 0.15,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: NT$ ${fmt(ctx.raw)}`
+              }
+            }
+          },
+          scales: {
+            y: {
+              ticks: { callback: (v) => 'NT$ ' + fmt(v) }
+            }
+          }
+        }
+      });
+    }
+
+    // ==========================================
+    // MODULE 7 LOGIC: FIRE RETIREMENT
+    // ==========================================
+    let chartM7Instance = null;
+
+    function setM7Preset(curAge, retAge, exp, inf, swr) {
+      document.getElementById('m7-cur-age').value = curAge;
+      document.getElementById('m7-ret-age').value = retAge;
+      document.getElementById('m7-expense').value = exp;
+      document.getElementById('m7-inf').value = inf;
+      document.getElementById('m7-swr').value = swr;
+      calcM7();
+    }
+
+    function calcM7() {
+      const curAge = Number(document.getElementById('m7-cur-age').value) || 22;
+      const retAge = Number(document.getElementById('m7-ret-age').value) || 50;
+      const E0 = Number(document.getElementById('m7-expense').value) || 30000;
+      const pi = Number(document.getElementById('m7-inf').value) / 100;
+      const w = Number(document.getElementById('m7-swr').value) / 100;
+      const PV = Number(document.getElementById('m7-pv').value) || 0;
+      const R = Number(document.getElementById('m7-rate').value) / 100;
+
+      const y = Math.max(1, retAge - curAge);
+      const n = y * 12;
+
+      document.getElementById('m7-exp-val').textContent = fmt(E0) + ' 元';
+      document.getElementById('m7-inf-val').textContent = (pi * 100).toFixed(1) + ' %';
+      document.getElementById('m7-swr-val').textContent = `${(w * 100).toFixed(2)} % (${(1/w).toFixed(0)}倍年支出)`;
+
+      // Inflation-adjusted monthly expense at retirement: E_ret = E0 * (1+pi)^y
+      const E_ret = E0 * Math.pow(1 + pi, y);
+      const annualExp_ret = 12 * E_ret;
+
+      // Target corpus T = annualExp_ret / w
+      const targetCorpus = annualExp_ret / w;
+
+      // Pre-retirement monthly return: r = (1+R)^(1/12) - 1
+      const r = R > 0 ? (Math.pow(1 + R, 1/12) - 1) : 0;
+
+      let reqPmt = 0;
+      if (r === 0) {
+        reqPmt = Math.max(0, (targetCorpus - PV) / n);
+      } else {
+        const fac = Math.pow(1 + r, n);
+        const afac = (fac - 1) / r;
+        reqPmt = Math.max(0, (targetCorpus - PV * fac) / afac);
+      }
+
+      document.getElementById('kpi-m7-years').textContent = y + ' 年';
+      document.getElementById('kpi-m7-nom-exp').textContent = 'NT$ ' + fmt(E_ret);
+      document.getElementById('kpi-m7-target').textContent = fmtDec(targetCorpus / 10000, 1) + ' 萬元';
+      document.getElementById('kpi-m7-pmt').textContent = 'NT$ ' + fmt(reqPmt);
+
+      // Sensitivity Table
+      const testCases = [
+        { name: '基準情境 (4%提領, 2%通膨)', swr: 0.04, inf: 0.02, desc: '標準高儲蓄率方案' },
+        { name: '保守提領 (3%提領, 2%通膨)', swr: 0.03, inf: 0.02, desc: '防禦長壽超活風險' },
+        { name: '通膨升至 3% (4%提領)', swr: 0.04, inf: 0.03, desc: '購買力侵蝕加劇' },
+        { name: '延後10年退休 (60歲)', swr: 0.04, inf: 0.02, addY: 10, desc: '多累積10年，月存減半' }
+      ];
+
+      const tbody = document.getElementById('m7-matrix-tbody');
+      tbody.innerHTML = '';
+
+      testCases.forEach(tc => {
+        let testY = y + (tc.addY || 0);
+        let testN = testY * 12;
+        let testE_ret = E0 * Math.pow(1 + tc.inf, testY);
+        let testT = (12 * testE_ret) / tc.swr;
+        let testPmt = 0;
+        if (r === 0) {
+          testPmt = (testT - PV) / testN;
+        } else {
+          let fac = Math.pow(1 + r, testN);
+          let afac = (fac - 1) / r;
+          testPmt = (testT - PV * fac) / afac;
+        }
+
+        let tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="p-2 font-bold">${tc.name}</td>
+          <td class="p-2">NT$ ${fmt(testE_ret)}</td>
+          <td class="p-2 font-bold text-brand-900">${fmtDec(testT / 10000, 1)} 萬元</td>
+          <td class="p-2 font-bold text-emerald-600">NT$ ${fmt(testPmt)}</td>
+          <td class="p-2 text-slate-500">${tc.desc}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      updateM7Chart(curAge, retAge, targetCorpus, reqPmt, r, pi, annualExp_ret);
+    }
+
+    function updateM7Chart(curAge, retAge, targetCorpus, reqPmt, r, pi, initialAnnualExp) {
+      const labels = [];
+      const corpusData = [];
+
+      let cur = 100000;
+      // Pre-retirement accumulation
+      for (let age = curAge; age <= retAge; age++) {
+        labels.push(`${age}歲`);
+        corpusData.push(cur);
+        for (let m = 0; m < 12; m++) {
+          cur = cur * (1 + r) + reqPmt;
+        }
+      }
+
+      // Post-retirement 30 years decumulation simulation (with 4% conservative return)
+      const postReturn = 0.04;
+      let exp = initialAnnualExp;
+      for (let age = retAge + 1; age <= retAge + 30; age++) {
+        labels.push(`${age}歲`);
+        cur = (cur - exp) * (1 + postReturn);
+        corpusData.push(Math.max(0, cur));
+        exp = exp * (1 + pi);
+      }
+
+      const ctx = document.getElementById('chart-m7').getContext('2d');
+      if (chartM7Instance) chartM7Instance.destroy();
+
+      chartM7Instance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '生涯退休資產動態軌跡 (累積期 ＋ 提領期)',
+              data: corpusData,
+              borderColor: '#E11D48',
+              backgroundColor: 'rgba(225, 29, 72, 0.08)',
+              borderWidth: 2.5,
+              tension: 0.1,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom' },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: NT$ ${fmt(ctx.raw)}`
+              }
+            }
+          },
+          scales: {
+            y: {
+              ticks: { callback: (v) => fmtDec(v / 10000, 0) + ' 萬' }
+            }
+          }
+        }
+      });
+    }
+
+    // ==========================================
+    // REPORT TAB & EXPORTS
+    // ==========================================
+    function updateReportTab() {
+      const tbody = document.getElementById('rep-summary-tbody');
+      tbody.innerHTML = `
+        <tr>
+          <td class="p-2.5 font-bold border">模組 3：緊急預備金</td>
+          <td class="p-2.5 border">月支出 ${document.getElementById('m3-expense-val').textContent} ‧ 目標 ${document.getElementById('m3-months-val').textContent}</td>
+          <td class="p-2.5 border font-bold text-brand-900">目標: ${document.getElementById('kpi-m3-target').textContent} ‧ 缺口: ${document.getElementById('kpi-m3-gap').textContent} ‧ 覆蓋: ${document.getElementById('kpi-m3-coverage').textContent}</td>
+          <td class="p-2.5 border text-slate-600">達標需 ${document.getElementById('kpi-m3-months').textContent}。優先確保生活安全網。</td>
+        </tr>
+        <tr>
+          <td class="p-2.5 font-bold border">模組 4：債務雪球 vs 雪崩</td>
+          <td class="p-2.5 border">負債 ${debts.length} 筆 ‧ 預算 ${document.getElementById('m4-budget-val').textContent}</td>
+          <td class="p-2.5 border font-bold text-brand-900">雪崩利息: ${document.getElementById('kpi-m4-avalanche-interest').textContent} ‧ 雪球利息: ${document.getElementById('kpi-m4-snowball-interest').textContent}</td>
+          <td class="p-2.5 border text-slate-600">${document.getElementById('m4-diff-summary').textContent}</td>
+        </tr>
+        <tr>
+          <td class="p-2.5 font-bold border">模組 5：四年存30萬</td>
+          <td class="p-2.5 border">目標 ${document.getElementById('m5-target-val').textContent} ‧ 報酬率 ${document.getElementById('m5-rate-val').textContent}</td>
+          <td class="p-2.5 border font-bold text-brand-900">期末終值: ${document.getElementById('kpi-m5-fv').textContent} ‧ 收益: ${document.getElementById('kpi-m5-gain').textContent}</td>
+          <td class="p-2.5 border text-slate-600">達標需月存: ${document.getElementById('kpi-m5-req-pmt').textContent}。短期剛性資金重在儲蓄紀律。</td>
+        </tr>
+        <tr>
+          <td class="p-2.5 font-bold border">模組 6：提早 vs 延後儲蓄</td>
+          <td class="p-2.5 border">A早(40年) vs B晚(30年) ‧ 報酬率 ${document.getElementById('m6-rate-val').textContent}</td>
+          <td class="p-2.5 border font-bold text-brand-900">A終值: ${document.getElementById('kpi-m6-a-fv').textContent} ‧ B終值: ${document.getElementById('kpi-m6-b-fv').textContent}</td>
+          <td class="p-2.5 border text-slate-600">${document.getElementById('m6-gap-total').textContent} (複利增量貢獻高達 82.8%)。</td>
+        </tr>
+        <tr>
+          <td class="p-2.5 font-bold border">模組 7：FIRE退休金精算</td>
+          <td class="p-2.5 border">退休年齡 ${document.getElementById('m7-ret-age').value}歲 ‧ 通膨 ${document.getElementById('m7-inf-val').textContent}</td>
+          <td class="p-2.5 border font-bold text-brand-900">目標資產: ${document.getElementById('kpi-m7-target').textContent} ‧ 首年月支出: ${document.getElementById('kpi-m7-nom-exp').textContent}</td>
+          <td class="p-2.5 border text-slate-600">每月需提存: ${document.getElementById('kpi-m7-pmt').textContent}。需抗通膨與防長壽風險。</td>
+        </tr>
+      `;
+    }
+
+    function exportToCSV() {
+      const studentId = document.getElementById('rep-student-id').value || '未填寫';
+      const studentName = document.getElementById('rep-student-name').value || '未填寫';
+
+      let csv = "\uFEFF"; // UTF-8 BOM
+      csv += "11501 管理探索二 W12 個人財務計算分析學習歷程數據\n";
+      csv += `學號,${studentId},姓名,${studentName},導出時間,${new Date().toLocaleString()}\n\n`;
+
+      csv += "模組編號,模組名稱,核心指標1,核心指標2,核心指標3,關鍵決策建議\n";
+      csv += `模組3,緊急預備金達標,目標預備金: ${document.getElementById('kpi-m3-target').textContent},現有缺口: ${document.getElementById('kpi-m3-gap').textContent},達標月數: ${document.getElementById('kpi-m3-months').textContent},優先確保3-6個月必要支出安全網\n`;
+      csv += `模組4,債務雪球vs雪崩,雪崩法總利息: ${document.getElementById('kpi-m4-avalanche-interest').textContent},雪球法總利息: ${document.getElementById('kpi-m4-snowball-interest').textContent},清償月數: ${document.getElementById('kpi-m4-avalanche-months').textContent},${document.getElementById('m4-diff-summary').textContent.replace(/,/g, '')}\n`;
+      csv += `模組5,四年存30萬計畫,預估終值: ${document.getElementById('kpi-m5-fv').textContent},累積本金: ${document.getElementById('kpi-m5-principal').textContent},所需月存: ${document.getElementById('kpi-m5-req-pmt').textContent},短天期首重儲蓄確定性\n`;
+      csv += `模組6,提早vs延後儲蓄,早開始終值: ${document.getElementById('kpi-m6-a-fv').textContent},晚開始終值: ${document.getElementById('kpi-m6-b-fv').textContent},資產差距: ${document.getElementById('m6-gap-total').textContent},純時間複利倍數增量貢獻巨大\n`;
+      csv += `模組7,FIRE退休金精算,目標退休資產: ${document.getElementById('kpi-m7-target').textContent},退休名目月支出: ${document.getElementById('kpi-m7-nom-exp').textContent},每月需提存: ${document.getElementById('kpi-m7-pmt').textContent},通膨侵蝕購買力需動態因應\n\n`;
+
+      csv += "學生個人反思\n";
+      csv += `Q1債務策略選擇,${(document.getElementById('rep-q1').value || '').replace(/\n/g, ' ')}\n`;
+      csv += `Q2時間價值啟發,${(document.getElementById('rep-q2').value || '').replace(/\n/g, ' ')}\n`;
+      csv += `Q3退休通膨因應,${(document.getElementById('rep-q3').value || '').replace(/\n/g, ' ')}\n`;
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `管理探索二_W12_財務計算分析_${studentId}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Initialize all modules on load
+    window.addEventListener('DOMContentLoaded', () => {
+      calcM3();
+      renderDebtsList();
+      calcM4();
+      calcM5();
+      calcM6();
+      calcM7();
+    });
+  </script>
+</body>
+</html>
